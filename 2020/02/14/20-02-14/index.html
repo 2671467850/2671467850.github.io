@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ankang" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="在学习了Python的核心语言元素（变量、类型、运算符、表达式、分支结构、循环结构等）之后,我需要对学习的知识进行巩固和应用,在这里整理一些经典的案例来帮助理解和消化,希望在看完这些练习后,对Python更加了解.">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-经典案例练习">
+<meta property="og:url" content="http://ankang.icu/2020/02/14/20-02-14/index.html">
+<meta property="og:site_name" content="Ankang">
+<meta property="og:description" content="在学习了Python的核心语言元素（变量、类型、运算符、表达式、分支结构、循环结构等）之后,我需要对学习的知识进行巩固和应用,在这里整理一些经典的案例来帮助理解和消化,希望在看完这些练习后,对Python更加了解.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-06T03:18:01.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python-经典案例练习">
+<meta name="twitter:description" content="在学习了Python的核心语言元素（变量、类型、运算符、表达式、分支结构、循环结构等）之后,我需要对学习的知识进行巩固和应用,在这里整理一些经典的案例来帮助理解和消化,希望在看完这些练习后,对Python更加了解.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ankang.icu/2020/02/14/20-02-14/">
+
+
+
+
+
+  <title>Python-经典案例练习 | Ankang</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?73736fbc491420c1f360d4ab5986a0ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ankang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2020/02/14/20-02-14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python-经典案例练习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-14T12:50:30+08:00">
+                2020-02-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-03-06T11:18:01+08:00">
+                2020-03-06
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  992 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在学习了Python的核心语言元素（变量、类型、运算符、表达式、分支结构、循环结构等）之后,我需要对学习的知识进行巩固和应用,在这里整理一些经典的案例来帮助理解和消化,希望在看完这些练习后,对Python更加了解.<br><a id="more"></a><br>戴口罩、勤洗手、测体温<br>勤消毒、少聚餐、勤通风<br>情人节快乐!!!</p>
+<p>接下来开始我们的正题</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="水仙花数"><a href="#水仙花数" class="headerlink" title="水仙花数"></a>水仙花数</h3><p>解释:水仙花数也被称为超完全数字不变数、自恋数、自幂数、阿姆斯特朗数，它是一个3位数，该数字每个位上数字的立方之和正好等于它本身，例如：1^3 + 5^3+ 3^3=153。<br>要求:找出所有水仙花数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">1.水仙花数是3位数,首先确定范围:100~1000</span></span><br><span class="line"><span class="string">2.以水仙花数的特点为思路</span></span><br><span class="line"><span class="string">"</span><span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> range(100, 1000):</span><br><span class="line">    <span class="comment"># 3=153%10===&gt;&gt; % 取余</span></span><br><span class="line">    one = num % 10</span><br><span class="line">    <span class="comment"># 5=153//10%10===&gt;&gt; // 整除</span></span><br><span class="line">    two = num // 10 % 10</span><br><span class="line">    <span class="comment"># 1=153//100</span></span><br><span class="line">    high = num // 100</span><br><span class="line">    <span class="comment"># 判断输出水仙数</span></span><br><span class="line">    <span class="keyword">if</span> num == one ** 3 + two ** 3 + high ** 3:</span><br><span class="line">        <span class="built_in">print</span>(num)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果正确为:[153 370 371 407]</p>
+<h3 id="百钱百鸡"><a href="#百钱百鸡" class="headerlink" title="百钱百鸡"></a>百钱百鸡</h3><p>解释:公鸡5元一只，母鸡3元一只，小鸡1元三只，用100块钱买一百只鸡，问公鸡、母鸡、小鸡各有多少只？<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">1.解决这个问题可以采用'穷举法'--将问题的各个部分一次次实验最终找到答案</span></span><br><span class="line"><span class="string">2.100块钱最多买公鸡20只,最多买母鸡33只</span></span><br><span class="line"><span class="string">3.一百只鸡减去公鸡数减去母鸡数就是小鸡的数目</span></span><br><span class="line"><span class="string">"</span><span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(0, 20):</span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> range(0, 33):</span><br><span class="line">        z = 100 - x - y</span><br><span class="line">        <span class="keyword">if</span> x*5 + y*3 + z/3 == 100:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"公鸡:[%d] 母鸡:[%d] 小鸡:[%d]"</span> % (x, y, z))</span><br></pre></td></tr></table></figure></p>
+<p>执行结果为:<br>公鸡:[0] 母鸡:[25] 小鸡:[75]<br>公鸡:[4] 母鸡:[18] 小鸡:[78]<br>公鸡:[8] 母鸡:[11] 小鸡:[81]<br>公鸡:[12] 母鸡:[4] 小鸡:[84]</p>
+<h3 id="CRAPS赌博"><a href="#CRAPS赌博" class="headerlink" title="CRAPS赌博"></a>CRAPS赌博</h3><p>解释:玩家第一次摇骰子如果摇出了7点或11点，玩家胜；玩家第一次如果摇出2点、3点或12点，庄家胜；其他点数玩家继续摇骰子，如果玩家摇出了7点，庄家胜；如果玩家摇出了第一次摇的点数，玩家胜；其他点数，玩家继续要骰子，直到分出胜负。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from random import randint</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置赌注</span></span><br><span class="line">money = 1000</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> money &gt; 0:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"您的赌注为: %d"</span> % money)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 游戏进行下一局的设置</span></span><br><span class="line">    game_go = False</span><br><span class="line">    <span class="comment"># 赌注&gt;0时游戏循环进行</span></span><br><span class="line">    <span class="keyword">while</span> True:</span><br><span class="line">        dz = int(input(<span class="string">"请下注: "</span>))</span><br><span class="line">        <span class="keyword">if</span> 0 &lt; dz &lt;= money:</span><br><span class="line">            <span class="built_in">break</span></span><br><span class="line">    <span class="comment"># 第一局的点数</span></span><br><span class="line">    first = randint(1, 6) + randint(1, 6)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"第 1 局点数为:[%d]"</span> % first)</span><br><span class="line">    <span class="keyword">if</span> first == 7 or first == 11:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"您赢了!"</span>)</span><br><span class="line">        money += dz</span><br><span class="line">    <span class="keyword">elif</span> first == 2 or first == 3 or first == 12:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"庄家赢!"</span>)</span><br><span class="line">        money -= dz</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">    	<span class="comment"># 进行下一局游戏</span></span><br><span class="line">        game_go = True</span><br><span class="line">        <span class="comment"># 局数+1</span></span><br><span class="line">        <span class="built_in">times</span> = 2</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> game_go:</span><br><span class="line">        game_go = False</span><br><span class="line">        second = randint(1, 6) + randint(1, 6)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"第 %s 局点数为:[%d]"</span> % (<span class="built_in">times</span>, second))</span><br><span class="line">        <span class="keyword">if</span> second == 7:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"庄家赢!"</span>)</span><br><span class="line">            money -= dz</span><br><span class="line">        <span class="keyword">elif</span> second == first:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"您赢了!"</span>)</span><br><span class="line">            money += dz</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">        	<span class="comment"># 下一局</span></span><br><span class="line">            game_go = True</span><br><span class="line">            <span class="built_in">times</span> += 1</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"您输光了所有赌注,游戏结束!"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>运行结果有兴趣可自行测试.<br>Tips:远离赌博;适度游戏益脑，沉迷游戏伤身;运气游戏,代码测试有可能花费较长时间.</p>
+<h3 id="确定一个正整数的所有因子"><a href="#确定一个正整数的所有因子" class="headerlink" title="确定一个正整数的所有因子"></a>确定一个正整数的所有因子</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n = int(input(<span class="string">"输入一个正整数: "</span>))</span><br><span class="line">results = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(1, n+1):</span><br><span class="line">    <span class="keyword">if</span> n % i == 0:</span><br><span class="line">        results.append(i)</span><br><span class="line"><span class="built_in">print</span>(results)</span><br></pre></td></tr></table></figure>
+<p>返回结果:[1, 2, 4, 5, 10, 20, 25, 50, 100]</p>
+<h3 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h3><p>解释:数列的初始值为0,接着值为1，从第三个数开始，每个数都是它前面两个数的和，形如：0, 1, 1, 2, 3, 5, 8, 13, …<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">以输出数列前10个数为例</span></span><br><span class="line"><span class="string">"</span><span class="string">""</span></span><br><span class="line">a = 0</span><br><span class="line">b = 1</span><br><span class="line">results = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(1, 11):</span><br><span class="line">    results.append(a)</span><br><span class="line">    c = a + b</span><br><span class="line">    a = b</span><br><span class="line">    b = c</span><br><span class="line"><span class="built_in">print</span>(results)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果为:[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>练习的代码放在下面链接，如果需要帮助请自行查看。<br><a href="源文件.py" title="练习代码">点击下载</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="ankang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="ankang 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ankang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ankang.icu/2020/02/14/20-02-14/" title="Python-经典案例练习">http://ankang.icu/2020/02/14/20-02-14/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/10/19-11-10/" rel="next" title="Python之函数">
+                <i class="fa fa-chevron-left"></i> Python之函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/06/20-03-06/" rel="prev" title="带符号数的表示">
+                带符号数的表示 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODY5MS8yNTE4NQ=="></div>
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ankang">
+            
+              <p class="site-author-name" itemprop="name">ankang</p>
+              <p class="site-description motion-element" itemprop="description">一个菜鸟的学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/2671467850" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ankangz98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有料
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.easyicon.net/" title="图标下载" target="_blank">图标下载</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">1.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#水仙花数"><span class="nav-number">1.1.</span> <span class="nav-text">水仙花数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百钱百鸡"><span class="nav-number">1.2.</span> <span class="nav-text">百钱百鸡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CRAPS赌博"><span class="nav-number">1.3.</span> <span class="nav-text">CRAPS赌博</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定一个正整数的所有因子"><span class="nav-number">1.4.</span> <span class="nav-text">确定一个正整数的所有因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斐波那契数列"><span class="nav-number">1.5.</span> <span class="nav-text">斐波那契数列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">2.</span> <span class="nav-text">Code</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ankang</span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
