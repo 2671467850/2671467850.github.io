@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,Study,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ankang" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="字符串、布尔值、数值之间的转换 运算符 运算有关的一些条件判断。">
+<meta name="keywords" content="JavaScript,Study">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型转换与运算符">
+<meta property="og:url" content="http://ankang.icu/2021/03/18/21-03-18/index.html">
+<meta property="og:site_name" content="Ankang">
+<meta property="og:description" content="字符串、布尔值、数值之间的转换 运算符 运算有关的一些条件判断。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-18T00:12:49.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据类型转换与运算符">
+<meta name="twitter:description" content="字符串、布尔值、数值之间的转换 运算符 运算有关的一些条件判断。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ankang.icu/2021/03/18/21-03-18/">
+
+
+
+
+
+  <title>数据类型转换与运算符 | Ankang</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?73736fbc491420c1f360d4ab5986a0ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ankang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/03/18/21-03-18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据类型转换与运算符</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T08:03:46+08:00">
+                2021-03-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-18T08:12:49+08:00">
+                2021-03-18
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>字符串、布尔值、数值之间的转换</li>
+<li>运算符</li>
+<li>运算有关的一些条件判断。</li>
+</ol>
+<a id="more"></a>
+<h3 id="字符串转换数值："><a href="#字符串转换数值：" class="headerlink" title="字符串转换数值："></a>字符串转换数值：</h3><ol>
+<li><h4 id="强制转换数值：通过Number-构造函数。"><a href="#强制转换数值：通过Number-构造函数。" class="headerlink" title="强制转换数值：通过Number();构造函数。"></a>强制转换数值：通过Number();构造函数。</h4><ul>
+<li><h5 id="如果字符串是由数字构成，强制转换后将变为数值，否则变成NaN。"><a href="#如果字符串是由数字构成，强制转换后将变为数值，否则变成NaN。" class="headerlink" title="如果字符串是由数字构成，强制转换后将变为数值，否则变成NaN。"></a>如果字符串是由数字构成，强制转换后将变为数值，否则变成NaN。</h5><blockquote>
+<h6 id="NaN：是非数值，类型属于数值类型"><a href="#NaN：是非数值，类型属于数值类型" class="headerlink" title="NaN：是非数值，类型属于数值类型"></a>NaN：是非数值，类型属于数值类型</h6></blockquote>
+</li>
+</ul>
+</li>
+<li><h4 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt();"></a>parseInt();</h4><ul>
+<li><h5 id="转换数值时，如果字符串是纯数字构成，或者第一个字符是数字，则转换时从头开始转换到字母之前。"><a href="#转换数值时，如果字符串是纯数字构成，或者第一个字符是数字，则转换时从头开始转换到字母之前。" class="headerlink" title="转换数值时，如果字符串是纯数字构成，或者第一个字符是数字，则转换时从头开始转换到字母之前。"></a>转换数值时，如果字符串是纯数字构成，或者第一个字符是数字，则转换时从头开始转换到字母之前。</h5></li>
+<li><h5 id="取整，小数点后省略。"><a href="#取整，小数点后省略。" class="headerlink" title="取整，小数点后省略。"></a><strong>取整</strong>，<em>小数点后省略。</em></h5></li>
+<li><h5 id="第二个参数（可选）：进制，根据字符串的进制转换成十进制数值，当有进制参数时，特点1遇到字母不同。"><a href="#第二个参数（可选）：进制，根据字符串的进制转换成十进制数值，当有进制参数时，特点1遇到字母不同。" class="headerlink" title="第二个参数（可选）：进制，根据字符串的进制转换成十进制数值，当有进制参数时，特点1遇到字母不同。"></a>第二个参数（可选）：进制，根据字符串的进制转换成十进制数值，当有进制参数时，特点1遇到字母不同。</h5></li>
+</ul>
+</li>
+<li><h4 id="parseFloat"><a href="#parseFloat" class="headerlink" title="parseFloat();"></a>parseFloat();</h4><ul>
+<li><h5 id="保留小数点"><a href="#保留小数点" class="headerlink" title="保留小数点"></a>保留小数点</h5></li>
+</ul>
+<blockquote>
+<ul>
+<li><h6 id="Number强制转换会将布尔值转换为数值，true-gt-1-false-gt-0"><a href="#Number强制转换会将布尔值转换为数值，true-gt-1-false-gt-0" class="headerlink" title="Number强制转换会将布尔值转换为数值，true==&gt;1,false==&gt;0"></a>Number强制转换会将布尔值转换为数值，true==&gt;1,false==&gt;0</h6></li>
+<li><h6 id="parseInt-的第一个参数要求是字符串，但是true和false都不是字符串，所以parseInt-首先会自动隐式转换为字符串。"><a href="#parseInt-的第一个参数要求是字符串，但是true和false都不是字符串，所以parseInt-首先会自动隐式转换为字符串。" class="headerlink" title="parseInt 的第一个参数要求是字符串，但是true和false都不是字符串，所以parseInt 首先会自动隐式转换为字符串。"></a>parseInt 的第一个参数要求是字符串，但是true和false都不是字符串，所以parseInt 首先会自动隐式转换为字符串。</h6></li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h3 id="布尔值转换为字符串："><a href="#布尔值转换为字符串：" class="headerlink" title="布尔值转换为字符串："></a>布尔值转换为字符串：</h3><ol>
+<li><h4 id="都是直接变成字符串-String"><a href="#都是直接变成字符串-String" class="headerlink" title="都是直接变成字符串 String();"></a>都是直接变成字符串 String();</h4></li>
+</ol>
+<h3 id="字符，数值变成布尔值："><a href="#字符，数值变成布尔值：" class="headerlink" title="字符，数值变成布尔值："></a>字符，数值变成布尔值：</h3><ol>
+<li><h4 id="强制转换布尔值"><a href="#强制转换布尔值" class="headerlink" title="强制转换布尔值"></a>强制转换布尔值</h4><ul>
+<li><h5 id="以下几种强转布尔值时会变为false-其他的都是true。"><a href="#以下几种强转布尔值时会变为false-其他的都是true。" class="headerlink" title="以下几种强转布尔值时会变为false,其他的都是true。"></a>以下几种强转布尔值时会变为false,其他的都是true。</h5><blockquote>
+<h6 id="0-；””-；false-；NaN-；undefined-；null。"><a href="#0-；””-；false-；NaN-；undefined-；null。" class="headerlink" title="0    ；””    ；false    ；NaN    ；undefined    ；null。"></a>0    ；””    ；false    ；NaN    ；undefined    ；null。</h6></blockquote>
+</li>
+<li><h5 id="Boolean-0-Boolean-“”-Boolean-NaN"><a href="#Boolean-0-Boolean-“”-Boolean-NaN" class="headerlink" title="Boolean(0);Boolean(“”);Boolean(NaN);"></a>Boolean(0);Boolean(“”);Boolean(NaN);</h5></li>
+</ul>
+</li>
+</ol>
+<h3 id="将undefined转换为数值-gt-NaN"><a href="#将undefined转换为数值-gt-NaN" class="headerlink" title="将undefined转换为数值==&gt; NaN;"></a>将undefined转换为数值==&gt; NaN;</h3><ul>
+<li><h4 id="console-log-Number-undefined"><a href="#console-log-Number-undefined" class="headerlink" title="console.log(Number(undefined);"></a>console.log(Number(undefined);</h4></li>
+</ul>
+<h3 id="将null转换为数值-gt-0"><a href="#将null转换为数值-gt-0" class="headerlink" title="将null转换为数值==&gt; 0;"></a>将null转换为数值==&gt; 0;</h3><ul>
+<li><h4 id="console-log-Number-null"><a href="#console-log-Number-null" class="headerlink" title="console.log(Number(null);"></a>console.log(Number(null);</h4></li>
+</ul>
+<h3 id="将对象转换为数值-gt-NaN"><a href="#将对象转换为数值-gt-NaN" class="headerlink" title="将对象转换为数值==&gt; NaN;"></a>将对象转换为数值==&gt; NaN;</h3><ul>
+<li><h4 id="console-log-Number-a-1"><a href="#console-log-Number-a-1" class="headerlink" title="console.log(Number({a:1}));"></a>console.log(Number({a:1}));</h4></li>
+</ul>
+<h3 id="将对象转换为字符串-gt-object-Object"><a href="#将对象转换为字符串-gt-object-Object" class="headerlink" title="将对象转换为字符串==&gt; [object Object]"></a>将对象转换为字符串==&gt; [object Object]</h3><ul>
+<li><h4 id="console-log-String-a-1"><a href="#console-log-String-a-1" class="headerlink" title="console.log(String({a:1}));"></a>console.log(String({a:1}));</h4></li>
+<li><blockquote>
+<h5 id="所有的任何对象转换为字符串都这样"><a href="#所有的任何对象转换为字符串都这样" class="headerlink" title="所有的任何对象转换为字符串都这样"></a>所有的任何对象转换为字符串都这样</h5></blockquote>
+</li>
+</ul>
+<h3 id="string，number，boolean，undefined，null-都是存在内存的栈中。"><a href="#string，number，boolean，undefined，null-都是存在内存的栈中。" class="headerlink" title="string，number，boolean，undefined，null 都是存在内存的栈中。"></a>string，number，boolean，undefined，null 都是存在内存的栈中。</h3><ul>
+<li><h4 id="栈中数据读取速度快，但是可以存储的数据较小。"><a href="#栈中数据读取速度快，但是可以存储的数据较小。" class="headerlink" title="栈中数据读取速度快，但是可以存储的数据较小。"></a>栈中数据读取速度快，但是可以存储的数据较小。</h4></li>
+</ul>
+<h3 id="object是存放在内存的堆中。"><a href="#object是存放在内存的堆中。" class="headerlink" title="object是存放在内存的堆中。"></a>object是存放在内存的堆中。</h3><ul>
+<li><h4 id="堆中可以存储大量的数据，但是读取速度慢。"><a href="#堆中可以存储大量的数据，但是读取速度慢。" class="headerlink" title="堆中可以存储大量的数据，但是读取速度慢。"></a>堆中可以存储大量的数据，但是读取速度慢。</h4></li>
+</ul>
+<h3 id="所有的基础类型都是基于Object构建而成。"><a href="#所有的基础类型都是基于Object构建而成。" class="headerlink" title="所有的基础类型都是基于Object构建而成。"></a>所有的基础类型都是基于Object构建而成。</h3><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">5</span>;</span><br><span class="line">a.toString();</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">5</span>;<span class="comment">//数据 number	存储在栈中	typeof==&gt;number</span></span><br><span class="line"><span class="keyword">var</span> b=<span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">5</span>);<span class="comment">//数值对象 Number	存储在堆中	typeof==&gt;object</span></span><br><span class="line"><span class="comment">//number可以理解为Number类型在栈中的映射。</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="运算符："><a href="#运算符：" class="headerlink" title="运算符："></a>运算符：</h3><ol>
+<li><h4 id="算数运算符："><a href="#算数运算符：" class="headerlink" title="算数运算符："></a>算数运算符：</h4><ol>
+<li><h5 id="；"><a href="#；" class="headerlink" title="+    - * /；"></a><code>+    - * /</code>；</h5></li>
+<li><h5 id="取模-取余；"><a href="#取模-取余；" class="headerlink" title="%取模==取余；"></a><code>%</code>取模==取余；</h5></li>
+<li><h5 id="字符相加：首尾相连"><a href="#字符相加：首尾相连" class="headerlink" title="字符相加：首尾相连"></a>字符相加：首尾相连</h5><ul>
+<li><h6 id="隐式转换-自动默认使用目标类型的构造函数强制转换-String"><a href="#隐式转换-自动默认使用目标类型的构造函数强制转换-String" class="headerlink" title="隐式转换 自动默认使用目标类型的构造函数强制转换 String()"></a>隐式转换 自动默认使用目标类型的构造函数强制转换 <code>String()</code></h6></li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"cde"</span>+<span class="literal">true</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"cde"</span>+<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"cde"</span>+a);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"cde"</span>+&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;+<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h6 id="数值-布尔值会隐式转为数值相加"><a href="#数值-布尔值会隐式转为数值相加" class="headerlink" title="数值+布尔值会隐式转为数值相加"></a>数值+布尔值会隐式转为数值相加</h6></li>
+<li><h6 id="数值-undefined会隐式转为数值相加-NaN。"><a href="#数值-undefined会隐式转为数值相加-NaN。" class="headerlink" title="数值+undefined会隐式转为数值相加 NaN。"></a>数值+undefined会隐式转为数值相加 NaN。</h6></li>
+<li><h6 id="null隐式转换为0。"><a href="#null隐式转换为0。" class="headerlink" title="null隐式转换为0。"></a>null隐式转换为0。</h6><blockquote>
+<ul>
+<li>数值与除了字符串外的非数值相加都会隐式转换为数值类型相加</li>
+<li>布尔值、undefined。null相加都会转换为数值</li>
+</ul>
+</blockquote>
+</li>
+<li><h5 id="除了-以外，-，-，-，-都会依照数值运算先将所有其他类型转换为数值后运算。"><a href="#除了-以外，-，-，-，-都会依照数值运算先将所有其他类型转换为数值后运算。" class="headerlink" title="除了+以外，-，*，/，% 都会依照数值运算先将所有其他类型转换为数值后运算。"></a>除了+以外，-，*，/，% 都会依照数值运算先将所有其他类型转换为数值后运算。</h5></li>
+</ol>
+</li>
+<li><h4 id="赋值运算符和一元运算符："><a href="#赋值运算符和一元运算符：" class="headerlink" title="赋值运算符和一元运算符："></a>赋值运算符和一元运算符：</h4><ol>
+<li><h5 id="，-，"><a href="#，-，" class="headerlink" title="+=，-=，*=,/="></a><code>+=，-=，*=,/=</code></h5><blockquote>
+<ol>
+<li><h5 id="var-b-a-2"><a href="#var-b-a-2" class="headerlink" title="var b=a=2;"></a><code>var b=a=2;</code></h5><ul>
+<li><h6 id="先将a-2的结果赋值给b"><a href="#先将a-2的结果赋值给b" class="headerlink" title="先将a=2的结果赋值给b"></a>先将a=2的结果赋值给b</h6></li>
+<li><h6 id="再将2赋值给a"><a href="#再将2赋值给a" class="headerlink" title="再将2赋值给a"></a>再将2赋值给a</h6></li>
+</ul>
+</li>
+<li><h5 id="var-a-5-a-a-a-2-gt-a-7"><a href="#var-a-5-a-a-a-2-gt-a-7" class="headerlink" title="var a=5;a=a=a+2;===&gt; a=7;"></a><code>var a=5;a=a=a+2;</code>===&gt; a=7;</h5></li>
+</ol>
+<ul>
+<li><h6 id="同时进行，后面的a-a-2不会用前边的a-7。"><a href="#同时进行，后面的a-a-2不会用前边的a-7。" class="headerlink" title="同时进行，后面的a=a+2不会用前边的a=7。"></a>同时进行，后面的<code>a=a+2</code>不会用前边的<code>a=7</code>。</h6></li>
+</ul>
+<ol start="3">
+<li><h5 id="a-2-步长，累加"><a href="#a-2-步长，累加" class="headerlink" title="a+=2;  步长，累加"></a><code>a+=2;</code>  步长，累加</h5></li>
+<li><h5 id="var-a-quot-10-quot-a-0-隐式转换为数值"><a href="#var-a-quot-10-quot-a-0-隐式转换为数值" class="headerlink" title="var a=&quot;10&quot;;a-=0;隐式转换为数值"></a><code>var a=&quot;10&quot;;a-=0;</code>隐式转换为数值</h5><ul>
+<li><h6 id="console-log-a-gt-10"><a href="#console-log-a-gt-10" class="headerlink" title="console.log(a);==&gt;10"></a>console.log(a);==&gt;10</h6></li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;    var a=1,b=2,c=3;</span><br><span class="line">&gt;    a+=1,b+=2,c+=3;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<h6 id="有赋值，中间就可以逗号连接。"><a href="#有赋值，中间就可以逗号连接。" class="headerlink" title="有赋值，中间就可以逗号连接。"></a>有赋值，中间就可以逗号连接。</h6></blockquote>
+</blockquote>
+</li>
+<li><h5 id><a href="#" class="headerlink" title="++"></a><code>++</code></h5><ol>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="string">"3"</span>;</span><br><span class="line">a++;<span class="comment">//会隐式转换为数值在进行运算</span></span><br><span class="line">a+=<span class="number">1</span>;<span class="comment">//参照算数运算符</span></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span><span class="number">.1</span>og(++a+a+++a+a+++a+a,a);==&gt;(<span class="number">24</span>,<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b=a++;<span class="comment">//b:1 a:2</span></span><br><span class="line"><span class="keyword">var</span> b=++a;<span class="comment">//b:2 a:2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><h5 id="关系运算符和逻辑运算符："><a href="#关系运算符和逻辑运算符：" class="headerlink" title="关系运算符和逻辑运算符："></a>关系运算符和逻辑运算符：</h5><ol>
+<li><h6 id="lt-lt-gt-gt-返回布尔值"><a href="#lt-lt-gt-gt-返回布尔值" class="headerlink" title="&lt; &lt;= &gt; &gt;= 返回布尔值"></a><code>&lt; &lt;= &gt; &gt;=</code> 返回布尔值</h6><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">4</span>;</span><br><span class="line">a=a-a&gt;<span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h6 id="返回布尔值"><a href="#返回布尔值" class="headerlink" title="== === != !==返回布尔值"></a><code>== === != !==</code>返回布尔值</h6><ul>
+<li><p><code>==    !=</code>会自动隐式转换为两端相同后比较</p>
+</li>
+<li><p><code>===  !==</code>不转换类型，除了比较值以外还会比较类型</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>==<span class="string">"1"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>==<span class="literal">true</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>===<span class="literal">true</span>);</span><br><span class="line">相等类型：</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span>==<span class="literal">false</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">false</span>==<span class="string">""</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span>==<span class="string">""</span>);</span><br><span class="line">相等：</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span>==<span class="literal">null</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span>==<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>0 false &quot;&quot;</code>==&gt;相等</p>
+</li>
+<li><p><code>null undefined</code>==&gt;相等 表示空或者未赋值</p>
+</li>
+<li><p><code>console.log(NaN==NaN);</code>==&gt;不等</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="string">"4a"</span>;</span><br><span class="line"><span class="comment">// console. log(Number(a)==NaN)//不能用==NaN判断非数值</span></span><br><span class="line"><span class="comment">// console. log(isNaN(Number(a)));</span></span><br><span class="line"><span class="built_in">console</span><span class="number">.1</span>og(<span class="built_in">Number</span>.isNaN(<span class="built_in">Number</span>(a)));</span><br></pre></td></tr></table></figure>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//都是判断数值类型，非数值类型，不隐式转换返回false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isNaN(a));</span><br><span class="line"><span class="comment">//会先隐式转换为数值，然后在判断是否是非数值</span></span><br><span class="line"><span class="comment">// console.log(isNaN(a));</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>取反，取布尔值的反</p>
+<ul>
+<li>如果是布尔值就会变成相反的结果true==&gt;false,false==&gt;true;</li>
+<li>如果不是布尔值就会隐式转换为布尔值，然后再取反。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h6 id="amp-amp-返回的值根据内容确定，不一定是布尔值。"><a href="#amp-amp-返回的值根据内容确定，不一定是布尔值。" class="headerlink" title="&amp;&amp; || 返回的值根据内容确定，不一定是布尔值。"></a><code>&amp;&amp; ||</code> 返回的值根据内容确定，不一定是布尔值。</h6><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a&gt;<span class="number">2</span> &amp;&amp; a&lt;<span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a&gt;<span class="number">5</span> || a&lt;<span class="number">4</span>);</span><br><span class="line">a=a<span class="number">-3</span> || <span class="number">1</span>；</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h6 id="熔断"><a href="#熔断" class="headerlink" title="熔断"></a>熔断</h6><ul>
+<li><h6 id="true"><a href="#true" class="headerlink" title="true"></a>true</h6><blockquote>
+<p>true || true    ==&gt;    返回前面的值</p>
+<p>true || false    ==&gt;    返回隐式转换布尔值为true的值</p>
+<p>false || true    ==&gt;    返回隐式转换布尔值为true的值</p>
+<p>false || false    ==&gt;    返回最后一个false的值</p>
+</blockquote>
+</li>
+<li><p>false</p>
+<blockquote>
+<p>true &amp;&amp; true    ==&gt;    返回第二个true的结果</p>
+<p>true &amp;&amp; false    ==&gt;    返回false的结果</p>
+<p>false &amp;&amp; true    ==&gt;    返回false的结果</p>
+<p>false &amp;&amp; false    ==&gt;    返回第一个false的结果</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>在if语句判断赋值时也会出现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o;</span><br><span class="line">o=<span class="number">0</span> || &#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;或者</span><br><span class="line"><span class="keyword">if</span>(!o)&#123;</span><br><span class="line">    <span class="comment">//if判断变量o是否已经赋值，只有o等于 6 种值时（变量o未赋值），会进入if语句块，对o重新赋值</span></span><br><span class="line">    o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="4">
+<li><h5 id="位运算符："><a href="#位运算符：" class="headerlink" title="位运算符："></a>位运算符：</h5><ol>
+<li><h5 id="位非：加一取负；"><a href="#位非：加一取负；" class="headerlink" title="~位非：加一取负；"></a><code>~</code>位非：加一取负；</h5><h6 id="：双非，还原取整，任何内容转换为数值；"><a href="#：双非，还原取整，任何内容转换为数值；" class="headerlink" title="~~：双非，还原取整，任何内容转换为数值；"></a><code>~~</code>：双非，还原取整，任何内容转换为数值；</h6><ul>
+<li><h6 id="非数值变为0；"><a href="#非数值变为0；" class="headerlink" title="非数值变为0；"></a>非数值变为0；</h6></li>
+<li><h6 id="其他变为数值；"><a href="#其他变为数值；" class="headerlink" title="其他变为数值；"></a>其他变为数值；</h6></li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">-1</span>;</span><br><span class="line">位非变为<span class="number">0</span>；</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str=<span class="string">"abcd"</span>;</span><br><span class="line"><span class="comment">//str.indexof("f")==&gt;当找不到会返回 -1；</span></span><br><span class="line"><span class="keyword">if</span>(~str.indexof(<span class="string">"d"</span>))&#123;</span><br><span class="line">	<span class="comment">//表示能找到的话进入if语句</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(!~str.indexof(<span class="string">"d"</span>))&#123;</span><br><span class="line">    <span class="comment">//表示找不到进入if语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h5 id="amp-与运算"><a href="#amp-与运算" class="headerlink" title="&amp;与运算"></a><code>&amp;</code>与运算</h5><ul>
+<li><h6 id="任何数-amp-2的结果：2-0"><a href="#任何数-amp-2的结果：2-0" class="headerlink" title="任何数 &amp;2的结果：2/0"></a>任何数 <code>&amp;2</code>的结果：2/0</h6></li>
+<li><h6 id="任何数-amp-3的结果：3-2-1-0"><a href="#任何数-amp-3的结果：3-2-1-0" class="headerlink" title="任何数 &amp;3的结果：3/2/1/0\"></a>任何数 <code>&amp;3</code>的结果：3/2/1/0\</h6></li>
+</ul>
+</li>
+<li><h5 id="或运算"><a href="#或运算" class="headerlink" title="|或运算"></a><code>|</code>或运算</h5></li>
+<li><h5 id="异或：相同为0，不同为1；"><a href="#异或：相同为0，不同为1；" class="headerlink" title="^异或：相同为0，不同为1；"></a><code>^</code>异或：相同为0，不同为1；</h5><ul>
+<li><h6 id="对称加密；"><a href="#对称加密；" class="headerlink" title="对称加密；"></a>对称加密；</h6></li>
+<li><h6 id="非对称加密；"><a href="#非对称加密；" class="headerlink" title="非对称加密；"></a>非对称加密；</h6></li>
+</ul>
+</li>
+<li><h5 id="左移-lt-lt-32个字节-4位-到头变成1"><a href="#左移-lt-lt-32个字节-4位-到头变成1" class="headerlink" title="左移 &lt;&lt;  32个字节 4位 到头变成1"></a>左移 <code>&lt;&lt;</code>  32个字节 4位 到头变成1</h5></li>
+<li><h5 id="右移-gt-gt"><a href="#右移-gt-gt" class="headerlink" title="右移 &gt;&gt;"></a>右移 <code>&gt;&gt;</code></h5></li>
+</ol>
+</li>
+<li><h5 id="三目运算符：-条件运算符"><a href="#三目运算符：-条件运算符" class="headerlink" title="三目运算符：/条件运算符"></a>三目运算符：/条件运算符</h5><ol>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> b=a&gt;<span class="number">3</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"><span class="comment">//如果a&gt;3，返回1 否则0；</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b=a&gt;<span class="number">1</span> ? <span class="number">10</span> : a&lt;<span class="number">0</span> ? <span class="number">5</span> : <span class="number">0</span>;<span class="comment">//b=?</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">1</span>;</span><br><span class="line">a -=<span class="number">1</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line"><span class="comment">//a -=0 ? 0 : 1;</span></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="运算有关的条件判断："><a href="#运算有关的条件判断：" class="headerlink" title="运算有关的条件判断："></a>运算有关的条件判断：</h3><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a==<span class="literal">undefined</span>)&#123;</span><br><span class="line">    <span class="comment">//var a;</span></span><br><span class="line">    <span class="comment">//var a=undefined;</span></span><br><span class="line">    <span class="comment">//var a=null;当a等于这些值的时候，才被允许进入if语句；</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a==<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="comment">//var a=false;</span></span><br><span class="line">    <span class="comment">//var a="";</span></span><br><span class="line">    <span class="comment">//var a="     ";</span></span><br><span class="line">    <span class="comment">//var a=0;</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"aaa"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="comment">// var a=undefined</span></span><br><span class="line"><span class="keyword">if</span>(a===<span class="literal">undefined</span>)&#123;</span><br><span class="line">    <span class="comment">//只有a未定义的时候才符合条件;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(条件)&#123;</span><br><span class="line">    <span class="comment">//if条件返回值为true/false；</span></span><br><span class="line">    <span class="comment">//当返回值为true时，进入条件语句块，返回的值不是布尔值时，会自动隐式转换为布尔值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(a==<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="comment">//只有当a的值为 ： 0	undefined	null	""	false	NaN;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(a===<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="comment">//true;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(a)&#123;</span><br><span class="line">    <span class="comment">//只有当a的值为 ： 0	undefined	null	""	false	NaN;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(a===<span class="literal">false</span>)&#123;</span><br><span class="line">    <span class="comment">//只有当a的值为 ： false;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(a==<span class="literal">false</span>)&#123;</span><br><span class="line">    <span class="comment">//只有当a的值为 ： 0	""	false;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(!a)&#123;</span><br><span class="line">    <span class="comment">//只有当a的值为 ： 0	""	false	undefined	null	NaN;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="数组："><a href="#数组：" class="headerlink" title="数组："></a>数组：</h3><h4 id="console-log-gt-false"><a href="#console-log-gt-false" class="headerlink" title="console.log([]==[]);==&gt;false"></a><code>console.log([]==[]);</code>==&gt;false</h4><ul>
+<li><h5 id="数组是对象类型，也就是引用类型"><a href="#数组是对象类型，也就是引用类型" class="headerlink" title="数组是对象类型，也就是引用类型"></a>数组是对象类型，也就是引用类型</h5></li>
+</ul>
+<h4 id="console-log-gt-true"><a href="#console-log-gt-true" class="headerlink" title="console.log([]==![]);==&gt;true"></a><code>console.log([]==![]);</code>==&gt;true</h4><ul>
+<li><h5 id="因为-quot-quot-false"><a href="#因为-quot-quot-false" class="headerlink" title="因为 &quot;&quot;==false"></a>因为 <code>&quot;&quot;==false</code></h5></li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//[1,2,3]==&gt;"1,2,3";</span></span><br><span class="line"><span class="comment">//[1]==&gt;"1";</span></span><br><span class="line"><span class="comment">//[]==&gt;""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//console.log([1]==1);</span></span><br><span class="line"><span class="comment">//console.log([]==0);</span></span><br><span class="line"><span class="comment">//console.log([]==null);</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="进制："><a href="#进制：" class="headerlink" title="进制："></a>进制：</h3><ol>
+<li><h4 id="进制之间的转换"><a href="#进制之间的转换" class="headerlink" title="进制之间的转换"></a>进制之间的转换</h4></li>
+<li><h4 id="ASCII-GB2312-GB5"><a href="#ASCII-GB2312-GB5" class="headerlink" title="ASCII  GB2312 GB5"></a>ASCII  GB2312 GB5</h4></li>
+<li><h4 id="Unicode-万国码-（UTF-8使用八进制的万国码）"><a href="#Unicode-万国码-（UTF-8使用八进制的万国码）" class="headerlink" title="Unicode 万国码 （UTF-8使用八进制的万国码）"></a>Unicode 万国码 （UTF-8使用八进制的万国码）</h4></li>
+</ol>
+<h3 id="图像：像素点"><a href="#图像：像素点" class="headerlink" title="图像：像素点"></a>图像：像素点</h3><ul>
+<li><h4 id="每英寸96个像素点-gt-字"><a href="#每英寸96个像素点-gt-字" class="headerlink" title="每英寸96个像素点 ==&gt;字"></a>每英寸96个像素点 ==&gt;字</h4></li>
+<li><h4 id="每英寸72个像素点-gt-图"><a href="#每英寸72个像素点-gt-图" class="headerlink" title="每英寸72个像素点 ==&gt;图"></a>每英寸72个像素点 ==&gt;图</h4></li>
+<li><h4 id="一个颜色占4个字节-一英寸图片（72-4-288B）"><a href="#一个颜色占4个字节-一英寸图片（72-4-288B）" class="headerlink" title="一个颜色占4个字节 一英寸图片（72*4=288B）"></a>一个颜色占4个字节 一英寸图片（72*4=288B）</h4></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="ankang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="ankang 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ankang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ankang.icu/2021/03/18/21-03-18/" title="数据类型转换与运算符">http://ankang.icu/2021/03/18/21-03-18/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/Study/" rel="tag"><i class="fa fa-tag"></i> Study</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/17/21-03-17/" rel="next" title="原生JavaScript基础">
+                <i class="fa fa-chevron-left"></i> 原生JavaScript基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODY5MS8yNTE4NQ=="></div>
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ankang">
+            
+              <p class="site-author-name" itemprop="name">ankang</p>
+              <p class="site-description motion-element" itemprop="description">一个菜鸟的学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/2671467850" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ankangz98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有料
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.easyicon.net/" title="图标下载" target="_blank">图标下载</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串转换数值："><span class="nav-number">1.</span> <span class="nav-text">字符串转换数值：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#强制转换数值：通过Number-构造函数。"><span class="nav-number">1.1.</span> <span class="nav-text">强制转换数值：通过Number();构造函数。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如果字符串是由数字构成，强制转换后将变为数值，否则变成NaN。"><span class="nav-number">1.1.1.</span> <span class="nav-text">如果字符串是由数字构成，强制转换后将变为数值，否则变成NaN。</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#NaN：是非数值，类型属于数值类型"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">NaN：是非数值，类型属于数值类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parseInt"><span class="nav-number">1.2.</span> <span class="nav-text">parseInt();</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#转换数值时，如果字符串是纯数字构成，或者第一个字符是数字，则转换时从头开始转换到字母之前。"><span class="nav-number">1.2.1.</span> <span class="nav-text">转换数值时，如果字符串是纯数字构成，或者第一个字符是数字，则转换时从头开始转换到字母之前。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#取整，小数点后省略。"><span class="nav-number">1.2.2.</span> <span class="nav-text">取整，小数点后省略。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个参数（可选）：进制，根据字符串的进制转换成十进制数值，当有进制参数时，特点1遇到字母不同。"><span class="nav-number">1.2.3.</span> <span class="nav-text">第二个参数（可选）：进制，根据字符串的进制转换成十进制数值，当有进制参数时，特点1遇到字母不同。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parseFloat"><span class="nav-number">1.3.</span> <span class="nav-text">parseFloat();</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#保留小数点"><span class="nav-number">1.3.1.</span> <span class="nav-text">保留小数点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Number强制转换会将布尔值转换为数值，true-gt-1-false-gt-0"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Number强制转换会将布尔值转换为数值，true==&gt;1,false==&gt;0</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parseInt-的第一个参数要求是字符串，但是true和false都不是字符串，所以parseInt-首先会自动隐式转换为字符串。"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">parseInt 的第一个参数要求是字符串，但是true和false都不是字符串，所以parseInt 首先会自动隐式转换为字符串。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔值转换为字符串："><span class="nav-number">2.</span> <span class="nav-text">布尔值转换为字符串：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#都是直接变成字符串-String"><span class="nav-number">2.1.</span> <span class="nav-text">都是直接变成字符串 String();</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符，数值变成布尔值："><span class="nav-number">3.</span> <span class="nav-text">字符，数值变成布尔值：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#强制转换布尔值"><span class="nav-number">3.1.</span> <span class="nav-text">强制转换布尔值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#以下几种强转布尔值时会变为false-其他的都是true。"><span class="nav-number">3.1.1.</span> <span class="nav-text">以下几种强转布尔值时会变为false,其他的都是true。</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#0-；””-；false-；NaN-；undefined-；null。"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">0    ；””    ；false    ；NaN    ；undefined    ；null。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Boolean-0-Boolean-“”-Boolean-NaN"><span class="nav-number">3.1.2.</span> <span class="nav-text">Boolean(0);Boolean(“”);Boolean(NaN);</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将undefined转换为数值-gt-NaN"><span class="nav-number">4.</span> <span class="nav-text">将undefined转换为数值==&gt; NaN;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#console-log-Number-undefined"><span class="nav-number">4.1.</span> <span class="nav-text">console.log(Number(undefined);</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将null转换为数值-gt-0"><span class="nav-number">5.</span> <span class="nav-text">将null转换为数值==&gt; 0;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#console-log-Number-null"><span class="nav-number">5.1.</span> <span class="nav-text">console.log(Number(null);</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将对象转换为数值-gt-NaN"><span class="nav-number">6.</span> <span class="nav-text">将对象转换为数值==&gt; NaN;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#console-log-Number-a-1"><span class="nav-number">6.1.</span> <span class="nav-text">console.log(Number({a:1}));</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将对象转换为字符串-gt-object-Object"><span class="nav-number">7.</span> <span class="nav-text">将对象转换为字符串==&gt; [object Object]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#console-log-String-a-1"><span class="nav-number">7.1.</span> <span class="nav-text">console.log(String({a:1}));</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#所有的任何对象转换为字符串都这样"><span class="nav-number">7.1.1.</span> <span class="nav-text">所有的任何对象转换为字符串都这样</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string，number，boolean，undefined，null-都是存在内存的栈中。"><span class="nav-number">8.</span> <span class="nav-text">string，number，boolean，undefined，null 都是存在内存的栈中。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈中数据读取速度快，但是可以存储的数据较小。"><span class="nav-number">8.1.</span> <span class="nav-text">栈中数据读取速度快，但是可以存储的数据较小。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object是存放在内存的堆中。"><span class="nav-number">9.</span> <span class="nav-text">object是存放在内存的堆中。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#堆中可以存储大量的数据，但是读取速度慢。"><span class="nav-number">9.1.</span> <span class="nav-text">堆中可以存储大量的数据，但是读取速度慢。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#所有的基础类型都是基于Object构建而成。"><span class="nav-number">10.</span> <span class="nav-text">所有的基础类型都是基于Object构建而成。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符："><span class="nav-number">11.</span> <span class="nav-text">运算符：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算数运算符："><span class="nav-number">11.1.</span> <span class="nav-text">算数运算符：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#；"><span class="nav-number">11.1.1.</span> <span class="nav-text">+    - * /；</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#取模-取余；"><span class="nav-number">11.1.2.</span> <span class="nav-text">%取模==取余；</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符相加：首尾相连"><span class="nav-number">11.1.3.</span> <span class="nav-text">字符相加：首尾相连</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#隐式转换-自动默认使用目标类型的构造函数强制转换-String"><span class="nav-number">11.1.3.1.</span> <span class="nav-text">隐式转换 自动默认使用目标类型的构造函数强制转换 String()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数值-布尔值会隐式转为数值相加"><span class="nav-number">11.1.3.2.</span> <span class="nav-text">数值+布尔值会隐式转为数值相加</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数值-undefined会隐式转为数值相加-NaN。"><span class="nav-number">11.1.3.3.</span> <span class="nav-text">数值+undefined会隐式转为数值相加 NaN。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#null隐式转换为0。"><span class="nav-number">11.1.3.4.</span> <span class="nav-text">null隐式转换为0。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#除了-以外，-，-，-，-都会依照数值运算先将所有其他类型转换为数值后运算。"><span class="nav-number">11.1.4.</span> <span class="nav-text">除了+以外，-，*，/，% 都会依照数值运算先将所有其他类型转换为数值后运算。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符和一元运算符："><span class="nav-number">11.2.</span> <span class="nav-text">赋值运算符和一元运算符：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#，-，"><span class="nav-number">11.2.1.</span> <span class="nav-text">+=，-=，*=,/=</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#var-b-a-2"><span class="nav-number">11.2.2.</span> <span class="nav-text">var b=a=2;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#先将a-2的结果赋值给b"><span class="nav-number">11.2.2.1.</span> <span class="nav-text">先将a=2的结果赋值给b</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#再将2赋值给a"><span class="nav-number">11.2.2.2.</span> <span class="nav-text">再将2赋值给a</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#var-a-5-a-a-a-2-gt-a-7"><span class="nav-number">11.2.3.</span> <span class="nav-text">var a=5;a=a=a+2;===&gt; a=7;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#同时进行，后面的a-a-2不会用前边的a-7。"><span class="nav-number">11.2.3.1.</span> <span class="nav-text">同时进行，后面的a=a+2不会用前边的a=7。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a-2-步长，累加"><span class="nav-number">11.2.4.</span> <span class="nav-text">a+=2;  步长，累加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#var-a-quot-10-quot-a-0-隐式转换为数值"><span class="nav-number">11.2.5.</span> <span class="nav-text">var a=&quot;10&quot;;a-=0;隐式转换为数值</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#console-log-a-gt-10"><span class="nav-number">11.2.5.1.</span> <span class="nav-text">console.log(a);==&gt;10</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#有赋值，中间就可以逗号连接。"><span class="nav-number">11.2.5.2.</span> <span class="nav-text">有赋值，中间就可以逗号连接。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">11.2.6.</span> <span class="nav-text">++</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关系运算符和逻辑运算符："><span class="nav-number">11.2.7.</span> <span class="nav-text">关系运算符和逻辑运算符：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#lt-lt-gt-gt-返回布尔值"><span class="nav-number">11.2.7.1.</span> <span class="nav-text">&lt; &lt;= &gt; &gt;= 返回布尔值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#返回布尔值"><span class="nav-number">11.2.7.2.</span> <span class="nav-text">== === != !==返回布尔值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#amp-amp-返回的值根据内容确定，不一定是布尔值。"><span class="nav-number">11.2.7.3.</span> <span class="nav-text">&amp;&amp; || 返回的值根据内容确定，不一定是布尔值。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#熔断"><span class="nav-number">11.2.7.4.</span> <span class="nav-text">熔断</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#true"><span class="nav-number">11.2.7.5.</span> <span class="nav-text">true</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#位运算符："><span class="nav-number">11.2.8.</span> <span class="nav-text">位运算符：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#位非：加一取负；"><span class="nav-number">11.2.9.</span> <span class="nav-text">~位非：加一取负；</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#：双非，还原取整，任何内容转换为数值；"><span class="nav-number">11.2.9.1.</span> <span class="nav-text">~~：双非，还原取整，任何内容转换为数值；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#非数值变为0；"><span class="nav-number">11.2.9.2.</span> <span class="nav-text">非数值变为0；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#其他变为数值；"><span class="nav-number">11.2.9.3.</span> <span class="nav-text">其他变为数值；</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#amp-与运算"><span class="nav-number">11.2.10.</span> <span class="nav-text">&amp;与运算</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#任何数-amp-2的结果：2-0"><span class="nav-number">11.2.10.1.</span> <span class="nav-text">任何数 &amp;2的结果：2/0</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#任何数-amp-3的结果：3-2-1-0"><span class="nav-number">11.2.10.2.</span> <span class="nav-text">任何数 &amp;3的结果：3/2/1/0\</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#或运算"><span class="nav-number">11.2.11.</span> <span class="nav-text">|或运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#异或：相同为0，不同为1；"><span class="nav-number">11.2.12.</span> <span class="nav-text">^异或：相同为0，不同为1；</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#对称加密；"><span class="nav-number">11.2.12.1.</span> <span class="nav-text">对称加密；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#非对称加密；"><span class="nav-number">11.2.12.2.</span> <span class="nav-text">非对称加密；</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#左移-lt-lt-32个字节-4位-到头变成1"><span class="nav-number">11.2.13.</span> <span class="nav-text">左移 &lt;&lt;  32个字节 4位 到头变成1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#右移-gt-gt"><span class="nav-number">11.2.14.</span> <span class="nav-text">右移 &gt;&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三目运算符：-条件运算符"><span class="nav-number">11.2.15.</span> <span class="nav-text">三目运算符：/条件运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips"><span class="nav-number">11.2.16.</span> <span class="nav-text">Tips</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算有关的条件判断："><span class="nav-number">12.</span> <span class="nav-text">运算有关的条件判断：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组："><span class="nav-number">13.</span> <span class="nav-text">数组：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#console-log-gt-false"><span class="nav-number">13.1.</span> <span class="nav-text">console.log([]==[]);==&gt;false</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数组是对象类型，也就是引用类型"><span class="nav-number">13.1.1.</span> <span class="nav-text">数组是对象类型，也就是引用类型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#console-log-gt-true"><span class="nav-number">13.2.</span> <span class="nav-text">console.log([]==![]);==&gt;true</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#因为-quot-quot-false"><span class="nav-number">13.2.1.</span> <span class="nav-text">因为 &quot;&quot;==false</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进制："><span class="nav-number">14.</span> <span class="nav-text">进制：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进制之间的转换"><span class="nav-number">14.1.</span> <span class="nav-text">进制之间的转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ASCII-GB2312-GB5"><span class="nav-number">14.2.</span> <span class="nav-text">ASCII  GB2312 GB5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unicode-万国码-（UTF-8使用八进制的万国码）"><span class="nav-number">14.3.</span> <span class="nav-text">Unicode 万国码 （UTF-8使用八进制的万国码）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像：像素点"><span class="nav-number">15.</span> <span class="nav-text">图像：像素点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#每英寸96个像素点-gt-字"><span class="nav-number">15.1.</span> <span class="nav-text">每英寸96个像素点 ==&gt;字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#每英寸72个像素点-gt-图"><span class="nav-number">15.2.</span> <span class="nav-text">每英寸72个像素点 ==&gt;图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个颜色占4个字节-一英寸图片（72-4-288B）"><span class="nav-number">15.3.</span> <span class="nav-text">一个颜色占4个字节 一英寸图片（72*4=288B）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ankang</span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
