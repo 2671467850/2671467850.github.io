@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,深复制/浅复制,垃圾回收机制,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ankang" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数有关">
+<meta name="keywords" content="JavaScript,深复制&#x2F;浅复制,垃圾回收机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript--对象和函数">
+<meta property="og:url" content="http://ankang.icu/2021/03/20/JavaScript-对象和函数/index.html">
+<meta property="og:site_name" content="Ankang">
+<meta property="og:description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数有关">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ankang.icu/2021/03/20/JavaScript-对象和函数/image-20210318141645809.png">
+<meta property="og:updated_time" content="2021-03-20T08:54:42.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript--对象和函数">
+<meta name="twitter:description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数有关">
+<meta name="twitter:image" content="http://ankang.icu/2021/03/20/JavaScript-对象和函数/image-20210318141645809.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ankang.icu/2021/03/20/JavaScript-对象和函数/">
+
+
+
+
+
+  <title>JavaScript--对象和函数 | Ankang</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?73736fbc491420c1f360d4ab5986a0ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ankang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/03/20/JavaScript-对象和函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript--对象和函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T16:44:01+08:00">
+                2021-03-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-20T16:54:42+08:00">
+                2021-03-20
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>JavaScript对象相关</li>
+<li>垃圾回收机制、内存泄漏</li>
+<li>JavaScript函数有关</li>
+</ol>
+<a id="more"></a>
+<h3 id="对象："><a href="#对象：" class="headerlink" title="对象："></a>对象：</h3><h4 id="创建："><a href="#创建：" class="headerlink" title="创建："></a>创建：</h4><ol>
+<li><h5 id="构造函数创建法：var-o-new-Object"><a href="#构造函数创建法：var-o-new-Object" class="headerlink" title="构造函数创建法：var o=new Object();"></a>构造函数创建法：<code>var o=new Object();</code></h5></li>
+<li><h5 id="字面量创建法：var-o-a-1"><a href="#字面量创建法：var-o-a-1" class="headerlink" title="字面量创建法：var o={a:1};"></a>字面量创建法：<code>var o={a:1};</code></h5></li>
+<li><h5 id="key-value-gt-键值对的形态"><a href="#key-value-gt-键值对的形态" class="headerlink" title="{key:value}==&gt; 键值对的形态"></a>{key:value}==&gt; 键值对的形态</h5><ul>
+<li><h6 id="每个键对应唯一的值"><a href="#每个键对应唯一的值" class="headerlink" title="每个键对应唯一的值"></a>每个键对应唯一的值</h6></li>
+<li><h6 id="表现形式："><a href="#表现形式：" class="headerlink" title="表现形式："></a>表现形式：</h6><ol>
+<li><code>console.log(o.a);</code></li>
+<li><code>console.log(o[&quot;a&quot;]);</code></li>
+<li>键必须是字符串或者 <code>symbol</code>，如果不是则会隐式转换为字符串。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> d=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line">o[d]=<span class="number">5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o[&#123;<span class="attr">b</span>:<span class="number">3</span>&#125;]);<span class="comment">//5</span></span><br><span class="line"><span class="comment">//说明：d在括号中没有加引号，所以传入的是d变量（&#123;a:1&#125;）即o[&#123;a:1&#125;]=5;</span></span><br><span class="line"><span class="comment">//&#123;a:1&#125;在括号中隐式转换为字符串==&gt; [object Object]</span></span><br><span class="line"><span class="comment">//证明：console.log(String(&#123;a:1&#125;),String(&#123;b:3&#125;));==&gt; 结果都是[object Object]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a[];</span><br><span class="line"><span class="keyword">var</span> b[<span class="string">"c"</span>];</span><br><span class="line">o[a]=<span class="number">10</span>;</span><br><span class="line">o[b]=<span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o[<span class="string">""</span>],o[<span class="string">"c"</span>]);</span><br><span class="line"><span class="comment">//空数组在隐式转换为字符串时，转换为空字符串</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="存储："><a href="#存储：" class="headerlink" title="存储："></a>存储：</h4><ul>
+<li><h5 id="对象的存储一共有两种情况，一种是存储数据，一种是存储函数。"><a href="#对象的存储一共有两种情况，一种是存储数据，一种是存储函数。" class="headerlink" title="对象的存储一共有两种情况，一种是存储数据，一种是存储函数。"></a>对象的存储一共有两种情况，一种是存储数据，一种是存储函数。</h5></li>
+<li><h5 id="存储数据的叫做对象的属性，存储函数的叫做对象的方法。"><a href="#存储数据的叫做对象的属性，存储函数的叫做对象的方法。" class="headerlink" title="存储数据的叫做对象的属性，存储函数的叫做对象的方法。"></a>存储数据的叫做对象的属性，存储函数的叫做对象的方法。</h5></li>
+</ul>
+<h4 id="遍历："><a href="#遍历：" class="headerlink" title="遍历："></a>遍历：</h4><ul>
+<li><h5 id="for-in"><a href="#for-in" class="headerlink" title="for...in..."></a><code>for...in...</code></h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果键是一个变量，不能使用.语法，必须使用[]带入变量。</span></span><br><span class="line"><span class="comment">//o.a=10;</span></span><br><span class="line"><span class="comment">//a["a"]=10;</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> o)&#123;</span><br><span class="line">    consolie.log(prop,o[prop]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">o.prop;</span><br><span class="line">o[<span class="string">"prop"</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> o)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(prop,o[prop]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h5 id="fromCharCode"><a href="#fromCharCode" class="headerlink" title="fromCharCode();"></a><code>fromCharCode();</code></h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i,key;</span><br><span class="line"><span class="keyword">var</span> o=&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> j=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">97</span>;i&lt;=<span class="number">122</span>;i++)&#123;</span><br><span class="line">    key=<span class="built_in">String</span>.fromCharCode(i);</span><br><span class="line">    o[key]=j;</span><br><span class="line">    j++;</span><br><span class="line">&#125;<span class="built_in">console</span>.log(o);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="删除属性："><a href="#删除属性：" class="headerlink" title="删除属性："></a>删除属性：</h4><h5 id="delete-o-e-如果删除的属性不存在也不会报错"><a href="#delete-o-e-如果删除的属性不存在也不会报错" class="headerlink" title="delete o.e;如果删除的属性不存在也不会报错"></a><code>delete o.e;</code>如果删除的属性不存在也不会报错</h5><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol>
+<li><h5 id="对象中存储的内容，相互之间是没有关联的"><a href="#对象中存储的内容，相互之间是没有关联的" class="headerlink" title="对象中存储的内容，相互之间是没有关联的"></a>对象中存储的内容，相互之间是没有关联的</h5></li>
+<li><h5 id="如果需要再对象中查找是否有某个键-quot-a-quot-in-o"><a href="#如果需要再对象中查找是否有某个键-quot-a-quot-in-o" class="headerlink" title="如果需要再对象中查找是否有某个键 &quot;a&quot; in o;"></a>如果需要再对象中查找是否有某个键 <code>&quot;a&quot; in o;</code></h5></li>
+<li><h5 id="如果需要再对象中查找是否有某个值，只能通过-for-in-遍历对象查看每个值是否相等"><a href="#如果需要再对象中查找是否有某个值，只能通过-for-in-遍历对象查看每个值是否相等" class="headerlink" title="如果需要再对象中查找是否有某个值，只能通过 for...in...遍历对象查看每个值是否相等"></a>如果需要再对象中查找是否有某个值，只能通过 <code>for...in...</code>遍历对象查看每个值是否相等</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> o)</span><br><span class="line">	<span class="keyword">if</span>(o[prop]===<span class="number">3</span>)</span><br><span class="line">	<span class="built_in">console</span>.log(prop,o[prop]);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h5 id="如果需要根据某个属性，查找对应的值时，速度非常快，删除和添加的速度也非常快。"><a href="#如果需要根据某个属性，查找对应的值时，速度非常快，删除和添加的速度也非常快。" class="headerlink" title="如果需要根据某个属性，查找对应的值时，速度非常快，删除和添加的速度也非常快。"></a>如果需要根据某个属性，查找对应的值时，速度非常快，删除和添加的速度也非常快。</h5></li>
+<li><h5 id="对象存储在堆中"><a href="#对象存储在堆中" class="headerlink" title="对象存储在堆中"></a>对象存储在堆中</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(o);</span><br><span class="line">o.a=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="浏览器控制台先显示为-a-1-再点击查看对象内容时，发生了变化。"><a href="#浏览器控制台先显示为-a-1-再点击查看对象内容时，发生了变化。" class="headerlink" title="浏览器控制台先显示为{a:1}; 再点击查看对象内容时，发生了变化。"></a>浏览器控制台先显示为{a:1}; 再点击查看对象内容时，发生了变化。</h5></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="垃圾回收机制："><a href="#垃圾回收机制：" class="headerlink" title="垃圾回收机制："></a>垃圾回收机制：</h3><ul>
+<li><h5 id="只有存储引用地址的变量才需要设置null做垃圾标识"><a href="#只有存储引用地址的变量才需要设置null做垃圾标识" class="headerlink" title="只有存储引用地址的变量才需要设置null做垃圾标识"></a>只有存储引用地址的变量才需要设置null做垃圾标识</h5></li>
+<li><h5 id="变量o引用堆中一个对象：将栈中变量o设置为null，表示不再引用对象，然后将堆中这个对象的引用列表中这个变量去除。"><a href="#变量o引用堆中一个对象：将栈中变量o设置为null，表示不再引用对象，然后将堆中这个对象的引用列表中这个变量去除。" class="headerlink" title="变量o引用堆中一个对象：将栈中变量o设置为null，表示不再引用对象，然后将堆中这个对象的引用列表中这个变量去除。"></a>变量o引用堆中一个对象：将栈中变量o设置为null，表示不再引用对象，然后将堆中这个对象的引用列表中这个变量去除。</h5></li>
+<li><h5 id="o-null"><a href="#o-null" class="headerlink" title="o=null;"></a>o=null;</h5></li>
+<li><h5 id="如果说一个对象被多个变量引用，只有将所有引用对象的变量全部设置为null，才可以将垃圾回收。"><a href="#如果说一个对象被多个变量引用，只有将所有引用对象的变量全部设置为null，才可以将垃圾回收。" class="headerlink" title="如果说一个对象被多个变量引用，只有将所有引用对象的变量全部设置为null，才可以将垃圾回收。"></a>如果说一个对象被多个变量引用，只有将所有引用对象的变量全部设置为null，才可以将垃圾回收。</h5></li>
+<li><p><img src="/2021/03/20/JavaScript-对象和函数/image-20210318141645809.png" alt="image-20210318141645809"></p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> o1=o;</span><br><span class="line">o1.a=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o.a);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="这种方式是赋值了引用地址，因此o和o1是同一个引用地址，同一个对象"><a href="#这种方式是赋值了引用地址，因此o和o1是同一个引用地址，同一个对象" class="headerlink" title="这种方式是赋值了引用地址，因此o和o1是同一个引用地址，同一个对象"></a>这种方式是赋值了引用地址，因此o和o1是同一个引用地址，同一个对象</h5></li>
+<li><h5 id="修改任何一个，另外变量看到的也是被修改后的结果。"><a href="#修改任何一个，另外变量看到的也是被修改后的结果。" class="headerlink" title="修改任何一个，另外变量看到的也是被修改后的结果。"></a>修改任何一个，另外变量看到的也是被修改后的结果。</h5></li>
+</ul>
+</li>
+</ul>
+<h3 id="深复制-浅复制："><a href="#深复制-浅复制：" class="headerlink" title="深复制/浅复制："></a>深复制/浅复制：</h3><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> o1=&#123;&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> o)&#123;</span><br><span class="line">	o1[prop]=o[prop];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(o1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>,<span class="attr">c</span>:&#123;<span class="attr">d</span>:<span class="number">1</span>,<span class="attr">e</span>:<span class="number">10</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">var</span> o1=&#123;&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> o)&#123;</span><br><span class="line">    o1[prop]=o[prop];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="只有深复制才可以真正将一个对象的每个属性都赋值没有引用关系"><a href="#只有深复制才可以真正将一个对象的每个属性都赋值没有引用关系" class="headerlink" title="只有深复制才可以真正将一个对象的每个属性都赋值没有引用关系"></a>只有深复制才可以真正将一个对象的每个属性都赋值没有引用关系</h5></li>
+</ul>
+<h3 id="内存泄漏："><a href="#内存泄漏：" class="headerlink" title="内存泄漏："></a>内存泄漏：</h3><h4 id="大量的不使用的引用对象，没有被标识为null，并且还在不断生成和丢弃。"><a href="#大量的不使用的引用对象，没有被标识为null，并且还在不断生成和丢弃。" class="headerlink" title="大量的不使用的引用对象，没有被标识为null，并且还在不断生成和丢弃。"></a>大量的不使用的引用对象，没有被标识为null，并且还在不断生成和丢弃。</h4><h3 id="函数："><a href="#函数：" class="headerlink" title="函数："></a>函数：</h3><ul>
+<li><h4 id="函数的结构形态："><a href="#函数的结构形态：" class="headerlink" title="函数的结构形态："></a>函数的结构形态：</h4><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fns</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a=fns(<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h6 id="function-定义函数"><a href="#function-定义函数" class="headerlink" title="function 定义函数"></a><code>function</code> 定义函数</h6></li>
+<li><h6 id="fns-函数名-可以自己起，与变量起名方式相同，函数名也是变量-全局变量"><a href="#fns-函数名-可以自己起，与变量起名方式相同，函数名也是变量-全局变量" class="headerlink" title="fns 函数名 可以自己起，与变量起名方式相同，函数名也是变量(全局变量)"></a><code>fns</code> 函数名 可以自己起，与变量起名方式相同，<strong><em>函数名也是变量(全局变量)</em></strong></h6></li>
+<li><h6 id="a-b-可以向函数中注入的数据，a-b叫做参数，注入几个数据就要声明几个参数"><a href="#a-b-可以向函数中注入的数据，a-b叫做参数，注入几个数据就要声明几个参数" class="headerlink" title="(a,b) 可以向函数中注入的数据，a,b叫做参数，注入几个数据就要声明几个参数"></a><code>(a,b)</code> 可以向函数中注入的数据，a,b叫做参数，注入几个数据就要声明几个参数</h6></li>
+<li><h6 id="函数执行的语句块"><a href="#函数执行的语句块" class="headerlink" title="{} 函数执行的语句块"></a><code>{}</code> 函数执行的语句块</h6></li>
+<li><h6 id="arguments-所有通过执行函数时传入的参数列表"><a href="#arguments-所有通过执行函数时传入的参数列表" class="headerlink" title="arguments 所有通过执行函数时传入的参数列表"></a><code>arguments</code> 所有通过执行函数时传入的参数列表</h6></li>
+<li><h6 id="return-跳出当前函数，不再执行return以后的语句，并且可以返回一个数据-return-10"><a href="#return-跳出当前函数，不再执行return以后的语句，并且可以返回一个数据-return-10" class="headerlink" title="return 跳出当前函数，不再执行return以后的语句，并且可以返回一个数据(return 10;)"></a><code>return</code> 跳出当前函数，不再执行<code>return</code>以后的语句，并且可以返回一个数据(return 10;)</h6></li>
+<li><h5 id="执行函数"><a href="#执行函数" class="headerlink" title="执行函数"></a>执行函数</h5></li>
+<li><h6 id="表示执行函数，fns是被执行的函数名，执行函数就是将函数中的语句块全部允许"><a href="#表示执行函数，fns是被执行的函数名，执行函数就是将函数中的语句块全部允许" class="headerlink" title="() 表示执行函数，fns是被执行的函数名，执行函数就是将函数中的语句块全部允许"></a><code>()</code> 表示执行函数，<code>fns</code>是被执行的函数名，执行函数就是将函数中的语句块全部允许</h6></li>
+<li><h6 id="4，5表示的是传参；"><a href="#4，5表示的是传参；" class="headerlink" title="4，5表示的是传参；"></a><code>4，5</code>表示的是传参；</h6></li>
+<li><h6 id="当函数执行完成后，如果使用return返回一个值，将会把返回的值赋值给a"><a href="#当函数执行完成后，如果使用return返回一个值，将会把返回的值赋值给a" class="headerlink" title="当函数执行完成后，如果使用return返回一个值，将会把返回的值赋值给a"></a>当函数执行完成后，如果使用return返回一个值，将会把返回的值赋值给a</h6></li>
+<li><h6 id="如果函数中没有return，或者直接return没有返回数据，则返回undefined"><a href="#如果函数中没有return，或者直接return没有返回数据，则返回undefined" class="headerlink" title="如果函数中没有return，或者直接return没有返回数据，则返回undefined"></a>如果函数中没有return，或者直接return没有返回数据，则返回undefined</h6></li>
+<li><h4 id="函数创建："><a href="#函数创建：" class="headerlink" title="函数创建："></a>函数创建：</h4><ol>
+<li><h5 id="构造函数法"><a href="#构造函数法" class="headerlink" title="构造函数法"></a>构造函数法</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn1=<span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"s=a+b;return s"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h6 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h6><ol>
+<li><h6 id="在调用时，浏览器会将这个函数对象内的所有内容转换为代码，这需要消耗大量资源，所以会慢。"><a href="#在调用时，浏览器会将这个函数对象内的所有内容转换为代码，这需要消耗大量资源，所以会慢。" class="headerlink" title="在调用时，浏览器会将这个函数对象内的所有内容转换为代码，这需要消耗大量资源，所以会慢。"></a>在调用时，浏览器会将这个函数对象内的所有内容转换为代码，这需要消耗大量资源，所以会慢。</h6></li>
+</ol>
+</li>
+<li><h6 id="可以由服务端动态生成函数"><a href="#可以由服务端动态生成函数" class="headerlink" title="可以由服务端动态生成函数"></a>可以由服务端动态生成函数</h6></li>
+</ul>
+</li>
+<li><h5 id="命名函数法"><a href="#命名函数法" class="headerlink" title="命名函数法"></a>命名函数法</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"aaa"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="可以在当前函数所在script标签的任意位置执行，或者当前函数所在标签后面的所有标签执行。"><a href="#可以在当前函数所在script标签的任意位置执行，或者当前函数所在标签后面的所有标签执行。" class="headerlink" title="可以在当前函数所在script标签的任意位置执行，或者当前函数所在标签后面的所有标签执行。"></a>可以在当前函数所在script标签的任意位置执行，或者当前函数所在标签后面的所有标签执行。</h5></li>
+<li><h5 id="script标签创建时，会把所有命名函数存储到-堆中-gt-（对象类型），并且栈中以函数名做引用。-gt-标签开始时就创建出了函数。"><a href="#script标签创建时，会把所有命名函数存储到-堆中-gt-（对象类型），并且栈中以函数名做引用。-gt-标签开始时就创建出了函数。" class="headerlink" title="script标签创建时，会把所有命名函数存储到 堆中== &gt;（对象类型），并且栈中以函数名做引用。==&gt;标签开始时就创建出了函数。"></a>script标签创建时，会把所有命名函数存储到 堆中== &gt;（对象类型），并且栈中以函数名做引用。==&gt;标签开始时就创建出了函数。</h5></li>
+<li><h5 id="标签开始时，定义一个与后面函数相同名字的变量："><a href="#标签开始时，定义一个与后面函数相同名字的变量：" class="headerlink" title="标签开始时，定义一个与后面函数相同名字的变量："></a>标签开始时，定义一个与后面函数相同名字的变量：</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(fn1);<span class="comment">//fn1函数</span></span><br><span class="line"><span class="keyword">var</span> fn1=<span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(fn1)<span class="comment">//3 ==&gt;原fn1函数会被覆盖</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h6 id="如果仅定义没有赋值，函数已经定义过了，所有并不覆盖"><a href="#如果仅定义没有赋值，函数已经定义过了，所有并不覆盖" class="headerlink" title="如果仅定义没有赋值，函数已经定义过了，所有并不覆盖"></a>如果仅定义没有赋值，函数已经定义过了，所有并不覆盖</h6><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn1;</span><br><span class="line"><span class="built_in">console</span>.log(fn1);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h6 id="如果定义并且赋值undefined"><a href="#如果定义并且赋值undefined" class="headerlink" title="如果定义并且赋值undefined"></a>如果定义并且赋值undefined</h6></li>
+</ul>
+</li>
+<li><h5 id="在ES6中，类中的函数"><a href="#在ES6中，类中的函数" class="headerlink" title="在ES6中，类中的函数"></a>在ES6中，类中的函数</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span></span>&#123;play()&#123;&#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h5 id="对象中创建函数-方法的创建"><a href="#对象中创建函数-方法的创建" class="headerlink" title="对象中创建函数(方法的创建)"></a>对象中创建函数(方法的创建)</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">	play()&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"aaa"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h5 id="匿名函数法"><a href="#匿名函数法" class="headerlink" title="匿名函数法"></a>匿名函数法</h5><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn1=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="comment">//匿名函数自执行函数，只能执行一次</span></span><br><span class="line"><span class="number">1.</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)();</span><br><span class="line"><span class="number">2.</span>~<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;();</span><br><span class="line"><span class="number">3.</span>+<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;();</span><br></pre></td></tr></table></figure>
+</li>
+<li><h6 id="匿名函数-不会在初始化时被定义在栈中，会被运行时定义给变量。"><a href="#匿名函数-不会在初始化时被定义在栈中，会被运行时定义给变量。" class="headerlink" title="匿名函数 不会在初始化时被定义在栈中，会被运行时定义给变量。"></a>匿名函数 不会在初始化时被定义在栈中，会被运行时定义给变量。</h6></li>
+<li><h6 id="运行到赋值时才将函数赋值给变量，意味着在函数赋值给变量之前不能直接调用。"><a href="#运行到赋值时才将函数赋值给变量，意味着在函数赋值给变量之前不能直接调用。" class="headerlink" title="运行到赋值时才将函数赋值给变量，意味着在函数赋值给变量之前不能直接调用。"></a>运行到赋值时才将函数赋值给变量，意味着在函数赋值给变量之前不能直接调用。</h6></li>
+<li><h6 id="匿名函数自执行函数，只能执行一次。"><a href="#匿名函数自执行函数，只能执行一次。" class="headerlink" title="匿名函数自执行函数，只能执行一次。"></a>匿名函数自执行函数，只能执行一次。</h6></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><h4 id="作用域："><a href="#作用域：" class="headerlink" title="作用域："></a>作用域：</h4><ul>
+<li><p>全局中定义了一个变量a=5;</p>
+</li>
+<li><p>在任何位置都可以调用全局变量</p>
+</li>
+<li><p>函数外使用<code>var</code>定义的变量都是全局变量</p>
+<ul>
+<li><h5 id="函数名在外部定义，是全局变量。"><a href="#函数名在外部定义，是全局变量。" class="headerlink" title="函数名在外部定义，是全局变量。"></a>函数名在外部定义，是全局变量。</h5></li>
+</ul>
+</li>
+<li><p>在函数内使用 <code>var</code>定义的变量都是局部变量，就是该函数的内的局部变量</p>
+</li>
+<li><p>只能在该函数内调用，不能在函数外或者别的函数中调用</p>
+</li>
+<li><p>局部变量只能在当前函数内定义，并且函数执行完成后会自动销毁该局部变量。</p>
+</li>
+<li><p>同名变量，只要在函数内<strong><em>任何位置</em></strong>定义看局部变量（使用var 在函数中定义的函数），在这个函数中就不能找到同名全局变量，在局部变量定义之前调用这个局部变量，都是undefined。</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> a=<span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        a=<span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line">fn1();<span class="comment">//7  在没有执行到赋值行前 变量都是undefined，所以进入else语句块</span></span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a==<span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> a=<span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        a=<span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br><span class="line">fn1();<span class="comment">//6==&gt; 在函数内赋值前调用打印都是undefined。</span></span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>局部变量在函数内的优先级高于全局变量，我们可以认为同名变量为变量提升。</p>
+</li>
+<li><p>全局变量时建立在window中，所以可以通过window调用。</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a=<span class="number">10</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a+<span class="built_in">window</span>.a);</span><br><span class="line">&#125;</span><br><span class="line">fn1();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>参数是局部变量。</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a===<span class="literal">undefined</span>) a=<span class="number">1</span>;</span><br><span class="line">    a++;</span><br><span class="line">    <span class="keyword">return</span> fn2(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    a*<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> fn3(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn3</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    a+=<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> s=fn1();</span><br><span class="line"><span class="built_in">console</span>.log(s);</span><br><span class="line"><span class="comment">//函数式编程</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>函数名是全局变量。</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">a(a);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(a);<span class="comment">//打印函数自己</span></span><br><span class="line">    <span class="keyword">if</span>(a==<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> a=<span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        a=<span class="number">8</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a);<span class="comment">//8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a(<span class="number">5</span>);<span class="comment">//在定义与函数名相同变量之前正常</span></span><br><span class="line"><span class="keyword">var</span> a=<span class="number">6</span>;</span><br><span class="line"><span class="comment">//a(5);//放在定义之后，就会报错 ==&gt; 不是一个方法。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">    <span class="keyword">if</span>(a==<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> a=<span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        a=<span class="number">8</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj.a=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">fn1(o);</span><br><span class="line"><span class="built_in">console</span>.log(o);<span class="comment">//&#123;a:10&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj=&#123;<span class="attr">a</span>:<span class="number">10</span>&#125;</span><br><span class="line">    <span class="built_in">console</span>.log(obj)<span class="comment">//&#123;a:10&#125; ==&gt; 传入的o并没有用到，只给obj赋值</span></span><br><span class="line">&#125;</span><br><span class="line">fn1(o);</span><br><span class="line"><span class="built_in">console</span>.log(o);&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>少全局，多局部。</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">n</span>: <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = a</span><br><span class="line">a.x = a = &#123;<span class="attr">n</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.n, b.n) <span class="comment">//2 1</span></span><br><span class="line"><span class="built_in">console</span>.log(a.x, b.x) <span class="comment">//undefined &#123;n:2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(fn)<span class="comment">//打印函数自己</span></span><br><span class="line">&#125;</span><br><span class="line">fn();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="json-是一种字符串格式-中属性名是用双引号引起来的"><a href="#json-是一种字符串格式-中属性名是用双引号引起来的" class="headerlink" title="json:是一种字符串格式 {}中属性名是用双引号引起来的"></a>json:是一种字符串格式 {}中属性名是用双引号引起来的</h3><ol>
+<li><h4 id="JSON-stringify-对象-：将对象转换为json格式的字符串。"><a href="#JSON-stringify-对象-：将对象转换为json格式的字符串。" class="headerlink" title="JSON.stringify(对象)：将对象转换为json格式的字符串。"></a>JSON.stringify(对象)：将对象转换为json格式的字符串。</h4></li>
+<li><h4 id="JSON-parse-json格式的字符串-：将json格式的字符串转换为对象。"><a href="#JSON-parse-json格式的字符串-：将json格式的字符串转换为对象。" class="headerlink" title="JSON.parse(json格式的字符串)：将json格式的字符串转换为对象。"></a>JSON.parse(json格式的字符串)：将json格式的字符串转换为对象。</h4></li>
+<li><h4 id="深复制："><a href="#深复制：" class="headerlink" title="深复制："></a>深复制：</h4><ul>
+<li><p>先将对象转换为JSON字符串，字符串是非引用关系</p>
+</li>
+<li><p>然后再转换为对象，就会自动生成新的对象。</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=<span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj));</span><br><span class="line">obj.a=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o);</span><br><span class="line"><span class="comment">//无变化</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">obj.h=obj.h.toString();</span><br><span class="line"><span class="keyword">var</span> str=<span class="built_in">JSON</span>.stringify(obj);</span><br><span class="line"><span class="keyword">var</span> o1=<span class="built_in">JSON</span>.parse(str);</span><br><span class="line"><span class="built_in">console</span>.log(o1);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="JSON字符串在转换时会丢弃对象中的方法。"><a href="#JSON字符串在转换时会丢弃对象中的方法。" class="headerlink" title="JSON字符串在转换时会丢弃对象中的方法。"></a>JSON字符串在转换时会丢弃对象中的方法。</h4></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="ankang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="ankang 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ankang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ankang.icu/2021/03/20/JavaScript-对象和函数/" title="JavaScript--对象和函数">http://ankang.icu/2021/03/20/JavaScript-对象和函数/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/深复制-浅复制/" rel="tag"><i class="fa fa-tag"></i> 深复制/浅复制</a>
+          
+            <a href="/tags/垃圾回收机制/" rel="tag"><i class="fa fa-tag"></i> 垃圾回收机制</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/19/21-03-19/" rel="next" title="JavaScript条件语句与循环语句">
+                <i class="fa fa-chevron-left"></i> JavaScript条件语句与循环语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODY5MS8yNTE4NQ=="></div>
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ankang">
+            
+              <p class="site-author-name" itemprop="name">ankang</p>
+              <p class="site-description motion-element" itemprop="description">一个菜鸟的学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/2671467850" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ankangz98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有料
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.easyicon.net/" title="图标下载" target="_blank">图标下载</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象："><span class="nav-number">1.</span> <span class="nav-text">对象：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建："><span class="nav-number">1.1.</span> <span class="nav-text">创建：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#构造函数创建法：var-o-new-Object"><span class="nav-number">1.1.1.</span> <span class="nav-text">构造函数创建法：var o=new Object();</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字面量创建法：var-o-a-1"><span class="nav-number">1.1.2.</span> <span class="nav-text">字面量创建法：var o={a:1};</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#key-value-gt-键值对的形态"><span class="nav-number">1.1.3.</span> <span class="nav-text">{key:value}==&gt; 键值对的形态</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#每个键对应唯一的值"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">每个键对应唯一的值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#表现形式："><span class="nav-number">1.1.3.2.</span> <span class="nav-text">表现形式：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意："><span class="nav-number">1.2.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储："><span class="nav-number">1.3.</span> <span class="nav-text">存储：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象的存储一共有两种情况，一种是存储数据，一种是存储函数。"><span class="nav-number">1.3.1.</span> <span class="nav-text">对象的存储一共有两种情况，一种是存储数据，一种是存储函数。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储数据的叫做对象的属性，存储函数的叫做对象的方法。"><span class="nav-number">1.3.2.</span> <span class="nav-text">存储数据的叫做对象的属性，存储函数的叫做对象的方法。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历："><span class="nav-number">1.4.</span> <span class="nav-text">遍历：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#for-in"><span class="nav-number">1.4.1.</span> <span class="nav-text">for...in...</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fromCharCode"><span class="nav-number">1.4.2.</span> <span class="nav-text">fromCharCode();</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除属性："><span class="nav-number">1.5.</span> <span class="nav-text">删除属性：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#delete-o-e-如果删除的属性不存在也不会报错"><span class="nav-number">1.5.1.</span> <span class="nav-text">delete o.e;如果删除的属性不存在也不会报错</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点："><span class="nav-number">1.6.</span> <span class="nav-text">特点：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象中存储的内容，相互之间是没有关联的"><span class="nav-number">1.6.1.</span> <span class="nav-text">对象中存储的内容，相互之间是没有关联的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如果需要再对象中查找是否有某个键-quot-a-quot-in-o"><span class="nav-number">1.6.2.</span> <span class="nav-text">如果需要再对象中查找是否有某个键 &quot;a&quot; in o;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如果需要再对象中查找是否有某个值，只能通过-for-in-遍历对象查看每个值是否相等"><span class="nav-number">1.6.3.</span> <span class="nav-text">如果需要再对象中查找是否有某个值，只能通过 for...in...遍历对象查看每个值是否相等</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如果需要根据某个属性，查找对应的值时，速度非常快，删除和添加的速度也非常快。"><span class="nav-number">1.6.4.</span> <span class="nav-text">如果需要根据某个属性，查找对应的值时，速度非常快，删除和添加的速度也非常快。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对象存储在堆中"><span class="nav-number">1.6.5.</span> <span class="nav-text">对象存储在堆中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浏览器控制台先显示为-a-1-再点击查看对象内容时，发生了变化。"><span class="nav-number">1.6.6.</span> <span class="nav-text">浏览器控制台先显示为{a:1}; 再点击查看对象内容时，发生了变化。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收机制："><span class="nav-number">2.</span> <span class="nav-text">垃圾回收机制：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#只有存储引用地址的变量才需要设置null做垃圾标识"><span class="nav-number">2.0.1.</span> <span class="nav-text">只有存储引用地址的变量才需要设置null做垃圾标识</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量o引用堆中一个对象：将栈中变量o设置为null，表示不再引用对象，然后将堆中这个对象的引用列表中这个变量去除。"><span class="nav-number">2.0.2.</span> <span class="nav-text">变量o引用堆中一个对象：将栈中变量o设置为null，表示不再引用对象，然后将堆中这个对象的引用列表中这个变量去除。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#o-null"><span class="nav-number">2.0.3.</span> <span class="nav-text">o=null;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如果说一个对象被多个变量引用，只有将所有引用对象的变量全部设置为null，才可以将垃圾回收。"><span class="nav-number">2.0.4.</span> <span class="nav-text">如果说一个对象被多个变量引用，只有将所有引用对象的变量全部设置为null，才可以将垃圾回收。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这种方式是赋值了引用地址，因此o和o1是同一个引用地址，同一个对象"><span class="nav-number">2.0.5.</span> <span class="nav-text">这种方式是赋值了引用地址，因此o和o1是同一个引用地址，同一个对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改任何一个，另外变量看到的也是被修改后的结果。"><span class="nav-number">2.0.6.</span> <span class="nav-text">修改任何一个，另外变量看到的也是被修改后的结果。</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#深复制-浅复制："><span class="nav-number">3.</span> <span class="nav-text">深复制/浅复制：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#只有深复制才可以真正将一个对象的每个属性都赋值没有引用关系"><span class="nav-number">3.0.1.</span> <span class="nav-text">只有深复制才可以真正将一个对象的每个属性都赋值没有引用关系</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄漏："><span class="nav-number">4.</span> <span class="nav-text">内存泄漏：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大量的不使用的引用对象，没有被标识为null，并且还在不断生成和丢弃。"><span class="nav-number">4.1.</span> <span class="nav-text">大量的不使用的引用对象，没有被标识为null，并且还在不断生成和丢弃。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数："><span class="nav-number">5.</span> <span class="nav-text">函数：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数的结构形态："><span class="nav-number">5.1.</span> <span class="nav-text">函数的结构形态：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#function-定义函数"><span class="nav-number">5.1.0.1.</span> <span class="nav-text">function 定义函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#fns-函数名-可以自己起，与变量起名方式相同，函数名也是变量-全局变量"><span class="nav-number">5.1.0.2.</span> <span class="nav-text">fns 函数名 可以自己起，与变量起名方式相同，函数名也是变量(全局变量)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#a-b-可以向函数中注入的数据，a-b叫做参数，注入几个数据就要声明几个参数"><span class="nav-number">5.1.0.3.</span> <span class="nav-text">(a,b) 可以向函数中注入的数据，a,b叫做参数，注入几个数据就要声明几个参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#函数执行的语句块"><span class="nav-number">5.1.0.4.</span> <span class="nav-text">{} 函数执行的语句块</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#arguments-所有通过执行函数时传入的参数列表"><span class="nav-number">5.1.0.5.</span> <span class="nav-text">arguments 所有通过执行函数时传入的参数列表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#return-跳出当前函数，不再执行return以后的语句，并且可以返回一个数据-return-10"><span class="nav-number">5.1.0.6.</span> <span class="nav-text">return 跳出当前函数，不再执行return以后的语句，并且可以返回一个数据(return 10;)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行函数"><span class="nav-number">5.1.1.</span> <span class="nav-text">执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#表示执行函数，fns是被执行的函数名，执行函数就是将函数中的语句块全部允许"><span class="nav-number">5.1.1.1.</span> <span class="nav-text">() 表示执行函数，fns是被执行的函数名，执行函数就是将函数中的语句块全部允许</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4，5表示的是传参；"><span class="nav-number">5.1.1.2.</span> <span class="nav-text">4，5表示的是传参；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#当函数执行完成后，如果使用return返回一个值，将会把返回的值赋值给a"><span class="nav-number">5.1.1.3.</span> <span class="nav-text">当函数执行完成后，如果使用return返回一个值，将会把返回的值赋值给a</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#如果函数中没有return，或者直接return没有返回数据，则返回undefined"><span class="nav-number">5.1.1.4.</span> <span class="nav-text">如果函数中没有return，或者直接return没有返回数据，则返回undefined</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数创建："><span class="nav-number">5.2.</span> <span class="nav-text">函数创建：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#构造函数法"><span class="nav-number">5.2.1.</span> <span class="nav-text">构造函数法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#缺点："><span class="nav-number">5.2.1.1.</span> <span class="nav-text">缺点：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在调用时，浏览器会将这个函数对象内的所有内容转换为代码，这需要消耗大量资源，所以会慢。"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">在调用时，浏览器会将这个函数对象内的所有内容转换为代码，这需要消耗大量资源，所以会慢。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#可以由服务端动态生成函数"><span class="nav-number">5.2.1.3.</span> <span class="nav-text">可以由服务端动态生成函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命名函数法"><span class="nav-number">5.2.2.</span> <span class="nav-text">命名函数法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可以在当前函数所在script标签的任意位置执行，或者当前函数所在标签后面的所有标签执行。"><span class="nav-number">5.2.3.</span> <span class="nav-text">可以在当前函数所在script标签的任意位置执行，或者当前函数所在标签后面的所有标签执行。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#script标签创建时，会把所有命名函数存储到-堆中-gt-（对象类型），并且栈中以函数名做引用。-gt-标签开始时就创建出了函数。"><span class="nav-number">5.2.4.</span> <span class="nav-text">script标签创建时，会把所有命名函数存储到 堆中== &gt;（对象类型），并且栈中以函数名做引用。==&gt;标签开始时就创建出了函数。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标签开始时，定义一个与后面函数相同名字的变量："><span class="nav-number">5.2.5.</span> <span class="nav-text">标签开始时，定义一个与后面函数相同名字的变量：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#如果仅定义没有赋值，函数已经定义过了，所有并不覆盖"><span class="nav-number">5.2.5.1.</span> <span class="nav-text">如果仅定义没有赋值，函数已经定义过了，所有并不覆盖</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#如果定义并且赋值undefined"><span class="nav-number">5.2.5.2.</span> <span class="nav-text">如果定义并且赋值undefined</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在ES6中，类中的函数"><span class="nav-number">5.2.6.</span> <span class="nav-text">在ES6中，类中的函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对象中创建函数-方法的创建"><span class="nav-number">5.2.7.</span> <span class="nav-text">对象中创建函数(方法的创建)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#匿名函数法"><span class="nav-number">5.2.8.</span> <span class="nav-text">匿名函数法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#匿名函数-不会在初始化时被定义在栈中，会被运行时定义给变量。"><span class="nav-number">5.2.8.1.</span> <span class="nav-text">匿名函数 不会在初始化时被定义在栈中，会被运行时定义给变量。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#运行到赋值时才将函数赋值给变量，意味着在函数赋值给变量之前不能直接调用。"><span class="nav-number">5.2.8.2.</span> <span class="nav-text">运行到赋值时才将函数赋值给变量，意味着在函数赋值给变量之前不能直接调用。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#匿名函数自执行函数，只能执行一次。"><span class="nav-number">5.2.8.3.</span> <span class="nav-text">匿名函数自执行函数，只能执行一次。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域："><span class="nav-number">5.3.</span> <span class="nav-text">作用域：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#函数名在外部定义，是全局变量。"><span class="nav-number">5.3.1.</span> <span class="nav-text">函数名在外部定义，是全局变量。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json-是一种字符串格式-中属性名是用双引号引起来的"><span class="nav-number">6.</span> <span class="nav-text">json:是一种字符串格式 {}中属性名是用双引号引起来的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-stringify-对象-：将对象转换为json格式的字符串。"><span class="nav-number">6.1.</span> <span class="nav-text">JSON.stringify(对象)：将对象转换为json格式的字符串。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-parse-json格式的字符串-：将json格式的字符串转换为对象。"><span class="nav-number">6.2.</span> <span class="nav-text">JSON.parse(json格式的字符串)：将json格式的字符串转换为对象。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深复制："><span class="nav-number">6.3.</span> <span class="nav-text">深复制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON字符串在转换时会丢弃对象中的方法。"><span class="nav-number">6.4.</span> <span class="nav-text">JSON字符串在转换时会丢弃对象中的方法。</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ankang</span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
