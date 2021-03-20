@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数有关">
+<meta name="description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数相关">
 <meta name="keywords" content="JavaScript,深复制&#x2F;浅复制,垃圾回收机制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript--对象和函数">
 <meta property="og:url" content="http://ankang.icu/2021/03/20/JavaScript-对象和函数/index.html">
 <meta property="og:site_name" content="Ankang">
-<meta property="og:description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数有关">
+<meta property="og:description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数相关">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ankang.icu/2021/03/20/JavaScript-对象和函数/image-20210318141645809.png">
-<meta property="og:updated_time" content="2021-03-20T08:54:42.736Z">
+<meta property="og:updated_time" content="2021-03-20T08:58:09.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript--对象和函数">
-<meta name="twitter:description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数有关">
+<meta name="twitter:description" content="JavaScript对象相关 垃圾回收机制、内存泄漏 JavaScript函数相关">
 <meta name="twitter:image" content="http://ankang.icu/2021/03/20/JavaScript-对象和函数/image-20210318141645809.png">
 
 
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-20T16:54:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-20T16:58:09+08:00">
                 2021-03-20
               </time>
             
@@ -378,7 +378,7 @@
         <ol>
 <li>JavaScript对象相关</li>
 <li>垃圾回收机制、内存泄漏</li>
-<li>JavaScript函数有关</li>
+<li>JavaScript函数相关</li>
 </ol>
 <a id="more"></a>
 <h3 id="对象："><a href="#对象：" class="headerlink" title="对象："></a>对象：</h3><h4 id="创建："><a href="#创建：" class="headerlink" title="创建："></a>创建：</h4><ol>
@@ -572,15 +572,16 @@
 <ul>
 <li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a(<span class="number">5</span>);<span class="comment">//在定义与函数名相同变量之前正常</span></span><br><span class="line"><span class="keyword">var</span> a=<span class="number">6</span>;</span><br><span class="line"><span class="comment">//a(5);//放在定义之后，就会报错 ==&gt; 不是一个方法。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">    <span class="keyword">if</span>(a==<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> a=<span class="number">6</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        a=<span class="number">8</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj.a=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">fn1(o);</span><br><span class="line"><span class="built_in">console</span>.log(o);<span class="comment">//&#123;a:10&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj=&#123;<span class="attr">a</span>:<span class="number">10</span>&#125;</span><br><span class="line">    <span class="built_in">console</span>.log(obj)<span class="comment">//&#123;a:10&#125; ==&gt; 传入的o并没有用到，只给obj赋值</span></span><br><span class="line">&#125;</span><br><span class="line">fn1(o);</span><br><span class="line"><span class="built_in">console</span>.log(o);&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+</ul>
 </li>
 </ul>
 </li>
+</ul>
+<pre><code>- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">      <span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">          obj.a=<span class="number">10</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      fn1(o);</span><br><span class="line">      <span class="built_in">console</span>.log(o);<span class="comment">//&#123;a:10&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​      </span><br><span class="line">      <span class="keyword">var</span> o=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">          obj=&#123;<span class="attr">a</span>:<span class="number">10</span>&#125;</span><br><span class="line">          <span class="built_in">console</span>.log(obj)<span class="comment">//&#123;a:10&#125; ==&gt; 传入的o并没有用到，只给obj赋值</span></span><br><span class="line">      &#125;</span><br><span class="line">      fn1(o);</span><br><span class="line">      <span class="built_in">console</span>.log(o);&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><ul>
 <li><p>少全局，多局部。</p>
 <ul>
 <li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">n</span>: <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = a</span><br><span class="line">a.x = a = &#123;<span class="attr">n</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.n, b.n) <span class="comment">//2 1</span></span><br><span class="line"><span class="built_in">console</span>.log(a.x, b.x) <span class="comment">//undefined &#123;n:2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(fn)<span class="comment">//打印函数自己</span></span><br><span class="line">&#125;</span><br><span class="line">fn();</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
 </li>
 </ul>
 </li>
