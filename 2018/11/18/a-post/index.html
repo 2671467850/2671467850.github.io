@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="我来了!!!  在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。">
+<meta name="description" content="在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。">
 <meta name="keywords" content="School">
 <meta property="og:type" content="article">
 <meta property="og:title" content="值得一提的海明码">
 <meta property="og:url" content="http://ankang.icu/2018/11/18/a-post/index.html">
 <meta property="og:site_name" content="Ankang">
-<meta property="og:description" content="我来了!!!  在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。">
+<meta property="og:description" content="在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-06T06:31:13.364Z">
+<meta property="og:updated_time" content="2021-03-20T13:02:30.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="值得一提的海明码">
-<meta name="twitter:description" content="我来了!!!  在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。">
+<meta name="twitter:description" content="在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。">
 
 
 
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-04-06T14:31:13+08:00">
-                2020-04-06
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-20T21:02:30+08:00">
+                2021-03-20
               </time>
             
           </span>
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  948 字
+                  945 字
                 </span>
               
 
@@ -373,7 +373,7 @@
       
 
       
-        <p>我来了!!!<br>  在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。<br><a id="more"></a></p>
+        <p>  在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。<br><a id="more"></a></p>
 <h2 id="简要"><a href="#简要" class="headerlink" title="简要"></a>简要</h2><p>  相比而言，简单的奇偶检验码除了不能纠正错误之外，也只能侦测出奇数个的错误。汉明码是完备码，它在于它分组长度相同、最小距离为3的码中能达到最高的码率。用数学术语来说，汉明码是一种<br>二元线性码。对于所有整数 r ≥ 2，存在一个分组长度 n = 2r − 1、k = 2r − r − 1 编码。经过计网课程的学习,我们了解到海明码除了有检查错误以外,还有对错误进行纠正的作用,且只能进行一位数的纠错.而课本上并没有介绍太多,通过课下搜索的我在此简单说一下海明码的计算过程,希望能帮到大家!</p>
 <h2 id="计算原理"><a href="#计算原理" class="headerlink" title="计算原理"></a>计算原理</h2><p>  将有效信息按某种规律分成若干组，每组安排一个校验位进行奇偶性测试，然后产生多位检测信息，并从中得出具体的出错位置，最后通过对错误位取反（也是原来是1就变成0，原来是0就变成1)来<br>将其纠正。</p>
 <h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="检验码位数"><a href="#检验码位数" class="headerlink" title="检验码位数"></a>检验码位数</h3><p>  进行海明码纠错时,要先确定原数据所需要的检验位数.规定:假设用N表示原信息位数,X为海明码位数,要求满足”N+1&lt;=2的X次方-X”,X要求最小值(<br>圈起来).如N=5,代入”5+1&lt;=2^X-X”求得X最小为4:如N=8,求得X最小也为4.由此得知:信息位与检验位之间的关系:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">信息位数     1     2~4     5~11     12~26     27~57     58~120 </span><br><span class="line"></span><br><span class="line">检验位数     2     3       4        5         6         7</span><br></pre></td></tr></table></figure></p>
