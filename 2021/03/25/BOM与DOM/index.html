@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ankang" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="BOM对象与DOM对象 hash与history的区别">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BOM与DOM">
+<meta property="og:url" content="http://ankang.icu/2021/03/25/BOM与DOM/index.html">
+<meta property="og:site_name" content="Ankang">
+<meta property="og:description" content="BOM对象与DOM对象 hash与history的区别">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-27T12:17:04.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BOM与DOM">
+<meta name="twitter:description" content="BOM对象与DOM对象 hash与history的区别">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ankang.icu/2021/03/25/BOM与DOM/">
+
+
+
+
+
+  <title>BOM与DOM | Ankang</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?73736fbc491420c1f360d4ab5986a0ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ankang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/03/25/BOM与DOM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BOM与DOM</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-25T20:11:21+08:00">
+                2021-03-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-27T20:17:04+08:00">
+                2021-03-27
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  955 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>BOM对象与DOM对象</li>
+<li>hash与history的区别</li>
+</ol>
+<a id="more"></a>
+<h3 id="Data"><a href="#Data" class="headerlink" title="Data:"></a>Data:</h3><ul>
+<li><p><code>var date=new Date();</code></p>
+</li>
+<li><p>打印时，由对象转换为字符串</p>
+</li>
+<li><p><code>date.getFullYear()</code></p>
+</li>
+<li><p><code>date.getMonth()</code>获取月份，0-11，大于11，进位，年增加1；</p>
+</li>
+<li><p><code>date.getDate()</code>日期</p>
+</li>
+<li><p><code>date.getDay()</code>星期</p>
+</li>
+<li><p><code>date.getHours()</code></p>
+</li>
+<li><p><code>date.getMinutes()</code></p>
+</li>
+<li><p><code>date.getSeconds()</code></p>
+</li>
+<li><p><code>date.getMilliseconds()</code>毫秒</p>
+</li>
+<li><p><code>date.getUTCHours()</code>国际时间（格林尼治时间）</p>
+</li>
+<li><p><code>date.getTime()</code>从1970.1.1.0到现在的毫秒数</p>
+<ul>
+<li><p>时间戳</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"地址?time"</span>+<span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算时差</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">timeStart: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timeList.push(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime()) - <span class="number">1</span>;</span><br><span class="line">&#125;,</span><br><span class="line">timeEnd: <span class="function"><span class="keyword">function</span> (<span class="params">id</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeList[id] === <span class="literal">undefined</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - timeList[id];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeStart</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timeList.push(<span class="keyword">new</span> <span class="built_in">Date</span>().getTime()) - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeEnd</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - timeList[id];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> id1 = Utils.timeStart();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> id2 = Utils.timeStart();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Utils.timeEnd(id1))</span><br><span class="line"><span class="built_in">console</span>.log(Utils.timeEnd(id2))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>倒计时</p>
+<ul>
+<li><p>时钟案例</p>
+</li>
+<li><p>秒表案例</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date=<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">var</span> div1=<span class="built_in">document</span>.getElementById(<span class="string">"div1"</span>);</span><br><span class="line">date.setMinutes(date.getMinutes()+<span class="number">5</span>);</span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> s=<span class="built_in">parseInt</span>((date.getTime()-<span class="keyword">new</span> <span class="built_in">Date</span>().getTime())/<span class="number">1000</span>);</span><br><span class="line">    div1.innerHTML=<span class="built_in">parseInt</span>(s/<span class="number">60</span>)+<span class="string">":"</span>+s%<span class="number">60</span>;</span><br><span class="line">&#125;,<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>var date=new *Date*();</code></p>
+</li>
+<li><p><code>date.setFullYear()</code>设置年</p>
+</li>
+<li><p><code>date.setMonth()</code>//0-11 如果大于11就会进位 年增加</p>
+</li>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var date=new Date();</span><br><span class="line">var date1=new Date(date);</span><br><span class="line">var date1=new Date(date.getTime());</span><br><span class="line">var date1=new Date(2022,06,05,15,30,20);</span><br><span class="line">console.log(date1);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="DOM："><a href="#DOM：" class="headerlink" title="DOM："></a>DOM：</h3><ul>
+<li><p>DOM的节点</p>
+<ul>
+<li>标签就是节点，文本、注释、文档、属性</li>
+<li>document.body.childNodes//所有节点</li>
+</ul>
+</li>
+<li><p>节点获取</p>
+<ul>
+<li><p>ID值：一个元素一旦赋值ID默认存在window对象下</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div1=<span class="built_in">document</span>.getElementById(<span class="string">"div1"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标签名===   <code>HTMLCollection</code></p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> divs=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"div"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标签class获取元素列表===<code>HTMLCollection</code></p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> divs=<span class="built_in">document</span>.getElementsByClassName(<span class="string">"divs"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>input标签的name值获取NodeList列表</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> inputs=<span class="built_in">document</span>.getElementsByName(<span class="string">"sex"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>document.querySelector()//根据选择器获取单个标签</p>
+</li>
+<li><p>document.querySelectorAll()//根据选择器获取多个标签的列表NodeList</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.querySelector(<span class="string">"#div1"</span>);</span><br><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.querySelector(<span class="string">".divs"</span>);</span><br><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.querySelector(<span class="string">"div&gt;div"</span>);</span><br><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.querySelector(<span class="string">"div.div1"</span>);<span class="comment">//div下子元素.div1</span></span><br><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.querySelector(<span class="string">"div .div1"</span>);<span class="comment">//div下所有.div元素</span></span><br><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.querySelector(<span class="string">"[type!=text]"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="BOM："><a href="#BOM：" class="headerlink" title="BOM："></a>BOM：</h3><ul>
+<li><p>window对象</p>
+<ul>
+<li><code>open()</code>弹出窗口</li>
+<li><code>close()</code></li>
+<li><code>innerWidth/innerHeight</code>窗口中文档的宽高//<strong>只读</strong></li>
+<li><code>outerWidth/outerHeight</code>窗口的宽高//<strong>只读</strong></li>
+<li><code>screenX/screenY</code>窗口左上角坐标</li>
+<li><code>screenTop/screenLeft</code>窗口左上角坐标</li>
+</ul>
+</li>
+<li><h4 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h4><ul>
+<li><p><code>reload()</code>重载，刷新当前页面</p>
+</li>
+<li><p><code>location.href=&quot;&quot;</code>跳转网页</p>
+<ul>
+<li>href是一个可读可写的属性</li>
+<li>中文使用URI编码格式</li>
+</ul>
+</li>
+<li><p><code>location.assign=&quot;&quot;</code>跳转网页</p>
+<ul>
+<li>assign是个方法，只能执行</li>
+</ul>
+</li>
+<li><p><code>location.replace=&quot;&quot;</code>替换网页，没有历史记录</p>
+</li>
+<li><h4 id="location-hash"><a href="#location-hash" class="headerlink" title="location.hash"></a>location.hash</h4><ul>
+<li>地址#号后内容</li>
+<li>锚点：<ul>
+<li>标签的ID</li>
+<li>超链接a标签的name</li>
+</ul>
+</li>
+<li>区分当前访问的内容，同一个页面，hash不一样，可能不一样</li>
+</ul>
+</li>
+<li><p>location.search</p>
+<ul>
+<li>？号后的内容，添加会刷新页面</li>
+</ul>
+</li>
+<li><p>location.host//返回当前 URL 的主机名称和端口号</p>
+</li>
+<li><p>location.pathname//返回当前路径</p>
+</li>
+<li><p>location.port//返回当前 URL 的端口号</p>
+</li>
+<li><p>location.protocol//协议</p>
+</li>
+<li><p>location.origin//返回URL的协议,主机名和端口号</p>
+</li>
+</ul>
+</li>
+<li><h4 id="hash与history"><a href="#hash与history" class="headerlink" title="hash与history"></a>hash与history</h4><ul>
+<li><p>hash可以创建历史记录，并且在地址栏中增加#内容</p>
+</li>
+<li><p>超链接设置name跳转</p>
+</li>
+<li><p><strong><em>hash增加时不刷新页面</em></strong></p>
+</li>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"div1"</span>&gt;&lt;/div&gt;</span><br><span class="line">var div1=document.getElementById(<span class="string">"div1"</span>);</span><br><span class="line">    div1.innerHTML=Date.now();</span><br><span class="line">    document.onclick=<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        location.href=location.href+<span class="string">"#abc"</span>;</span><br><span class="line">        // location.href=location.href+<span class="string">"?time="</span>+Date.now();</span><br><span class="line">        // location.href=<span class="string">"./a.html"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>history.back();回退历史记录</p>
+</li>
+<li><p>history.forward();向前历史</p>
+</li>
+<li><p>history.go();</p>
+<ul>
+<li>-1：回退</li>
+<li>1：前进</li>
+<li>0：刷新页面</li>
+</ul>
+</li>
+<li><h5 id="history-pushState-插入状态"><a href="#history-pushState-插入状态" class="headerlink" title="history.pushState();插入状态"></a>history.pushState();插入状态</h5></li>
+<li><h5 id="history-replaceState-替换状态"><a href="#history-replaceState-替换状态" class="headerlink" title="history.replaceState();替换状态"></a>history.replaceState();替换状态</h5></li>
+</ul>
+</li>
+<li><h4 id="window-onpopstate事件：当浏览器产生前进回退时被激活，history查看历史记录state数据变化"><a href="#window-onpopstate事件：当浏览器产生前进回退时被激活，history查看历史记录state数据变化" class="headerlink" title="window.onpopstate事件：当浏览器产生前进回退时被激活，history查看历史记录state数据变化"></a>window.onpopstate事件：当浏览器产生前进回退时被激活，<strong><em>history</em></strong>查看历史记录state数据变化</h4></li>
+<li><h4 id="hash用-window-onhashchange事件：表示hash发生变化"><a href="#hash用-window-onhashchange事件：表示hash发生变化" class="headerlink" title="hash用 window.onhashchange事件：表示hash发生变化"></a>hash用 window.onhashchange事件：表示hash发生变化</h4></li>
+<li><p>screen对象</p>
+<ul>
+<li><code>screen.availWidth/availHeight</code>//屏幕中不包含任务栏的宽高</li>
+<li><code>screen.width/height</code>//全屏幕的宽高</li>
+</ul>
+</li>
+<li><p>navigator对象</p>
+<ul>
+<li><code>navigator.userAgent</code>//返回由客户机发送服务器的user-agent 头部的值</li>
+<li><code>navigator.appName</code>//返回浏览器的名称</li>
+<li><code>navigator.appVersion</code>//返回浏览器的平台和版本信息</li>
+<li><code>navigator.appCodeName</code>//返回浏览器的代码名</li>
+<li><code>navigator.platform</code>//操作系统平台</li>
+<li><code>navigator.getCurrentPosition(fn,fn)</code>获取经纬度位置</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="ankang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="ankang 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ankang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ankang.icu/2021/03/25/BOM与DOM/" title="BOM与DOM">http://ankang.icu/2021/03/25/BOM与DOM/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/24/排序及内建对象的应用/" rel="next" title="排序及内建对象的应用">
+                <i class="fa fa-chevron-left"></i> 排序及内建对象的应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/25/history与hash实现历史记录/" rel="prev" title="history与hash实现历史记录">
+                history与hash实现历史记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODY5MS8yNTE4NQ=="></div>
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ankang">
+            
+              <p class="site-author-name" itemprop="name">ankang</p>
+              <p class="site-description motion-element" itemprop="description">一个菜鸟的学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/2671467850" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ankangz98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有料
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.easyicon.net/" title="图标下载" target="_blank">图标下载</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data"><span class="nav-number">1.</span> <span class="nav-text">Data:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM："><span class="nav-number">2.</span> <span class="nav-text">DOM：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BOM："><span class="nav-number">3.</span> <span class="nav-text">BOM：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#location对象"><span class="nav-number">3.1.</span> <span class="nav-text">location对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#location-hash"><span class="nav-number">3.2.</span> <span class="nav-text">location.hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hash与history"><span class="nav-number">3.3.</span> <span class="nav-text">hash与history</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#history-pushState-插入状态"><span class="nav-number">3.3.1.</span> <span class="nav-text">history.pushState();插入状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#history-replaceState-替换状态"><span class="nav-number">3.3.2.</span> <span class="nav-text">history.replaceState();替换状态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window-onpopstate事件：当浏览器产生前进回退时被激活，history查看历史记录state数据变化"><span class="nav-number">3.4.</span> <span class="nav-text">window.onpopstate事件：当浏览器产生前进回退时被激活，history查看历史记录state数据变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hash用-window-onhashchange事件：表示hash发生变化"><span class="nav-number">3.5.</span> <span class="nav-text">hash用 window.onhashchange事件：表示hash发生变化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ankang</span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
