@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ankang" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="数组排序 内建对象Math、String hash数据处理 随机取色，随机验证码 模糊查询">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序及内建对象的应用">
+<meta property="og:url" content="http://ankang.icu/2021/03/24/排序及内建对象的应用/index.html">
+<meta property="og:site_name" content="Ankang">
+<meta property="og:description" content="数组排序 内建对象Math、String hash数据处理 随机取色，随机验证码 模糊查询">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-27T08:38:10.581Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序及内建对象的应用">
+<meta name="twitter:description" content="数组排序 内建对象Math、String hash数据处理 随机取色，随机验证码 模糊查询">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ankang.icu/2021/03/24/排序及内建对象的应用/">
+
+
+
+
+
+  <title>排序及内建对象的应用 | Ankang</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?73736fbc491420c1f360d4ab5986a0ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ankang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/03/24/排序及内建对象的应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">排序及内建对象的应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-24T16:32:34+08:00">
+                2021-03-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-27T16:38:10+08:00">
+                2021-03-27
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>数组排序</li>
+<li>内建对象Math、String</li>
+<li>hash数据处理</li>
+<li>随机取色，随机验证码</li>
+<li>模糊查询</li>
+</ol>
+<a id="more"></a>
+<h3 id="遍历："><a href="#遍历：" class="headerlink" title="遍历："></a>遍历：</h3><p><code>for</code>循环：遍历数组的每一个元素，<strong>包含空元素</strong>，以数字下标遍历所有元素，<strong>不包含数组的属性和方法</strong>。</p>
+<p><code>forEach</code>遍历<strong>除空元素外的所有其他元素</strong>，<strong>不遍历数组的属性和方法</strong>。</p>
+<p><code>for(i in arr)</code>将数组的下标转换为字符串，并且<strong>遍历所有非空元素和数组的方法和属性</strong>。</p>
+<h3 id="排序："><a href="#排序：" class="headerlink" title="排序："></a>排序：</h3><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">11</span>,<span class="number">7</span>];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>桶排序</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">    obj[arr[i]]=arr[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj);</span><br><span class="line"><span class="comment">//将数组内容转换为对象中，自动按照下标排序</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>冒泡排序</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;arr.length<span class="number">-1</span>-i;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[j]&gt;arr[j+<span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">var</span> temp=arr[j];</span><br><span class="line">            arr[j]=arr[j+<span class="number">1</span>];</span><br><span class="line">            arr[j+<span class="number">1</span>]=temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择排序</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> min=i;</span><br><span class="line">    <span class="keyword">for</span>(j=i+<span class="number">1</span>;j&lt;arr.lemgth;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr[min]&gt;arr[j]) min=j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(i!==min)&#123;</span><br><span class="line">        <span class="keyword">var</span> temp=arr[i];</span><br><span class="line">        arr[i]=arr[min];</span><br><span class="line">        arr[min]=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>快速排序 ===&gt; 递归</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(elem.length&lt;=<span class="number">1</span>) <span class="keyword">return</span> elem;</span><br><span class="line">    <span class="keyword">var</span> pivotIndex=<span class="built_in">Math</span>.floor(elem.length/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">var</span> pivot=elem.splice(pivotIndex,<span class="number">1</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> left=[];<span class="keyword">var</span> right=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;elem.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(elem[i]&lt;pivot) left.push(elem[i]);</span><br><span class="line">        <span class="keyword">else</span> right.push(elem[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> quickSort(left).concat([pivot],quickSort(right));</span><br><span class="line">&#125;</span><br><span class="line">arr=quickSort(arr);</span><br><span class="line"><span class="built_in">console</span>.log(arr);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="reverse"><a href="#reverse" class="headerlink" title="reverse:"></a><code>reverse</code>:</h3><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>];</span><br><span class="line"><span class="keyword">var</span> arr1=arr.reverse();</span><br><span class="line"><span class="built_in">console</span>.log(arr1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反转数组，返回原数组</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">array_reverse</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="built_in">parseInt</span>(arr.length/<span class="number">2</span>);i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> temp=arr[arr.length<span class="number">-1</span>-i];</span><br><span class="line">        arr[arr.length<span class="number">-1</span>-i]=arr[i];</span><br><span class="line">        arr[i]=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line">array_recerse(arr);</span><br><span class="line"><span class="built_in">console</span>.log(arr);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort:"></a><code>sort</code>:</h3><ul>
+<li><p>默认转换为字符串排序，数字按照第一位排序（Ascii码）</p>
+</li>
+<li><p>中文按照UTF-8排序</p>
+</li>
+<li><p>重构采用选择排序</p>
+</li>
+<li><p>数组实现随机排序：</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>];</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.random()<span class="number">-0.5</span>;</span><br><span class="line">    <span class="comment">//随机数的减数大于0.5的概率增大时，数组中从大到小的概率变大</span></span><br><span class="line">    <span class="comment">//随机数的减数小于0.5的概率增大时，数组中从小到大的概率变大</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(arr);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>随机生成0-99以内的10个数：</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、</span></span><br><span class="line"><span class="keyword">var</span> arr=[];</span><br><span class="line"><span class="keyword">while</span>(arr.length&lt;<span class="number">10</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> n=<span class="built_in">parseInt</span>(<span class="built_in">Math</span>.random()*<span class="number">100</span>);</span><br><span class="line">    <span class="keyword">if</span>(arr.index(n)&lt;<span class="number">0</span>) arr.push(n);</span><br><span class="line">&#125;</span><br><span class="line">consle.loh(arr);</span><br><span class="line"><span class="comment">//2、</span></span><br><span class="line"><span class="keyword">var</span> arr=<span class="built_in">Array</span>(<span class="number">100</span>).fill(<span class="number">0</span>).map(<span class="function"><span class="keyword">function</span>(<span class="params">item,index</span>)</span>&#123;<span class="keyword">return</span> index&#125;);</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="built_in">Math</span>.random()<span class="number">-0.5</span>&#125;);</span><br><span class="line">arr.length=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(arr);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="二维数组："><a href="#二维数组：" class="headerlink" title="二维数组："></a>二维数组：</h3><ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">    arr[i]=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;<span class="number">10</span>;j++)&#123;</span><br><span class="line">        arr[i][j]=i*<span class="number">10</span>+j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="number">5</span>][<span class="number">6</span>]);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Math"><a href="#Math" class="headerlink" title="Math:"></a>Math:</h3><p><code>Math.PI</code>:角度转弧度：<code>Math.PI/180*60</code>//角度转弧度</p>
+<p><code>Math.abs()</code>绝对值</p>
+<p><code>Math.ceil(-3.6);</code>向上取整//-3</p>
+<p><code>Math.floor(-3.6);</code>向下取整//-4</p>
+<p><code>Math.round(-3.6);</code>四舍五入//-4</p>
+<p>求数组的最大/最小值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="literal">null</span>,arr));<span class="comment">//求数组的最大值</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.min.apply(<span class="literal">null</span>,arr));<span class="comment">//求数组的最小值</span></span><br></pre></td></tr></table></figure>
+<p><code>Math.pow(2,2);</code>//4：求幂</p>
+<p><code>Math.sqrt(4);</code>开根号</p>
+<p><code>Math.random();</code>//0-1：随机数；不包含0/1</p>
+<p>随机取一个范围的值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">random</span>(<span class="params">min,max</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*(max-min)+min);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="随机取色："><a href="#随机取色：" class="headerlink" title="随机取色："></a>随机取色：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomColor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> col=<span class="string">"#"</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)</span><br><span class="line">        col+=<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">16</span>).toString(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//2</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomColor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> col=<span class="string">"rgb("</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">        col+=<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">256</span>)+<span class="string">","</span>;</span><br><span class="line">    col=col.slice(<span class="number">0</span>,<span class="number">-1</span>)+<span class="string">")"</span>;</span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//3</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomColor</span>(<span class="params">a,r,g,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> col=<span class="string">"rgba("</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">        col+=((<span class="built_in">isNaN</span>(<span class="built_in">arguments</span>[i+<span class="number">1</span>]) || <span class="built_in">arguments</span>[i+<span class="number">1</span>]&gt;<span class="number">255</span> || <span class="built_in">arguments</span>[i+<span class="number">1</span>]&lt;<span class="number">0</span>) ? <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">256</span>) : <span class="built_in">Math</span>.floor(<span class="built_in">arguments</span>[i+<span class="number">1</span>]))+<span class="string">","</span>;</span><br><span class="line">    col+=(<span class="built_in">isNaN</span>(a) ? <span class="built_in">Math</span>.random().toFixed(<span class="number">2</span>) : a)+<span class="string">")"</span>;</span><br><span class="line">    <span class="keyword">return</span> col;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="String："><a href="#String：" class="headerlink" title="String："></a>String：</h3><p><code>var str=&quot;abc&quot;;</code>字符串不能修改</p>
+<p><code>console.log(str.length);</code>字符串长度是只读属性</p>
+<p><code>console.log(str[0]);</code>可以使用下标获取元素，只读===<code>str.charAt(0)</code></p>
+<p><code>str.charCodeAt(0);</code>获取第0个字符Ascii</p>
+<p><code>indexOf</code>/<code>lastIndexOf</code> 查找字符在字符串中的下标</p>
+<p><code>includes</code>：判断是否在字符串中存在</p>
+<p><code>search</code>用于正则表达式查找</p>
+<p><code>match</code>用于正则表达式</p>
+<p><code>replace</code>替换并且返回新字符串，用于正则表达式</p>
+<p><code>slice</code></p>
+<p><code>substr</code>从第几个开始截取，第二个参数代表截取多少个字符，开始位置可以使用负数，倒数第几个</p>
+<p><code>substring</code>从下标为几开始到多少结束的字符串，不能从负数开始==&gt;默认为0；可以倒着截取</p>
+<p><code>&quot;abc&quot;.toUpperCase()</code>/ <code>&quot;ABC&quot;.toLowerCase()</code> 转换大小写</p>
+<p>首字母大写</p>
+<p><code>split</code>与数组的join相反，以什么分割；正则表达式切割</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str=<span class="string">"a#b#c#d#e#f"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.split(<span class="string">"#"</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="地址栏search-hash数据变成对象："><a href="#地址栏search-hash数据变成对象：" class="headerlink" title="地址栏search/hash数据变成对象："></a>地址栏search/hash数据变成对象：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url=<span class="string">"http://www.163.com/new/index.html?token=ashjd2i1nsdh21df2123&amp;name=xietian&amp;age=30"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getObject</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> url.split(<span class="string">"?"</span>)[<span class="number">1</span>].split(<span class="string">"&amp;"</span>).reduce(<span class="function"><span class="keyword">function</span>(<span class="params">value,item</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> arr=item.split(<span class="string">"="</span>);</span><br><span class="line">        value[arr[<span class="number">0</span>]]=<span class="built_in">isNaN</span>(arr[<span class="number">1</span>]) ? arr[<span class="number">1</span>] : <span class="built_in">Number</span>(arr(<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;,&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> <span class="number">0</span>=getObject(url);</span><br><span class="line"><span class="built_in">console</span>.log(o);</span><br></pre></td></tr></table></figure>
+<h3 id="随机验证码："><a href="#随机验证码：" class="headerlink" title="随机验证码："></a>随机验证码：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str=getAuth();</span><br><span class="line"><span class="built_in">console</span>.log(str);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAuth</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">48</span>;i&lt;<span class="number">123</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&gt;<span class="number">57</span> &amp;&amp; i&lt;<span class="number">65</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(i&gt;<span class="number">90</span> &amp;&amp; i&lt;<span class="number">97</span>) <span class="keyword">continue</span>;</span><br><span class="line">        arr.push(<span class="built_in">String</span>.fromCharCode(i));</span><br><span class="line">    &#125;</span><br><span class="line">    arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.random()<span class="number">-0.5</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">    arr.length=<span class="number">4</span>;</span><br><span class="line">    <span class="keyword">return</span> arr.join(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="模糊查找"><a href="#模糊查找" class="headerlink" title="模糊查找"></a>模糊查找</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> id=<span class="string">"input"</span>&gt;</span><br><span class="line">&lt;ul id=<span class="string">"ul"</span>&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">var arr=[</span><br><span class="line">    &#123;id:1001,name:<span class="string">"计算器"</span>,price:26&#125;,</span><br><span class="line">    &#123;id:1002,name:<span class="string">"计算机"</span>,price:26&#125;,</span><br><span class="line">    &#123;id:1003,name:<span class="string">"飞机"</span>,price:26&#125;,</span><br><span class="line">    &#123;id:1004,name:<span class="string">"飞行器"</span>,price:26&#125;,</span><br><span class="line">    &#123;id:1005,name:<span class="string">"算盘"</span>,price:26&#125;,</span><br><span class="line">    &#123;id:1006,name:<span class="string">"电器"</span>,price:26&#125;,</span><br><span class="line">    &#123;id:1007,name:<span class="string">"电视机"</span>,price:26&#125;,</span><br><span class="line">]</span><br><span class="line">var input=document.getElementById(<span class="string">"input"</span>);</span><br><span class="line">var ul=document.getElentById(<span class="string">"ul"</span>);</span><br><span class="line">input.onput=<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">	ul.innerHtml=arr.reduce(<span class="keyword">function</span>(value,item)&#123;</span><br><span class="line">		<span class="keyword">if</span>(item.name.indexOf(input.value)&gt;-1) value+=<span class="string">"&lt;li&gt;"</span>+item.name+<span class="string">"&lt;/li&gt;"</span>;</span><br><span class="line">		<span class="built_in">return</span> value;</span><br><span class="line">	&#125;,<span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="ankang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="ankang 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ankang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ankang.icu/2021/03/24/排序及内建对象的应用/" title="排序及内建对象的应用">http://ankang.icu/2021/03/24/排序及内建对象的应用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/23/数组常用方法重构与应用/" rel="next" title="数组常用方法重构与应用">
+                <i class="fa fa-chevron-left"></i> 数组常用方法重构与应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODY5MS8yNTE4NQ=="></div>
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ankang">
+            
+              <p class="site-author-name" itemprop="name">ankang</p>
+              <p class="site-description motion-element" itemprop="description">一个菜鸟的学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/2671467850" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ankangz98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有料
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.easyicon.net/" title="图标下载" target="_blank">图标下载</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历："><span class="nav-number">1.</span> <span class="nav-text">遍历：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序："><span class="nav-number">2.</span> <span class="nav-text">排序：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse"><span class="nav-number">3.</span> <span class="nav-text">reverse:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">4.</span> <span class="nav-text">sort:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组："><span class="nav-number">5.</span> <span class="nav-text">二维数组：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Math"><span class="nav-number">6.</span> <span class="nav-text">Math:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机取色："><span class="nav-number">7.</span> <span class="nav-text">随机取色：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String："><span class="nav-number">8.</span> <span class="nav-text">String：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址栏search-hash数据变成对象："><span class="nav-number">9.</span> <span class="nav-text">地址栏search/hash数据变成对象：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机验证码："><span class="nav-number">10.</span> <span class="nav-text">随机验证码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊查找"><span class="nav-number">11.</span> <span class="nav-text">模糊查找</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ankang</span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
