@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Vue,">
+  <meta name="keywords" content="JavaScript,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1.filter函数2.map函数3.reduce函数了解JavaScript中高阶函数的使用开发可以更加简洁">
-<meta name="keywords" content="JavaScript,Vue">
+<meta name="description" content="DOM的对象属性 标签属性 CSS样式获取、写入 纯函数概念">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript高阶函数">
-<meta property="og:url" content="http://ankang.icu/2020/04/06/20-04-06/index.html">
+<meta property="og:title" content="DOM属性相关">
+<meta property="og:url" content="http://ankang.icu/2021/03/27/DOM属性相关/index.html">
 <meta property="og:site_name" content="Ankang">
-<meta property="og:description" content="1.filter函数2.map函数3.reduce函数了解JavaScript中高阶函数的使用开发可以更加简洁">
+<meta property="og:description" content="DOM的对象属性 标签属性 CSS样式获取、写入 纯函数概念">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-06T06:27:45.127Z">
+<meta property="og:updated_time" content="2021-03-29T08:37:21.417Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript高阶函数">
-<meta name="twitter:description" content="1.filter函数2.map函数3.reduce函数了解JavaScript中高阶函数的使用开发可以更加简洁">
+<meta name="twitter:title" content="DOM属性相关">
+<meta name="twitter:description" content="DOM的对象属性 标签属性 CSS样式获取、写入 纯函数概念">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://ankang.icu/2020/04/06/20-04-06/">
+  <link rel="canonical" href="http://ankang.icu/2021/03/27/DOM属性相关/">
 
 
 
 
 
-  <title>JavaScript高阶函数 | Ankang</title>
+  <title>DOM属性相关 | Ankang</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2020/04/06/20-04-06/">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/03/27/DOM属性相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ankang">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript高阶函数</h1>
+          <h1 class="post-title" itemprop="name headline">DOM属性相关</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-06T13:40:48+08:00">
-                2020-04-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-27T16:34:56+08:00">
+                2021-03-27
               </time>
             
 
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-04-06T14:27:45+08:00">
-                2020-04-06
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-29T16:37:21+08:00">
+                2021-03-29
               </time>
             
           </span>
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  386 字
+                  680 字
                 </span>
               
 
@@ -373,18 +373,94 @@
       
 
       
-        <p>1.filter函数<br>2.map函数<br>3.reduce函数<br>了解JavaScript中高阶函数的使用开发可以更加简洁<br><a id="more"></a></p>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>首先定义一个数组：<br>    const nums = [50, 20, 101, 100, 10, 200, 33, 22]<br>完成三个需求：<br>    1.取出所有小于100的数字<br>    2.将取出的数进行 乘 2 转化<br>    3.将转化后的所有数字相加,得到最终的结果</p>
-<h3 id="filter函数"><a href="#filter函数" class="headerlink" title="filter函数"></a>filter函数</h3><p>解决需求1：<br>向filter函数传入一个带参数的方法，函数内部会创建一个数组，根据返回的布尔类型的值，把方法中满足条件/返回值为true的加入数组<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> newNums = nums.filter(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n &lt; 100</span><br><span class="line">&#125;)</span><br><span class="line">console.log(newNums);</span><br></pre></td></tr></table></figure></p>
-<p>执行结果：<br>[ 50, 20, 10, 33, 22 ]</p>
-<h3 id="map函数"><a href="#map函数" class="headerlink" title="map函数"></a>map函数</h3><p>解决需求2：<br>map函数对数组中所有内容进行转化<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> new2Nums = newNums.map(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n * 2</span><br><span class="line">&#125;)</span><br><span class="line">console.log(new2Nums);</span><br></pre></td></tr></table></figure></p>
-<p>执行结果：<br>[ 100, 40, 20, 66, 44 ]</p>
-<h3 id="reduce函数的使用"><a href="#reduce函数的使用" class="headerlink" title="reduce函数的使用"></a>reduce函数的使用</h3><p>解决需求3：<br>reduce函数的作用对数组中所有的内容进行汇总<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> final = new2Nums.reduce(<span class="keyword">function</span> (preValue, n) &#123; //preValue参数表示上一个数</span><br><span class="line">  <span class="built_in">return</span> preValue + n</span><br><span class="line">&#125;, 0) //这里的0表示reduce函数的初始值/preValue的初始值</span><br><span class="line">console.log(final);</span><br></pre></td></tr></table></figure></p>
-<p>执行结果：<br>270</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> final = nums.filter(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n &lt; 100</span><br><span class="line">&#125;).map(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n * 2</span><br><span class="line">&#125;).reduce(<span class="keyword">function</span> (prevValue, n) &#123;</span><br><span class="line">  <span class="built_in">return</span> prevValue + n</span><br><span class="line">&#125;, 0)</span><br><span class="line">console.log(final);</span><br></pre></td></tr></table></figure>
-<p>结果同样为：<br>270</p>
-<p>或者使用箭头函数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> final = nums.filter(n =&gt; n &lt; 100).map(n =&gt; n * 2).reduce((pre, n) =&gt; pre + n);</span><br><span class="line">console.log(final);</span><br></pre></td></tr></table></figure></p>
-<p>这样可以一行得到结果，结果同样正确。</p>
+        <ol>
+<li>DOM的对象属性</li>
+<li>标签属性</li>
+<li>CSS样式获取、写入</li>
+<li>纯函数概念</li>
+</ol>
+<a id="more"></a>
+<h3 id="DOM属性"><a href="#DOM属性" class="headerlink" title="DOM属性"></a>DOM属性</h3><ul>
+<li><p>标签属性：标签上表明的属性</p>
+</li>
+<li><p>标签属性分为<strong>默认标签属性</strong>和<strong>自定义标签属性</strong></p>
+</li>
+<li><p>自定义属性的命名和值必须使用小写和横线连接</p>
+</li>
+<li><p>DOM的对象属性也也分为默认属性和自定义属性</p>
+</li>
+<li><p>DOM的对象属性和标签属性 不一定相同 也不一定可以互相获取</p>
+</li>
+<li><p>DOM中的自定义属性和标签自定义属性是完全不能互相调用</p>
+</li>
+<li><p>有些标签默认属性可以通过DOM属性调用</p>
+<ul>
+<li><blockquote>
+<p>title    id    src    href    alt    placeholder    type    value等</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h5 id="class标签属性DOM属性调用时className"><a href="#class标签属性DOM属性调用时className" class="headerlink" title="class标签属性DOM属性调用时className"></a>class标签属性DOM属性调用时<code>className</code></h5></li>
+<li><h5 id="先有标签，才可以渲染对象调用，也可以通过DOM对象设置标签的属性来达到重新渲染"><a href="#先有标签，才可以渲染对象调用，也可以通过DOM对象设置标签的属性来达到重新渲染" class="headerlink" title="先有标签，才可以渲染对象调用，也可以通过DOM对象设置标签的属性来达到重新渲染"></a>先有标签，才可以渲染对象调用，也可以通过DOM对象设置标签的属性来达到重新渲染</h5></li>
+<li><h5 id="通过标签属性的修改添加才会引起重绘，增加对象属性不会引起重绘"><a href="#通过标签属性的修改添加才会引起重绘，增加对象属性不会引起重绘" class="headerlink" title="通过标签属性的修改添加才会引起重绘，增加对象属性不会引起重绘"></a>通过标签属性的修改添加才会引起重绘，增加对象属性不会引起重绘</h5><ul>
+<li><blockquote>
+<p>checked是标签属性checked的对象映射属性</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>DOM对象.setAttribute(“标签属性名”,”属性值”)//设置标签属性</p>
+</li>
+<li><p>DOM对象.removeAttribute(“标签属性名”,”属性值”)//删除标签属性</p>
+</li>
+<li><p>DOM对象.getAttribute(“标签属性名”,”属性值”)//根据标签属性名获取值</p>
+<ul>
+<li>标签属性可以直接看到，标签对象属性无法直接看到</li>
+</ul>
+</li>
+<li><p>通过<code>div.style</code>添加标签的行内样式</p>
+</li>
+<li><p>style属性只能给DOM对象设置行内样式</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">div.style.width=<span class="string">"50px"</span>;</span><br><span class="line">div.style.height=<span class="string">"50px"</span>;</span><br><span class="line">div.style.backgroundColor=<span class="string">"red"</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(div);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>对象属性样式写入</strong></p>
+</li>
+<li><p>设置样式时，只能设置非伪类、伪元素的DOM样式</p>
+</li>
+<li><p>设置样式时，如果样式属性名多个词汇组成 background-color，设置时去掉-并且把后面的字母变成大写=backgroundColor</p>
+</li>
+<li><p><code>div.style=&quot;width:50px;height:50px;background-color:red&quot;;</code></p>
+</li>
+<li><p><strong>直接行内样式写入</strong></p>
+</li>
+<li><p><code>div.style=&quot;width:50px;height:50px;background-color:red&quot;;</code></p>
+</li>
+<li><p><strong>获取样式</strong>：</p>
+</li>
+<li><p><code>console.log(div1.getComputedStyle(div1).width)</code></p>
+</li>
+<li><p>可以获取行内样式也可以获取CSS样式</p>
+</li>
+<li><p>有兼容问题，IE8及以下没有</p>
+</li>
+<li><p>IE8及以下使用：</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(div1.currentStyle.left);</span><br><span class="line"><span class="built_in">console</span>.log(div1.currentStyle.width);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>CSS样式</strong></p>
+</li>
+<li><p>获取：</p>
+</li>
+<li><p><code>var styleSheet=document.styleSheets[document.styleSheets.length-1];</code></p>
+</li>
+<li><p>添加样式标签：</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//IE都支持</span></span><br><span class="line">styleSheet.addRule(<span class="string">".div1"</span>,<span class="string">"width:50px;height:50px;background-color:red"</span>,<span class="number">0</span>);</span><br><span class="line">styleSheet.addRule(<span class="string">".div1:hover"</span>,<span class="string">"background-color:blue"</span>,<span class="number">1</span>);</span><br><span class="line"><span class="comment">//IE9以上支持</span></span><br><span class="line">styleSheet.insertRule(<span class="string">".div1 &#123;width:50px;height:50px;background-color:red&#125;"</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Object-assign-用于对象的合并"><a href="#Object-assign-用于对象的合并" class="headerlink" title="Object.assign()用于对象的合并"></a>Object.assign()用于对象的合并</h3><h3 id="纯函数："><a href="#纯函数：" class="headerlink" title="纯函数："></a>纯函数：</h3><p>没有调用全局的变量或者其他函数，独立自主的某一功能的函数，这种函数一般回通过参数传入需要处理的内容，完成后返回===抽象：不是解决某一个或者某一件具体的事情。</p>
 
       
     </div>
@@ -444,7 +520,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ankang.icu/2020/04/06/20-04-06/" title="JavaScript高阶函数">http://ankang.icu/2020/04/06/20-04-06/</a>
+    <a href="http://ankang.icu/2021/03/27/DOM属性相关/" title="DOM属性相关">http://ankang.icu/2021/03/27/DOM属性相关/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -461,8 +537,6 @@
           
             <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
           
-            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
-          
         </div>
       
 
@@ -474,8 +548,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/06/20-03-06/" rel="next" title="带符号数的表示">
-                <i class="fa fa-chevron-left"></i> 带符号数的表示
+              <a href="/2021/03/26/数据驱动显示-表格的增删/" rel="next" title="数据驱动显示-表格的增删">
+                <i class="fa fa-chevron-left"></i> 数据驱动显示-表格的增删
               </a>
             
           </div>
@@ -483,10 +557,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/03/15/21-03-17/" rel="prev" title="原生JavaScript基础">
-                原生JavaScript基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -652,7 +722,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例"><span class="nav-number">1.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#filter函数"><span class="nav-number">1.1.</span> <span class="nav-text">filter函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map函数"><span class="nav-number">1.2.</span> <span class="nav-text">map函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce函数的使用"><span class="nav-number">1.3.</span> <span class="nav-text">reduce函数的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM属性"><span class="nav-number">1.</span> <span class="nav-text">DOM属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#class标签属性DOM属性调用时className"><span class="nav-number">1.0.1.</span> <span class="nav-text">class标签属性DOM属性调用时className</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#先有标签，才可以渲染对象调用，也可以通过DOM对象设置标签的属性来达到重新渲染"><span class="nav-number">1.0.2.</span> <span class="nav-text">先有标签，才可以渲染对象调用，也可以通过DOM对象设置标签的属性来达到重新渲染</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过标签属性的修改添加才会引起重绘，增加对象属性不会引起重绘"><span class="nav-number">1.0.3.</span> <span class="nav-text">通过标签属性的修改添加才会引起重绘，增加对象属性不会引起重绘</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-assign-用于对象的合并"><span class="nav-number">2.</span> <span class="nav-text">Object.assign()用于对象的合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纯函数："><span class="nav-number">3.</span> <span class="nav-text">纯函数：</span></a></li></div>
             
 
           </div>

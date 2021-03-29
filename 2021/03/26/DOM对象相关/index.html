@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Vue,">
+  <meta name="keywords" content="JavaScript,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1.filter函数2.map函数3.reduce函数了解JavaScript中高阶函数的使用开发可以更加简洁">
-<meta name="keywords" content="JavaScript,Vue">
+<meta name="description" content="DOM节点的遍历 DOM中元素与节点 元素的删除与替换">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript高阶函数">
-<meta property="og:url" content="http://ankang.icu/2020/04/06/20-04-06/index.html">
+<meta property="og:title" content="DOM对象相关">
+<meta property="og:url" content="http://ankang.icu/2021/03/26/DOM对象相关/index.html">
 <meta property="og:site_name" content="Ankang">
-<meta property="og:description" content="1.filter函数2.map函数3.reduce函数了解JavaScript中高阶函数的使用开发可以更加简洁">
+<meta property="og:description" content="DOM节点的遍历 DOM中元素与节点 元素的删除与替换">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-06T06:27:45.127Z">
+<meta property="og:updated_time" content="2021-03-29T08:31:54.069Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript高阶函数">
-<meta name="twitter:description" content="1.filter函数2.map函数3.reduce函数了解JavaScript中高阶函数的使用开发可以更加简洁">
+<meta name="twitter:title" content="DOM对象相关">
+<meta name="twitter:description" content="DOM节点的遍历 DOM中元素与节点 元素的删除与替换">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://ankang.icu/2020/04/06/20-04-06/">
+  <link rel="canonical" href="http://ankang.icu/2021/03/26/DOM对象相关/">
 
 
 
 
 
-  <title>JavaScript高阶函数 | Ankang</title>
+  <title>DOM对象相关 | Ankang</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2020/04/06/20-04-06/">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/03/26/DOM对象相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ankang">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript高阶函数</h1>
+          <h1 class="post-title" itemprop="name headline">DOM对象相关</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-06T13:40:48+08:00">
-                2020-04-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-26T16:28:01+08:00">
+                2021-03-26
               </time>
             
 
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-04-06T14:27:45+08:00">
-                2020-04-06
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-29T16:31:54+08:00">
+                2021-03-29
               </time>
             
           </span>
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  386 字
+                  595 字
                 </span>
               
 
@@ -373,18 +373,123 @@
       
 
       
-        <p>1.filter函数<br>2.map函数<br>3.reduce函数<br>了解JavaScript中高阶函数的使用开发可以更加简洁<br><a id="more"></a></p>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>首先定义一个数组：<br>    const nums = [50, 20, 101, 100, 10, 200, 33, 22]<br>完成三个需求：<br>    1.取出所有小于100的数字<br>    2.将取出的数进行 乘 2 转化<br>    3.将转化后的所有数字相加,得到最终的结果</p>
-<h3 id="filter函数"><a href="#filter函数" class="headerlink" title="filter函数"></a>filter函数</h3><p>解决需求1：<br>向filter函数传入一个带参数的方法，函数内部会创建一个数组，根据返回的布尔类型的值，把方法中满足条件/返回值为true的加入数组<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> newNums = nums.filter(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n &lt; 100</span><br><span class="line">&#125;)</span><br><span class="line">console.log(newNums);</span><br></pre></td></tr></table></figure></p>
-<p>执行结果：<br>[ 50, 20, 10, 33, 22 ]</p>
-<h3 id="map函数"><a href="#map函数" class="headerlink" title="map函数"></a>map函数</h3><p>解决需求2：<br>map函数对数组中所有内容进行转化<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> new2Nums = newNums.map(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n * 2</span><br><span class="line">&#125;)</span><br><span class="line">console.log(new2Nums);</span><br></pre></td></tr></table></figure></p>
-<p>执行结果：<br>[ 100, 40, 20, 66, 44 ]</p>
-<h3 id="reduce函数的使用"><a href="#reduce函数的使用" class="headerlink" title="reduce函数的使用"></a>reduce函数的使用</h3><p>解决需求3：<br>reduce函数的作用对数组中所有的内容进行汇总<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> final = new2Nums.reduce(<span class="keyword">function</span> (preValue, n) &#123; //preValue参数表示上一个数</span><br><span class="line">  <span class="built_in">return</span> preValue + n</span><br><span class="line">&#125;, 0) //这里的0表示reduce函数的初始值/preValue的初始值</span><br><span class="line">console.log(final);</span><br></pre></td></tr></table></figure></p>
-<p>执行结果：<br>270</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> final = nums.filter(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n &lt; 100</span><br><span class="line">&#125;).map(<span class="keyword">function</span> (n) &#123;</span><br><span class="line">  <span class="built_in">return</span> n * 2</span><br><span class="line">&#125;).reduce(<span class="keyword">function</span> (prevValue, n) &#123;</span><br><span class="line">  <span class="built_in">return</span> prevValue + n</span><br><span class="line">&#125;, 0)</span><br><span class="line">console.log(final);</span><br></pre></td></tr></table></figure>
-<p>结果同样为：<br>270</p>
-<p>或者使用箭头函数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> final = nums.filter(n =&gt; n &lt; 100).map(n =&gt; n * 2).reduce((pre, n) =&gt; pre + n);</span><br><span class="line">console.log(final);</span><br></pre></td></tr></table></figure></p>
-<p>这样可以一行得到结果，结果同样正确。</p>
+        <ol>
+<li>DOM节点的遍历</li>
+<li>DOM中元素与节点</li>
+<li>元素的删除与替换</li>
+</ol>
+<a id="more"></a>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM:"></a>DOM:</h3><ul>
+<li><p>节点遍历和增删查改</p>
+</li>
+<li><p>document.body//body</p>
+</li>
+<li><p>document.title//title</p>
+</li>
+<li><p>document.head//head</p>
+</li>
+<li><p>document.documentElement//html标签</p>
+</li>
+<li><p>document//是整个文档</p>
+</li>
+<li><p>document.URL//location.href</p>
+</li>
+<li><p>document.domain//域名</p>
+</li>
+<li><p>document.styleSheets//CSS的style列表</p>
+</li>
+<li><p>document.body.parentElement//父元素</p>
+</li>
+<li><p>document.body.parentNode//父节点</p>
+<ul>
+<li>任何元素的父元素和父节点是相同的，除了文本和注释类型</li>
+</ul>
+</li>
+<li><p>div.children//子元素 HTML标签</p>
+<ul>
+<li>元素就是HTML标签，不包含注释、文本、换行、文档。</li>
+</ul>
+</li>
+<li><p>div.childNodes//子节点</p>
+</li>
+<li><p>div.firstChild//第一个子节点</p>
+</li>
+<li><p>div.firstElementChild//第一个子元素</p>
+</li>
+<li><p>div.lastChild//最后一个子节点</p>
+</li>
+<li><p>div.lastElementChild//最后一个子元素</p>
+</li>
+<li><p>div.previousSibling向上一个兄弟节点</p>
+</li>
+<li><p>div.previousElementSibling向上一个兄弟元素</p>
+</li>
+<li><p>div.nextSibling向下一个兄弟节点</p>
+</li>
+<li><p>div.nextElementSibling向下一个兄弟元素</p>
+</li>
+<li><blockquote>
+<p>HTMLDivElement–&gt;HTMLElement–&gt;Element–&gt;Node–&gt;EventTarget–&gt;Object</p>
+</blockquote>
+</li>
+<li><p>判断类型</p>
+<ul>
+<li>标签的构造函数</li>
+<li>标签的nodeName</li>
+</ul>
+</li>
+<li><p>在Node中分支—文档、元素类型</p>
+</li>
+<li><p>创建容器</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elem= <span class="built_in">document</span>.createElement(<span class="string">"标签名"</span>)</span><br><span class="line"><span class="keyword">var</span> div=<span class="built_in">document</span>.creatElement(<span class="string">"div"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.appendChild(div)</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elem=<span class="built_in">document</span>.creatDocumentFragment();<span class="comment">//创建文档碎片容器</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片的创建</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line"><span class="keyword">var</span> img=<span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>元素插入的位置：</p>
+</li>
+<li><p>将某个元素添加再父元素里面的尾部</p>
+<ul>
+<li><blockquote>
+<p>父元素.appendChild(子元素)</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertPrev</span>(<span class="params">newElem,targetElem</span>)</span>&#123;</span><br><span class="line">    targetElem.parentElement.insertBefore(newElem,targetElem);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertNext</span>(<span class="params">newElem,targetElem</span>)</span>&#123;</span><br><span class="line">    targetElem.parentElement.insertBefore(newElem,targetElem.nextSibling);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">warp</span>(<span class="params">newElem,targetElem</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parent=targetElem.parentElement;</span><br><span class="line">    <span class="keyword">var</span> next=targetElem.nextSibling;</span><br><span class="line">    newElem.appendChild(targetElem);</span><br><span class="line">    parent.insertBefore(newElem,next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>元素的复制</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//新元素=原元素.cloneNode(false) 可以复制原标签的所有属性和样式，不包含内容和后代元素</span></span><br><span class="line"><span class="keyword">var</span> div1=<span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">div1.style.color=<span class="string">"red"</span>;</span><br><span class="line">div1.innerHTML=<span class="string">"abc"</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(div1);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> div2=div1.cloneNode(<span class="literal">false</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(div2);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> div5=div3.cloneNode(<span class="literal">true</span>);<span class="comment">//深复制，可以将内容和后代一起复制</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(div5);</span><br><span class="line"><span class="comment">// 所有具有id的标签都需要重新定义id</span></span><br><span class="line">node.cloneNode(<span class="literal">false</span>) <span class="comment">//浅复制</span></span><br><span class="line">node.cloneNode(<span class="literal">true</span>) <span class="comment">//深复制</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">div1.remove();<span class="comment">//自己删除自己</span></span><br><span class="line"><span class="built_in">document</span>.body.removeChild(div1);<span class="comment">//通过父元素删除子元素</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>替换</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父元素.replaceChild(新元素,要替换元素)</span></span><br><span class="line"><span class="built_in">document</span>.body.replaceChild(div2,div1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>textContent</code>===获取设置元素的文本节点</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">div1.textContent<span class="comment">//所有文本节点及其后代的所有文本节点</span></span><br><span class="line">div1.textContent=<span class="string">"abc"</span>;<span class="comment">//将div1中的所有元素替换为这个abc的文本节点</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文本节点：txtNode</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> txtNode=<span class="built_in">document</span>.createTextNode(<span class="string">"文本内容"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例：</p>
+<ul>
+<li>数据驱动显示</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -444,7 +549,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ankang.icu/2020/04/06/20-04-06/" title="JavaScript高阶函数">http://ankang.icu/2020/04/06/20-04-06/</a>
+    <a href="http://ankang.icu/2021/03/26/DOM对象相关/" title="DOM对象相关">http://ankang.icu/2021/03/26/DOM对象相关/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -461,8 +566,6 @@
           
             <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
           
-            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
-          
         </div>
       
 
@@ -474,8 +577,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/06/20-03-06/" rel="next" title="带符号数的表示">
-                <i class="fa fa-chevron-left"></i> 带符号数的表示
+              <a href="/2021/03/25/history与hash实现历史记录/" rel="next" title="history与hash实现历史记录">
+                <i class="fa fa-chevron-left"></i> history与hash实现历史记录
               </a>
             
           </div>
@@ -484,8 +587,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/15/21-03-17/" rel="prev" title="原生JavaScript基础">
-                原生JavaScript基础 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/03/26/数据驱动显示-表格的增删/" rel="prev" title="数据驱动显示-表格的增删">
+                数据驱动显示-表格的增删 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -652,7 +755,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例"><span class="nav-number">1.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#filter函数"><span class="nav-number">1.1.</span> <span class="nav-text">filter函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map函数"><span class="nav-number">1.2.</span> <span class="nav-text">map函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce函数的使用"><span class="nav-number">1.3.</span> <span class="nav-text">reduce函数的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM"><span class="nav-number">1.</span> <span class="nav-text">DOM:</span></a></li></ol></div>
             
 
           </div>
