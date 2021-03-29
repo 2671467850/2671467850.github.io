@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ankang.icu/"/>
-  <updated>2021-03-29T08:37:21.417Z</updated>
+  <updated>2021-03-29T14:47:52.387Z</updated>
   <id>http://ankang.icu/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DOM对象属性与事件基础</title>
+    <link href="http://ankang.icu/2021/03/29/DOM%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%9F%BA%E7%A1%80/"/>
+    <id>http://ankang.icu/2021/03/29/DOM对象属性与事件基础/</id>
+    <published>2021-03-29T14:44:39.000Z</published>
+    <updated>2021-03-29T14:47:52.387Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>DOM对象常用属性</li><li>观察者模式、中介者模式</li><li>事件委托</li></ol><a id="more"></a><h3 id="DOM对象常用属性："><a href="#DOM对象常用属性：" class="headerlink" title="DOM对象常用属性："></a>DOM对象常用属性：</h3><ul><li><p>获取和设置都会引起浏览器重绘</p></li><li><p>必须已经放在页面中渲染的DOM对象元素</p><ul><li>放入body页面完成渲染之前无法获取</li></ul></li><li><p>宽高  位置</p></li><li><p>鼠标位置通过X、Y设置</p></li><li><p>DOM对象位置通过left、top设置</p></li><li><p>document对象</p></li><li><p>body对象</p></li><li><p>clientWidth/Height  客户宽高 边框以内的所有宽高之和-滚动条宽高===包含padding，不包含边框；</p></li><li><p>offseWidth/Height  偏移宽高  DOM元素在页面中占位的宽高===包含边框</p></li><li><p>scrollWidth/Height  滚动区域宽高</p></li><li><p>body标签document.body的滚动区域宽度会根据设置内容的宽度改变</p></li><li><p>html标签document.documentElement的滚动区域宽度不变</p></li><li><p>clientLeft/Top 客户位置  边线宽高</p><ul><li>border</li></ul></li><li><p>offsetLeft/Top 偏移位置  位置的左上点  元素左上角的相对位置</p><ul><li>设置定位时，相对父元素</li></ul></li><li><p>scrollLeft/Top 滚动条位置</p><ul><li>可读可写</li><li>body标签和html标签的滚动条在初始化第一次渲染时，页面中的滚动条不可以设置，当第一次渲染完毕，交互时有效（早期不支持）；body标签（最新版不支持）。</li></ul></li><li><h5 id="案例：回到顶部的滚动条过渡效果"><a href="#案例：回到顶部的滚动条过渡效果" class="headerlink" title="案例：回到顶部的滚动条过渡效果"></a>案例：回到顶部的滚动条过渡效果</h5></li></ul><h3 id="事件："><a href="#事件：" class="headerlink" title="事件："></a>事件：</h3><p>事件驱动型语言</p><p>注入式语言</p><p>耦合/解耦</p><ul><li><p>Event</p><ul><li>侦听接收</li><li>抛发</li></ul></li><li><p>系统事件</p></li><li><h5 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h5><ul><li><p>如果需要接收和抛发事件，必须要有对应的对象，接收和抛发的对象；对象必须是同一个，而且必须是继承EventTarget类型的对象===所有的DOM对象都是可以接收和抛发事件的</p></li><li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(事件类型,事件执行函数，是否捕获阶段触发/事件配置对象);</span><br><span class="line"><span class="keyword">var</span> evt=<span class="keyword">new</span> Event(事件名);</span><br><span class="line"><span class="built_in">document</span>.dispatchEvent(evt);<span class="comment">//抛发事件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> 函数(<span class="params">e</span>)</span>&#123;&#125;;</span><br></pre></td></tr></table></figure></li><li><p>接收和抛发对象必须一致，侦听事件类型必须和抛发事件类型一致，侦听在前，抛发在后。</p></li><li><p>侦听事件的函数中，有且仅有一个参数，就是抛发的事件对象。</p></li></ul></li><li><h5 id="解耦案例："><a href="#解耦案例：" class="headerlink" title="解耦案例："></a>解耦案例：</h5></li><li><h5 id="观察者模式、中介者模式"><a href="#观察者模式、中介者模式" class="headerlink" title="观察者模式、中介者模式"></a>观察者模式、中介者模式</h5></li><li><p>创建事件目标对象：</p></li><li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = <span class="keyword">new</span> EventTarget();</span><br><span class="line">t.addEventListener(事件名,函数);</span><br></pre></td></tr></table></figure></li><li><p>事件是针对事件目标对象的，来抛发内容；但并不是直接抛发过去，尤其是针对DOM元素，根据树形结构来传递事件。</p></li><li><h5 id="事件过程：捕获阶段（从外向内）、目标阶段、冒泡阶段（从内向外）"><a href="#事件过程：捕获阶段（从外向内）、目标阶段、冒泡阶段（从内向外）" class="headerlink" title="事件过程：捕获阶段（从外向内）、目标阶段、冒泡阶段（从内向外）"></a>事件过程：捕获阶段（从外向内）、目标阶段、冒泡阶段（从内向外）</h5></li><li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(事件类型,事件执行函数，是否捕获阶段触发/事件配置对象);</span><br></pre></td></tr></table></figure></li><li><p>事件类型(必须是字符串)：</p></li><li><p>系统事件类型，分为多个类型：Event、MouseEvent</p></li><li><p>事件执行函数：有且仅有一个参数，不能通过事件直接传入参数内容，因为<strong>事件执行函数是一个事件处理后回调的函数，所以只能传入函数名</strong>；<strong>如果传参就需要执行才可以</strong>，但是回调函数必须是函数名，因此不能在这里传参。</p></li><li><p>事件执行函数是一个回调执行的，在事件处理中并没有处理这个回调执行的结果===事件执行函数不能使return返回数据</p></li><li><p>事件执行函数里面的this发生了改变。</p></li><li><p>事件是否在捕获阶段被触发，默认是false===冒泡阶段触发。===改变事件触发顺序</p></li><li><p><code>e.stopPropagation();</code>事件对象中的方法===阻止传递。IE8及以下：<code>e.cancelBubble=ture;</code></p></li><li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> evt=<span class="keyword">new</span> MouseEvent(<span class="string">"click"</span>,&#123;<span class="attr">bubbles</span>:<span class="literal">true</span>,<span class="attr">clientX</span>:<span class="number">100</span>,<span class="attr">clientY</span>:<span class="number">100</span>&#125;);</span><br><span class="line">div3.dispatchEvent(evt);</span><br><span class="line"><span class="comment">// 这样&#123;bubbles:true&#125;就会让抛发的事件冒泡</span></span><br></pre></td></tr></table></figure></li><li><p>事件配置对象：<code>{once:true}</code>//事件只触发一次</p></li><li><p>侦听的事件目标对象和被点击到的目标对象并不一定相同。</p></li><li><h5 id="在事件触发函数中"><a href="#在事件触发函数中" class="headerlink" title="在事件触发函数中"></a>在事件触发函数中</h5><ul><li><code>e.target</code>和 <code>e.srcElement</code>事件触发的目标对象</li><li><code>e.currentTarget</code>事件侦听的对象</li></ul></li><li><h5 id="事件委托：将子元素或者后代元素的事件委托给父元素，减少事件侦听的增加，防止内存泄漏。"><a href="#事件委托：将子元素或者后代元素的事件委托给父元素，减少事件侦听的增加，防止内存泄漏。" class="headerlink" title="事件委托：将子元素或者后代元素的事件委托给父元素，减少事件侦听的增加，防止内存泄漏。"></a>事件委托：将子元素或者后代元素的事件委托给父元素，减少事件侦听的增加，防止内存泄漏。</h5></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;DOM对象常用属性&lt;/li&gt;
+&lt;li&gt;观察者模式、中介者模式&lt;/li&gt;
+&lt;li&gt;事件委托&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://ankang.icu/tags/JavaScript/"/>
+    
+      <category term="事件" scheme="http://ankang.icu/tags/%E4%BA%8B%E4%BB%B6/"/>
+    
+      <category term="设计模式" scheme="http://ankang.icu/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>DOM属性相关</title>
@@ -231,9 +259,9 @@
     
       <category term="JavaScript" scheme="http://ankang.icu/tags/JavaScript/"/>
     
-      <category term="回调函数" scheme="http://ankang.icu/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/"/>
-    
       <category term="设计模式" scheme="http://ankang.icu/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="回调函数" scheme="http://ankang.icu/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
@@ -466,26 +494,6 @@
       <category term="Test" scheme="http://ankang.icu/tags/Test/"/>
     
       <category term="Anything" scheme="http://ankang.icu/tags/Anything/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>值得一提的海明码</title>
-    <link href="http://ankang.icu/2018/11/18/a-post/"/>
-    <id>http://ankang.icu/2018/11/18/a-post/</id>
-    <published>2018-11-18T06:05:56.000Z</published>
-    <updated>2021-03-20T13:02:30.133Z</updated>
-    
-    <content type="html"><![CDATA[<p>  在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。<br><a id="more"></a></p><h2 id="简要"><a href="#简要" class="headerlink" title="简要"></a>简要</h2><p>  相比而言，简单的奇偶检验码除了不能纠正错误之外，也只能侦测出奇数个的错误。汉明码是完备码，它在于它分组长度相同、最小距离为3的码中能达到最高的码率。用数学术语来说，汉明码是一种<br>二元线性码。对于所有整数 r ≥ 2，存在一个分组长度 n = 2r − 1、k = 2r − r − 1 编码。经过计网课程的学习,我们了解到海明码除了有检查错误以外,还有对错误进行纠正的作用,且只能进行一位数的纠错.而课本上并没有介绍太多,通过课下搜索的我在此简单说一下海明码的计算过程,希望能帮到大家!</p><h2 id="计算原理"><a href="#计算原理" class="headerlink" title="计算原理"></a>计算原理</h2><p>  将有效信息按某种规律分成若干组，每组安排一个校验位进行奇偶性测试，然后产生多位检测信息，并从中得出具体的出错位置，最后通过对错误位取反（也是原来是1就变成0，原来是0就变成1)来<br>将其纠正。</p><h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="检验码位数"><a href="#检验码位数" class="headerlink" title="检验码位数"></a>检验码位数</h3><p>  进行海明码纠错时,要先确定原数据所需要的检验位数.规定:假设用N表示原信息位数,X为海明码位数,要求满足”N+1&lt;=2的X次方-X”,X要求最小值(<br>圈起来).如N=5,代入”5+1&lt;=2^X-X”求得X最小为4:如N=8,求得X最小也为4.由此得知:信息位与检验位之间的关系:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">信息位数     1     2~4     5~11     12~26     27~57     58~120 </span><br><span class="line"></span><br><span class="line">检验位数     2     3       4        5         6         7</span><br></pre></td></tr></table></figure></p><h3 id="检验码位置"><a href="#检验码位置" class="headerlink" title="检验码位置"></a>检验码位置</h3><p>  我们确定了检验码的个数,但检验码并不是依次排列放在发送信息中的,接下来我们就要找到检验码插入的位置,很简单,检验码放在”2^n”位置上,即:第1,2,4,8,16…信息位就放在其他的位置上,即<br>:3,5,6,7,9…(当然,在这里我们学校老师讲的是:发送信息顺序不变,检验码从后往前插入,即第1位在最后面.)<br>  举一个例子:假设有8位信息位”a1,a2,a3,a4,a5,a6,a7,a8”.8位信息位由此得知需要4个检验位,即”Y1,Y2,Y3,Y4”.编码后的数据为:”a1,a2,a3,a4,Y4,a5,a6,a7,Y3,a8,Y2,Y1”.<br>  如那8位信息位为”10011101”,=====编码后表示为”1001#110#1##”.</p><h3 id="计算检验码"><a href="#计算检验码" class="headerlink" title="计算检验码"></a>计算检验码</h3><p>  在上面步骤中我们确定了检验码的个数和位置,接下来我们应该知道的是在那些位置上的检验码要具备的作用,即每个检验码需要检验哪些信息位.<br>  简单来说:在上一步中,我们对发送信息进行了编号,检验码的插入位置编号为1,2,4,8…在这些位置上的检验码遵循一个原则:在第几个位置上的就检验几个位数(<br>从每个检验码自己本身开始),然后跳过同样的位数再检验同样的位数,依次进行.<br>  如例题计算得:Y1=a8+a7+a5+a4+a2.Y2=a8+a6+a5+a3+a2.Y3=a7+a6+a5+a1.Y4=a4+a3+a2+a1.(计算过程遵循异或原理:如果1的个数为偶数结果为0,反之为1).最后求得Y1=1,Y2=1,Y3=1,Y4=0.</p><h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>  将求得的检验码插入信息中,就得到发送的码子为:100101101111.</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;  在电信领域中，汉明码（英语：hammingcode），也称为海明码，是(7,4)汉明码推广得到的一种线性纠错码，由理查德·卫斯里·汉明于1950年发明。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="School" scheme="http://ankang.icu/tags/School/"/>
     
   </entry>
   
