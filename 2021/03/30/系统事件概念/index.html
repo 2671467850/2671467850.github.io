@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,事件,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ankang" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="系统事件-Event对象、MouseEvent对象 图片预加载 拖拽">
+<meta name="keywords" content="JavaScript,事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统事件概念">
+<meta property="og:url" content="http://ankang.icu/2021/03/30/系统事件概念/index.html">
+<meta property="og:site_name" content="Ankang">
+<meta property="og:description" content="系统事件-Event对象、MouseEvent对象 图片预加载 拖拽">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-30T14:38:22.268Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统事件概念">
+<meta name="twitter:description" content="系统事件-Event对象、MouseEvent对象 图片预加载 拖拽">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ankang.icu/2021/03/30/系统事件概念/">
+
+
+
+
+
+  <title>系统事件概念 | Ankang</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?73736fbc491420c1f360d4ab5986a0ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ankang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/03/30/系统事件概念/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">系统事件概念</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-30T22:35:55+08:00">
+                2021-03-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-30T22:38:22+08:00">
+                2021-03-30
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li>系统事件-Event对象、MouseEvent对象</li>
+<li>图片预加载</li>
+<li>拖拽</li>
+</ol>
+<a id="more"></a>
+<h3 id="事件的区别："><a href="#事件的区别：" class="headerlink" title="事件的区别："></a>事件的区别：</h3><ul>
+<li><p>事件写法的不同：</p>
+<ul>
+<li><p>在标签中写只能添加一个onclick事件函数，早期的事件会自动设置一个event全局变量，用于事件的处理，同步执行时不会丢失，异步执行延迟会消除。无冒泡。</p>
+</li>
+<li><p>DOM对象添加方法，不再使用全局变量e，只能执行一个函数。有冒泡功能，没有捕获功能。不支持自定义事件这样写大多数都会写出匿名函数。大多数的回调地狱都是在事件函数中发生的，原因是匿名函数的使用。</p>
+<blockquote>
+<p>e=e || window.event;</p>
+<p>bn.onclick=null;//清除事件</p>
+</blockquote>
+</li>
+<li><p>侦听事件类型：一般这种事件不写匿名函数，写命名函数，适合于函数式编程。这种事件包括捕获。冒泡阶段和阻止，还包括自带事件event对象，设置是否执行一次，支持自定义事件，IE8及以下不支持。onclick等所有系统事件===&gt;去掉on。可以执行多个函数</p>
+<blockquote>
+<p>bn.removeEventListener(“事件”,函数名)//删除事件</p>
+</blockquote>
+</li>
+<li><p>IE11以下支持，IE11及以上不支持，没有捕获阶段触发</p>
+<blockquote>
+<p>bn.attachEvent(“on事件”,函数名);</p>
+<p>bn.detachEvent(“on事件”,函数名);</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Event对象："><a href="#Event对象：" class="headerlink" title="Event对象："></a>Event对象：</h3><ul>
+<li><p>表单应用事件：</p>
+</li>
+<li><p>submit和reset</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">from</span>=<span class="built_in">document</span>.querySelector(<span class="string">"form"</span>);</span><br><span class="line">form.addEventListener(<span class="string">"submit"</span>,submitHanlder);</span><br><span class="line">form.addEventListener(<span class="string">"reset"</span>,submitHanlder);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">submitHanlder</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//阻止表单跳转 submit</span></span><br><span class="line">    <span class="comment">//阻止表单重置 reset</span></span><br><span class="line">    e.preventDefault()  阻止默认事件行为</span><br><span class="line">    e.returnValue=<span class="literal">false</span>  返回值=<span class="literal">false</span><span class="comment">//兼容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select：针对input或者textArea的</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//input.selecttionStart//输入框中的选中开始位置下标</span></span><br><span class="line"><span class="comment">//input.selecttionEnd//输入框中的选中结束位置下标</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> input=<span class="built_in">document</span>.querySelector(<span class="string">"input"</span>);</span><br><span class="line">input.addEventListener(<span class="string">"select"</span>,selectHandler);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectHandler</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">    <span class="comment">// console.log(input.selectionStart,input.selectionEnd)</span></span><br><span class="line">    input.value=input.value.slice(<span class="number">0</span>,input.selectionStart)+</span><br><span class="line">    input.value.slice(input.selectionStart,input.selectionEnd).toUpperCase()</span><br><span class="line">    +input.value.slice(input.selectionEnd)</span><br><span class="line">    <span class="comment">//将文本输入框中的选中单词变成大写。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>change：可以针对表单元素,也可以针对form表单</p>
+</li>
+<li><p>失去焦点时，原value的值发生改变时，触发</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//针对表单时，判断整个表单的修改</span></span><br><span class="line"><span class="keyword">var</span> form=<span class="built_in">document</span>.querySelector(<span class="string">"form"</span>);</span><br><span class="line">form.addEventListener(<span class="string">"change"</span>,changeHandler);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeHandler</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e.target,e.target.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>resize  更改浏览器中文档大小 –只针对window侦听</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//em就是父容器的字体大小</span></span><br><span class="line"><span class="comment">//rem相对于根标签的字体大小（html）</span></span><br><span class="line">resizeHandler();</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>,resizeHandler);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resizeHandler</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// console.log(screen.width)</span></span><br><span class="line">    <span class="built_in">document</span>.documentElement.style.fontSize=<span class="built_in">document</span>.body.clientWidth/screen.width*<span class="number">100</span>+<span class="string">"px"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片的加载需要时间，无法立即获得宽度 <code>offsetWidth</code></p>
+</li>
+<li><p>预加载 <code>load</code>加载完成，滞后性极强</p>
+</li>
+<li><p>图片加载不适用load事件，所以：</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img=<span class="keyword">new</span> Image();</span><br><span class="line">img.addEventListener();</span><br><span class="line">img.src=<span class="string">"地址"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> 函数(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> img1=img.cloneNode(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(img1);</span><br><span class="line">	<span class="built_in">console</span>.log(img.width);<span class="comment">//原图的宽高</span></span><br><span class="line">    img1.style.width=<span class="string">"600px"</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(img.width);</span><br><span class="line">    <span class="comment">//克隆一个图片副本，修改宽高放进容器中，原始图宽高不变。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="图片预加载的几种方式比较及改善"><a href="#图片预加载的几种方式比较及改善" class="headerlink" title="图片预加载的几种方式比较及改善"></a><em>图片预加载</em>的几种方式比较及改善</h5></li>
+<li><p>scroll：滚动条，默认自动阻止冒泡，通过事件属性传递值。</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">div1.addEventListener(<span class="string">"scroll"</span>,scrollHandler);</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>,scrollHandler1);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scrollHandler</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">    <span class="comment">//var evt=new Event("scroll");</span></span><br><span class="line">    <span class="comment">//evt.scrollTop=this.scrollTop;</span></span><br><span class="line">    <span class="comment">//window.dispatchEvent(evt);//自建事件在触发子元素的滚动事件时抛发，来达到传递数据的效果</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scrollHandler1</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.documentElement.scrollTop=e.scrollTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>error：加载失败时，触发错误事件。</p>
+</li>
+</ul>
+<h3 id="MouseEvent对象："><a href="#MouseEvent对象：" class="headerlink" title="MouseEvent对象："></a>MouseEvent对象：</h3><ul>
+<li><p>按住键盘辅助键点击</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctrlKey</span><br><span class="line">altKey</span><br><span class="line">shiftKey</span><br><span class="line">metaKey</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>判断鼠标按键</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">button	<span class="number">0</span> <span class="number">1</span> <span class="number">2</span></span><br><span class="line">buttons	<span class="number">1</span> <span class="number">4</span> <span class="number">2</span></span><br><span class="line">which	<span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>坐标</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">x:</span><br><span class="line">y:</span><br><span class="line">clientX:</span><br><span class="line">clientY:</span><br><span class="line"><span class="comment">//鼠标相对视口距离</span></span><br><span class="line">pageX:</span><br><span class="line">pageY:</span><br><span class="line"><span class="comment">//相对页面顶端位置/绝对坐标位置</span></span><br><span class="line">layerX:</span><br><span class="line">layerY:</span><br><span class="line"><span class="comment">//相对e.target左上角的坐标，如果目标元素定位了，和offset值相同；如果没有定位，offset不变，layer相对父元素的左上角位置。</span></span><br><span class="line">offsetX:</span><br><span class="line">offsetY:</span><br><span class="line"><span class="comment">//相对e.target左上角的坐标</span></span><br><span class="line">movementX:</span><br><span class="line">movementY:</span><br><span class="line"><span class="comment">//用于Mousemove事件，相对于上次移动距离。==汽车图片</span></span><br><span class="line">screenX:</span><br><span class="line">screenY:</span><br><span class="line"><span class="comment">//绝对于屏幕左上角</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>鼠标事件：</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">click</span><br><span class="line">dbclick</span><br><span class="line">mousedown</span><br><span class="line">mouseup</span><br><span class="line">mousemove</span><br><span class="line"></span><br><span class="line">mouseover</span><br><span class="line">mousenter</span><br><span class="line">mouseout</span><br><span class="line">mouseleave</span><br><span class="line"><span class="comment">//mousenter和mouseleave不会因为进入子元素而抛发事件</span></span><br><span class="line"><span class="comment">//mouseover和mouseout会因为子元素而抛发事件</span></span><br><span class="line">contextmenu</span><br><span class="line"><span class="comment">//如果是contextmenu，会呼出右键菜单</span></span><br><span class="line"><span class="comment">//e.preventDefault()阻止呼出菜单</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="拖拽"><a href="#拖拽" class="headerlink" title="拖拽"></a>拖拽</h3>
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="ankang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="ankang 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ankang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ankang.icu/2021/03/30/系统事件概念/" title="系统事件概念">http://ankang.icu/2021/03/30/系统事件概念/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/事件/" rel="tag"><i class="fa fa-tag"></i> 事件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/29/DOM对象属性与事件基础/" rel="next" title="DOM对象属性与事件基础">
+                <i class="fa fa-chevron-left"></i> DOM对象属性与事件基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODY5MS8yNTE4NQ=="></div>
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ankang">
+            
+              <p class="site-author-name" itemprop="name">ankang</p>
+              <p class="site-description motion-element" itemprop="description">一个菜鸟的学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/2671467850" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ankangz98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有料
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.easyicon.net/" title="图标下载" target="_blank">图标下载</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件的区别："><span class="nav-number">1.</span> <span class="nav-text">事件的区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event对象："><span class="nav-number">2.</span> <span class="nav-text">Event对象：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#图片预加载的几种方式比较及改善"><span class="nav-number">2.0.1.</span> <span class="nav-text">图片预加载的几种方式比较及改善</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#MouseEvent对象："><span class="nav-number">3.</span> <span class="nav-text">MouseEvent对象：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拖拽"><span class="nav-number">4.</span> <span class="nav-text">拖拽</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ankang</span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
