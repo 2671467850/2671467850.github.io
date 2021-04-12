@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ankang.icu/"/>
-  <updated>2021-04-12T11:22:49.798Z</updated>
+  <updated>2021-04-12T12:21:23.315Z</updated>
   <id>http://ankang.icu/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>服务器端与PHP</title>
+    <link href="http://ankang.icu/2021/04/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E4%B8%8EPHP/"/>
+    <id>http://ankang.icu/2021/04/12/服务器端与PHP/</id>
+    <published>2021-04-12T12:18:30.000Z</published>
+    <updated>2021-04-12T12:21:23.315Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>服务器基础</li><li>HTTP协议</li><li>PHP</li></ol><a id="more"></a><h2 id="服务器："><a href="#服务器：" class="headerlink" title="服务器："></a>服务器：</h2><ul><li><p>局域网IP、公网IP、环回IP</p></li><li><h5 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h5></li><li><p>ipconfig</p></li></ul><h2 id="本机应用服务器软件："><a href="#本机应用服务器软件：" class="headerlink" title="本机应用服务器软件："></a>本机应用服务器软件：</h2><ul><li><p>根目录：服务器可以共享的文件–WWW</p></li><li><p>WWW之下的文件，子集目录</p></li></ul><h2 id="HTTP协议："><a href="#HTTP协议：" class="headerlink" title="HTTP协议："></a>HTTP协议：</h2><ul><li><p>可靠协议：发出去的数据，与接收方一致</p></li><li><p>TCP：一人掉线全员等待</p></li><li><p>HTTP：可靠协议</p></li></ul><h3 id="三次握手：主要是确保链接的可靠性"><a href="#三次握手：主要是确保链接的可靠性" class="headerlink" title="三次握手：主要是确保链接的可靠性"></a>三次握手：主要是确保链接的可靠性</h3><ul><li>服务器可以接收请求</li><li>客户端可以发送请求</li><li>客户端可以接收响应</li></ul><h3 id="发请求、接响应"><a href="#发请求、接响应" class="headerlink" title="发请求、接响应"></a>发请求、接响应</h3><ul><li><p>B=&gt;S: request</p></li><li><p>S=&gt;B: response</p></li></ul><h3 id="四次挥手断开连接：验证数据的完整性"><a href="#四次挥手断开连接：验证数据的完整性" class="headerlink" title="四次挥手断开连接：验证数据的完整性"></a>四次挥手断开连接：验证数据的完整性</h3><h3 id="四次挥手验证结束之后，本次交互断开连接"><a href="#四次挥手验证结束之后，本次交互断开连接" class="headerlink" title="四次挥手验证结束之后，本次交互断开连接"></a>四次挥手验证结束之后，本次交互断开连接</h3><ul><li>HTTPS: HTTP协议的加密版本!</li></ul><h3 id="HTTP报文："><a href="#HTTP报文：" class="headerlink" title="HTTP报文："></a>HTTP报文：</h3><ul><li><h5 id="请求报文（request）"><a href="#请求报文（request）" class="headerlink" title="请求报文（request）"></a>请求报文（request）</h5></li><li><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/<span class="number">1.1</span></span><br><span class="line">  </span><br><span class="line">     Host: www.baidu.com</span><br><span class="line">     Connection: keep-alive</span><br><span class="line">     Cache-Control: max-age=<span class="number">0</span></span><br><span class="line">     sec-ch-ua: <span class="string">"Chromium"</span>;v=<span class="string">"88"</span>, <span class="string">"Google Chrome"</span>;v=<span class="string">"88"</span>, <span class="string">";Not A Brand"</span>;v=<span class="string">"99"</span></span><br></pre></td></tr></table></figure></li><li><p>请求行：</p><ul><li>请求行（GET|POST|PUT|PATCH|DELETE）</li><li>请求头（配置信息）</li><li>请求空行</li><li>请求体（请求携带的数据）只在POST情况下携带请求体</li></ul></li><li><h5 id="响应报文（response）"><a href="#响应报文（response）" class="headerlink" title="响应报文（response）"></a>响应报文（response）</h5></li><li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Bdpagetype: <span class="number">2</span></span><br><span class="line">Bdqid: <span class="number">0xb9f8696600063622</span></span><br><span class="line">Cache-Control: private</span><br><span class="line">Connection: keep-alive</span><br></pre></td></tr></table></figure></li><li><p>响应行（协议版本，协议状态码）</p></li><li><p>响应头（响应内容描述）</p></li><li><p>响应体（preview和response中）</p></li></ul><h3 id="端口号："><a href="#端口号：" class="headerlink" title="端口号："></a>端口号：</h3><ul><li>计算机的端口 : 允许访问(请求)进入计算机的路径;  65535 个端口; </li><li>http协议：80</li><li>https协议：443</li></ul><h2 id="请求携带数据："><a href="#请求携带数据：" class="headerlink" title="请求携带数据："></a>请求携带数据：</h2><ul><li><p>方式：</p></li><li><blockquote><p>url?key=value&amp;key2=value</p></blockquote></li><li><p>使用GET请求携带的数据, 以key为健，以value为值 以组的形式进行发送; </p></li><li><p>每条数据都以key=value形式进行分割; </p></li><li><h5 id="我们通常把传递数据的key值称之为-字段"><a href="#我们通常把传递数据的key值称之为-字段" class="headerlink" title="我们通常把传递数据的key值称之为 字段;"></a>我们通常把传递数据的key值称之为 <code>字段</code>;</h5></li></ul><h3 id="同步实现优先于异步实现："><a href="#同步实现优先于异步实现：" class="headerlink" title="同步实现优先于异步实现："></a>同步实现优先于异步实现：</h3><h2 id="PHP："><a href="#PHP：" class="headerlink" title="PHP："></a>PHP：</h2><ul><li><p>使用 <code>&lt;php</code>标识着php代码的开始</p></li><li><p><code>echo</code>关键字==翻译：回声===输出字符串</p></li></ul><h3 id="字符串输出："><a href="#字符串输出：" class="headerlink" title="字符串输出："></a>字符串输出：</h3><ul><li><p><code>‘’</code>纯字符串；</p></li><li><p><code>“”</code>：拼接字符串，可以在字符串里面直接写变量；</p></li><li><p>php中没有对象，只有数组</p></li><li><p><code>.</code>在运算在php中代表字符串拼接</p></li></ul><h3 id="数组："><a href="#数组：" class="headerlink" title="数组："></a>数组：</h3><ul><li><h5 id="数字数组：下标-数值"><a href="#数字数组：下标-数值" class="headerlink" title="数字数组：下标==数值"></a>数字数组：下标==数值</h5></li><li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$arr=<span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">echo</span> $arr;</span><br><span class="line"><span class="keyword">echo</span> var_dump($arr);</span><br><span class="line"><span class="keyword">echo</span> $arr[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">echo</span> count($arr);</span><br><span class="line"><span class="keyword">echo</span> sizeof($arr);</span><br></pre></td></tr></table></figure></li><li><p>echo输出数组会默认调用转换字符串的方法把自己转换为字符串</p></li><li><p>使用 <code>var_dump()</code>查看内部的内容和结构</p></li><li><p>数组中使用 <code>[]</code>取出内容</p></li><li><p>获取数组的长度===<code>sizeof/count</code></p></li><li><p>php一旦被请求，返回结果默认拼接字符串，一次性返回；</p></li><li><h5 id="关联数组：key-value"><a href="#关联数组：key-value" class="headerlink" title="关联数组：key==value"></a>关联数组：key==value</h5></li><li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$assoc_array = <span class="keyword">array</span>( <span class="string">"key1"</span> =&gt; <span class="string">"value1"</span> );</span><br><span class="line"><span class="keyword">echo</span> var_dump($assoc_array);</span><br></pre></td></tr></table></figure></li><li><p>数据关联使用<code>=&gt;</code>进行；</p></li></ul><h3 id="前后端交互标准结构：JSON"><a href="#前后端交互标准结构：JSON" class="headerlink" title="前后端交互标准结构：JSON"></a>前后端交互标准结构：JSON</h3><ul><li>php将数组转换为符合json格式</li><li><code>json_encode()</code></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;服务器基础&lt;/li&gt;
+&lt;li&gt;HTTP协议&lt;/li&gt;
+&lt;li&gt;PHP&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="http://ankang.icu/tags/Server/"/>
+    
+  </entry>
   
   <entry>
     <title>Symbol/Set/Map与模块化开发</title>
@@ -499,28 +523,6 @@
       <category term="JavaScript" scheme="http://ankang.icu/tags/JavaScript/"/>
     
       <category term="Vue" scheme="http://ankang.icu/tags/Vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>带符号数的表示</title>
-    <link href="http://ankang.icu/2020/03/06/20-03-06/"/>
-    <id>http://ankang.icu/2020/03/06/20-03-06/</id>
-    <published>2020-03-06T03:11:10.000Z</published>
-    <updated>2020-04-06T06:32:24.309Z</updated>
-    
-    <content type="html"><![CDATA[<p>带符号数的表示: 原码、反码和补码;定点表示和浮点表示;<br><a id="more"></a></p><h2 id="原码、反码和补码"><a href="#原码、反码和补码" class="headerlink" title="原码、反码和补码"></a>原码、反码和补码</h2><p>约定:<br>    最高为符号位<br>    ‘0’表示正数’+’;<br>    ‘1’表示负数’-‘;</p><h3 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h3><p>最高位为符号位,非符号位为该数字绝对值的二进制表示<br>“0”的两种表示形式：<br>               [+0]的原码为: 0 0000000<br>               [-0]的原码为: 1 0000000</p><p>例如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 127的原码为0 1111111</span><br><span class="line">-127的原码为1 1111111</span><br></pre></td></tr></table></figure></p><h3 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h3><p>分为正数的反码和负数的反码</p><p>正数:<br>    反码与原码一样<br>负数:<br>    最高位(符号位)不变,数值部分’按位取反’;<br>“0”的两种表示形式:<br>        [+0]的反码为: 0 0000000<br>        [-0]的反码为: 1 1111111</p><p>例如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 127的反码为0 1111111</span><br><span class="line">-127的反码为1 0000000</span><br></pre></td></tr></table></figure></p><h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p>同样分为正数和负数</p><p>正数:<br>    补码与原码一样<br>负数:<br>    最高位(符号位)不变,数值部分’按位取反’,再加’1’;<br>“0”的表示形式：<br>    [+0]的补码=[-0]的补码= 0 0000000</p><p>例如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 127的补码为0 1111111</span><br><span class="line">-127的补码为1 0000001</span><br></pre></td></tr></table></figure></p><p>或者负数的补码可以简单的理解为:<br>    原码的符号位不变,数值部分:从右向左到第一个’1’(包括)止不变,左边数’取反’;</p><p>例如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原码为: 1 00110 10</span><br><span class="line">补码为: 1 11001 10</span><br></pre></td></tr></table></figure></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1.正数的原码、反码、补码是一样的,不变；<br>2.负数的反码是符号位不变,数值部分按位取反;补码为反码加’1’;<br>3.表示范围:<br>    原码:[+127～-127]<br>    反码:[+127～-127]<br>    补码:[+127～-128]<br>        (因为’1 0000000’不再表示为’-0’)</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;带符号数的表示: 原码、反码和补码;定点表示和浮点表示;&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="School" scheme="http://ankang.icu/tags/School/"/>
-    
-      <category term="组成原理" scheme="http://ankang.icu/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
     
   </entry>
   
