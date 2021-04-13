@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Python,">
+  <meta name="keywords" content="Server,Ajax,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="一个字符串可以使用某些特定的格式（Specification）通过调用一些方法,替换其中的参数,使内容更加简洁,明了.有时候我们会想要从其他信息中构建字符串。这正是 format() 方法大有用武之地的地方。内容参考–《A Byte of Python》">
-<meta name="keywords" content="Python">
+<meta name="description" content="前后端分离技术 PHP与MySQL数据库 Ajax–异步  http协议补充 - 请求携带数据 GET : GET 请求的数据全部放在url路径之中 ;  路径后方可以拼接php数据  url?key=value&amp;amp;key2=value 使用GET请求携带的数据, 以key为键，以value为值 以组的形式进行发送;  每条数据都以key=value形式进行分割;    我们通常把传递数据">
+<meta name="keywords" content="Server,Ajax">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python之格式化">
-<meta property="og:url" content="http://ankang.icu/2019/10/04/19-10-04/index.html">
+<meta property="og:title" content="前后端分离&#x2F;Ajax">
+<meta property="og:url" content="http://ankang.icu/2021/04/13/前后端分离-Ajax/index.html">
 <meta property="og:site_name" content="Ankang">
-<meta property="og:description" content="一个字符串可以使用某些特定的格式（Specification）通过调用一些方法,替换其中的参数,使内容更加简洁,明了.有时候我们会想要从其他信息中构建字符串。这正是 format() 方法大有用武之地的地方。内容参考–《A Byte of Python》">
+<meta property="og:description" content="前后端分离技术 PHP与MySQL数据库 Ajax–异步  http协议补充 - 请求携带数据 GET : GET 请求的数据全部放在url路径之中 ;  路径后方可以拼接php数据  url?key=value&amp;amp;key2=value 使用GET请求携带的数据, 以key为键，以value为值 以组的形式进行发送;  每条数据都以key=value形式进行分割;    我们通常把传递数据">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-06T03:17:14.104Z">
+<meta property="og:updated_time" content="2021-04-13T14:22:07.654Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python之格式化">
-<meta name="twitter:description" content="一个字符串可以使用某些特定的格式（Specification）通过调用一些方法,替换其中的参数,使内容更加简洁,明了.有时候我们会想要从其他信息中构建字符串。这正是 format() 方法大有用武之地的地方。内容参考–《A Byte of Python》">
+<meta name="twitter:title" content="前后端分离&#x2F;Ajax">
+<meta name="twitter:description" content="前后端分离技术 PHP与MySQL数据库 Ajax–异步  http协议补充 - 请求携带数据 GET : GET 请求的数据全部放在url路径之中 ;  路径后方可以拼接php数据  url?key=value&amp;amp;key2=value 使用GET请求携带的数据, 以key为键，以value为值 以组的形式进行发送;  每条数据都以key=value形式进行分割;    我们通常把传递数据">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://ankang.icu/2019/10/04/19-10-04/">
+  <link rel="canonical" href="http://ankang.icu/2021/04/13/前后端分离-Ajax/">
 
 
 
 
 
-  <title>Python之格式化 | Ankang</title>
+  <title>前后端分离/Ajax | Ankang</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2019/10/04/19-10-04/">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/13/前后端分离-Ajax/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ankang">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python之格式化</h1>
+          <h1 class="post-title" itemprop="name headline">前后端分离/Ajax</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-04T18:06:17+08:00">
-                2019-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-13T22:18:44+08:00">
+                2021-04-13
               </time>
             
 
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-03-06T11:17:14+08:00">
-                2020-03-06
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-13T22:22:07+08:00">
+                2021-04-13
               </time>
             
           </span>
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  920 字
+                  924 字
                 </span>
               
 
@@ -373,21 +373,152 @@
       
 
       
-        <p>一个字符串可以使用某些特定的格式（Specification）通过调用一些方法,替换其中的参数,使内容更加简洁,明了.<br>有时候我们会想要从其他信息中构建字符串。这正是 format() 方法大有用武之地的地方。<br>内容参考–《A Byte of Python》<br><a id="more"></a><br>你可以通过 <a href="http://python.swaroopch.com/" target="_blank" rel="noopener">http://python.swaroopch.com/</a> 在线阅读本书英文原版。</p>
-<h2 id="For-1"><a href="#For-1" class="headerlink" title="For 1"></a>For 1</h2><p>将以下内容保存为文件 str_format.py ：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">age = 20</span><br><span class="line">name = <span class="string">'Swaroop'</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'&#123;0&#125; was &#123;1&#125; years old when he wrote this book'</span>.format(name, age))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Why is &#123;0&#125; playing with that python?'</span>.format(name))</span><br></pre></td></tr></table></figure></p>
-<p>输出:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Swaroop was 20 years old when he wrote this book</span><br><span class="line">Why is Swaroop playing with that python?</span><br></pre></td></tr></table></figure></p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>调用format 方法,使与其相对应的参数实现替换.</p>
-<p>在这里要注意我们第一次应用这一方法的地方，此处 {0} 对应的是变量 name，它是该格式化方法中的第一个参数。与之类似，第二个格式 {1} 对应的是变量 age，它是格式化方法中的第二个参数。请注意，Python 从 0 开始计数，这意味着索引中的第一位是 0，第二位是 1，以此类推。</p>
-<p>当然,我们通常可以通过联立字符串达到相同效果,如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name + <span class="string">'is'</span> + str(age) + <span class="string">'years old'</span></span><br></pre></td></tr></table></figure></p>
-<p>但这样的方式有点丑陋,容易出错.其次，转换至字符串的工作将由 format 方法自动完成，而不是如这般需要明确转换至字符串。再次，当使用 format 方法时，我们可以直接改动文字而不必与变量打交道，反之亦然。</p>
-<p>同时,括号内的数字是一个可选选项,可以省略,即:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">age = 20</span><br><span class="line">name = <span class="string">'Swaroop'</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'&#123;&#125; was &#123;&#125; years old when he wrote this book'</span>.format(name, age))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Why is &#123;&#125; playing with that python?'</span>.format(name))</span><br></pre></td></tr></table></figure></p>
-<p>大大减少了出错的概率,还能达到相同的效果.</p>
-<h3 id="And-Then"><a href="#And-Then" class="headerlink" title="And Then"></a>And Then</h3><p>format 方法可以和参数一起使用,对参数实现更加具体的定义,例如:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于浮点数 '0.333' 保留小数点(.)后三位</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'&#123;0:.3f&#125;'</span>.format(1.0/3))</span><br><span class="line"><span class="comment"># 使用下划线填充文本，并保持文字处于中间位置</span></span><br><span class="line"><span class="comment"># 使用 (^) 定义 '___hello___'字符串长度为 11</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'&#123;0:_^11&#125;'</span>.format(<span class="string">'hello'</span>))</span><br><span class="line"><span class="comment"># 基于关键词输出 'Swaroop wrote A Byte of Python'  </span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'&#123;name&#125; wrote &#123;book&#125;'</span>.format(name=<span class="string">'Swaroop'</span>, book=<span class="string">'A Byte of Python'</span>))</span><br></pre></td></tr></table></figure></p>
-<p>输出:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0.333</span><br><span class="line">___hello___</span><br><span class="line">Swaroop wrote A Byte of Python</span><br></pre></td></tr></table></figure></p>
-<h2 id="For-2"><a href="#For-2" class="headerlink" title="For 2"></a>For 2</h2><p>在Python中 print 总是会以一个不可见的“新一行”字符（\n）结尾，因此重复调用 print将会在相互独立的一行中分别打印。为防止打印过程中出现这一换行符，你可以通过 end 指定其应以空白结尾,例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.当 end 表示以空白结尾时</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'a'</span>, end=<span class="string">''</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'b'</span>, end=<span class="string">''</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'c'</span>)</span><br><span class="line"><span class="comment"># 2.当 end 指定以空格结尾时</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'a'</span>, end=<span class="string">' '</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'b'</span>, end=<span class="string">' '</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'c'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>输出内容如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">abc</span><br><span class="line">a b c</span><br></pre></td></tr></table></figure></p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>经典问题一:<br>在Python中打印九九乘法表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">row=1</span><br><span class="line"><span class="keyword">while</span> row&lt;=9:</span><br><span class="line">    col=1</span><br><span class="line">    <span class="keyword">while</span> col&lt;=row:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"&#123;&#125;*&#123;&#125;=&#123;&#125;"</span> .format(col,row,(row*col)),end=<span class="string">"\t"</span>)</span><br><span class="line">        <span class="comment"># \t --转义字符:制表</span></span><br><span class="line">        col+=1</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line">    row+=1</span><br></pre></td></tr></table></figure></p>
-<p>效果如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1*1=1	</span><br><span class="line">1*2=2	2*2=4	</span><br><span class="line">1*3=3	2*3=6	3*3=9	</span><br><span class="line">1*4=4	2*4=8	3*4=12	4*4=16	</span><br><span class="line">1*5=5	2*5=10	3*5=15	4*5=20	5*5=25	</span><br><span class="line">1*6=6	2*6=12	3*6=18	4*6=24	5*6=30	6*6=36	</span><br><span class="line">1*7=7	2*7=14	3*7=21	4*7=28	5*7=35	6*7=42	7*7=49	</span><br><span class="line">1*8=8	2*8=16	3*8=24	4*8=32	5*8=40	6*8=48	7*8=56	8*8=64	</span><br><span class="line">1*9=9	2*9=18	3*9=27	4*9=36	5*9=45	6*9=54	7*9=63	8*9=72	9*9=81</span><br></pre></td></tr></table></figure></p>
+        <ol>
+<li>前后端分离技术</li>
+<li>PHP与MySQL数据库</li>
+<li>Ajax–异步</li>
+</ol>
+<h2 id="http协议补充-请求携带数据"><a href="#http协议补充-请求携带数据" class="headerlink" title="http协议补充 - 请求携带数据"></a>http协议补充 - 请求携带数据</h2><ul>
+<li>GET : GET 请求的数据全部放在url路径之中 ; </li>
+<li>路径后方可以拼接php数据 <ul>
+<li>url?key=value&amp;key2=value</li>
+<li>使用GET请求携带的数据, 以key为键，以value为值 以组的形式进行发送; </li>
+<li>每条数据都以key=value形式进行分割; </li>
+</ul>
+</li>
+<li>我们通常把传递数据的key值称之为 <code>字段</code>;</li>
+</ul>
+<a id="more"></a>
+<h2 id="php操作数据库"><a href="#php操作数据库" class="headerlink" title="php操作数据库"></a>php操作数据库</h2><ul>
+<li><p>php是一个后端语言， 其核心职责之一就是操作数据库; </p>
+</li>
+<li><p>php本身给我们提供了一套操作数据库的工具 : mysqli </p>
+<ul>
+<li><ol>
+<li>链接数据库 connect; </li>
+</ol>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mysqli_connect("服务器路径" , "数据库账号" , "数据库密码" , "数据库名称")</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>返回值有可能为 资源秘钥 ；也可能为空值; </p>
+</li>
+<li><ol start="2">
+<li>SQL语句执行工具  query ; </li>
+</ol>
+</li>
+<li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$insert_sql = <span class="string">"INSERT INTO `usertable` VALUES ('ankang' , '123123' , null)"</span>;</span><br><span class="line">$res = mysqli_query($con , $insert_sql);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们操作数据库还是需要sql语句; </p>
+</li>
+<li><ol start="3">
+<li>php查询数据库会返回一个资源类型，我们会对资源类型进行特殊处理 ; </li>
+</ol>
+<ul>
+<li>fetch_all API ; </li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$array = mysqli_fetch_all($select_res,MYSQLI_ASSOC);</span><br><span class="line"><span class="keyword">echo</span> json_encode($array);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>MYSQLI_ASSOC MYSQLI_NUM ;</li>
+</ul>
+</li>
+<li><ol start="4">
+<li>error : 数据库报错信息; </li>
+</ol>
+</li>
+<li><p>错误处理判断 <code>$con</code></p>
+</li>
+<li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( !$con )&#123;</span><br><span class="line">    <span class="comment">// API : die 终止全局代码执行 </span></span><br><span class="line">    <span class="comment">// API : mysqli_error($con) 报出当前连接的错误信息用于排错; </span></span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"数据库连接错误,错误信息:"</span> . mysqli_error($con));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqli_close($con);<span class="comment">//关闭数据库</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>引入连接数据库的文件</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&quot;./02_php链接数据库.php&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在php之中编写sql语句所有的表名称，以及字段名全都用<code></code> 反引号引起来; </p>
+</li>
+<li><p>我们表之中设置好类型为varchar的字符串，一定要在数据前面加上 ‘’ —把数据识别为varchar; </p>
+</li>
+</ul>
+<h2 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a>前后端分离</h2><ul>
+<li>使我们现代项目开发的核心思想; </li>
+<li><p>前后端的开发效率不一致 ： </p>
+<ul>
+<li>后端慢 :  1. 业务逻辑 2. 数据库操作 3. 安全 </li>
+<li>前端快 :  </li>
+</ul>
+</li>
+<li><p>前后端职责进行明确的划分 : </p>
+<ul>
+<li>前端工作职责大多在使用浏览器发送请求，处理服务的响应; </li>
+<li>后端的工作职责是做一个黑盒子; </li>
+</ul>
+</li>
+<li><p>如何协作 : </p>
+<ul>
+<li>在项目开发之前就定义好请求和响应的规则; </li>
+<li>我们需要书面格式的规则说明 =&gt; 面向前端的 =&gt; 接口文档; </li>
+</ul>
+</li>
+</ul>
+<h1 id="接口文档"><a href="#接口文档" class="headerlink" title="接口文档"></a>接口文档</h1><h2 id="接口路径"><a href="#接口路径" class="headerlink" title="接口路径"></a>接口路径</h2><ul>
+<li>url : <a href="http://www.baidu.com/xxx.php" target="_blank" rel="noopener">http://www.baidu.com/xxx.php</a></li>
+</ul>
+<h2 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h2><ul>
+<li>GET | POST | PATCH | PUT | DELETE </li>
+</ul>
+<h2 id="请求字段信息"><a href="#请求字段信息" class="headerlink" title="请求字段信息"></a>请求字段信息</h2><ul>
+<li>username : string </li>
+<li>password : string </li>
+</ul>
+<h2 id="返回数据实例"><a href="#返回数据实例" class="headerlink" title="返回数据实例"></a>返回数据实例</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">"data"</span>  : <span class="string">"hello world"</span> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意事项 : <ul>
+<li><ol>
+<li>定义的字段名必须是英文; </li>
+</ol>
+</li>
+<li><ol start="2">
+<li>请求方式必须明确; </li>
+</ol>
+</li>
+<li><ol start="3">
+<li>后端响应的数据必须是json格式;  </li>
+</ol>
+</li>
+<li>“{“username” : “wuyanzu” , “password”:123456, “id” : 3 , “type” : “success”}”; </li>
+<li>有一个API 可以把json字符串转换成对象数组类型; </li>
+</ul>
+</li>
+</ul>
+<h2 id="AJAX："><a href="#AJAX：" class="headerlink" title="AJAX："></a>AJAX：</h2><ul>
+<li><p>异步的类型：</p>
+<ul>
+<li>事件; =&gt; 事件处理函数</li>
+<li>定时器/延时器; =&gt; 定时器的回调函数</li>
+<li>ajax</li>
+<li>promise.then</li>
+</ul>
+</li>
+<li><p>异步 JavaScript and xml</p>
+</li>
+<li><p>xhr：（小黄人）XMLHttpRequest</p>
+<ul>
+<li>无刷新发起浏览器请求</li>
+<li>接收服务器的响应</li>
+<li>发起请求–有三步</li>
+<li>接收响应–一步</li>
+</ul>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//每一个请求都要创建一个新的xhr实例对象</span></span><br><span class="line"><span class="keyword">var</span> xhr=<span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//请求是必须有目标，并且想要获取数据的</span></span><br><span class="line"><span class="comment">// - 请求目标</span></span><br><span class="line"><span class="comment">// - 请求方式</span></span><br><span class="line"><span class="keyword">var</span> url=<span class="string">""</span>;</span><br><span class="line">xhr.open(<span class="string">"GET"</span>,url)</span><br><span class="line"><span class="comment">//源路径与请求目标的路径同协议、同端口、同域名</span></span><br><span class="line"><span class="comment">//发送行为</span></span><br><span class="line">xhr.send();</span><br><span class="line"><span class="comment">//响应处理</span></span><br><span class="line"><span class="comment">// - xhr.readyState : xhr的请求状态</span></span><br><span class="line"><span class="comment">// - 0 ~ 4 五个状态 ; </span></span><br><span class="line"><span class="comment">// - 4 : 成功; </span></span><br><span class="line"><span class="comment">// - xhr.status : http状态码 ; </span></span><br><span class="line"><span class="comment">// 200 : 成功; </span></span><br><span class="line"><span class="comment">// 2开头的所有状态码都表示成功; </span></span><br><span class="line"><span class="comment">// -xhr.responseText:响应字符串数据</span></span><br><span class="line"><span class="comment">// -事件：onreadystatechange:判断xhr的状态/http的状态</span></span><br><span class="line"><span class="built_in">console</span>.log(xhr);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>jsonp：跨域技术</p>
+</li>
+<li><p>fetch：高级封装</p>
+</li>
+</ul>
 
       
     </div>
@@ -447,7 +578,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ankang.icu/2019/10/04/19-10-04/" title="Python之格式化">http://ankang.icu/2019/10/04/19-10-04/</a>
+    <a href="http://ankang.icu/2021/04/13/前后端分离-Ajax/" title="前后端分离/Ajax">http://ankang.icu/2021/04/13/前后端分离-Ajax/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -462,7 +593,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+            <a href="/tags/Server/" rel="tag"><i class="fa fa-tag"></i> Server</a>
+          
+            <a href="/tags/Ajax/" rel="tag"><i class="fa fa-tag"></i> Ajax</a>
           
         </div>
       
@@ -475,8 +608,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/28/Test-0/" rel="next" title="Test">
-                <i class="fa fa-chevron-left"></i> Test
+              <a href="/2021/04/12/服务器端与PHP/" rel="next" title="服务器端与PHP">
+                <i class="fa fa-chevron-left"></i> 服务器端与PHP
               </a>
             
           </div>
@@ -484,10 +617,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/10/19-11-10/" rel="prev" title="Python之函数">
-                Python之函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +782,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#For-1"><span class="nav-number">1.</span> <span class="nav-text">For 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#And-Then"><span class="nav-number">1.2.</span> <span class="nav-text">And Then</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For-2"><span class="nav-number">2.</span> <span class="nav-text">For 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#http协议补充-请求携带数据"><span class="nav-number">1.</span> <span class="nav-text">http协议补充 - 请求携带数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php操作数据库"><span class="nav-number">2.</span> <span class="nav-text">php操作数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前后端分离"><span class="nav-number">3.</span> <span class="nav-text">前后端分离</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#接口文档"><span class="nav-number"></span> <span class="nav-text">接口文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口路径"><span class="nav-number">1.</span> <span class="nav-text">接口路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求方式"><span class="nav-number">2.</span> <span class="nav-text">请求方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求字段信息"><span class="nav-number">3.</span> <span class="nav-text">请求字段信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回数据实例"><span class="nav-number">4.</span> <span class="nav-text">返回数据实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX："><span class="nav-number">5.</span> <span class="nav-text">AJAX：</span></a></li></ol></li></div>
             
 
           </div>
