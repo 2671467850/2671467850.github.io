@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Server,异步,Ajax,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ankang" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="CORS跨域： CORS跨域是后端响应头的配置 CORS跨域主要是服务端配置的 在后端语言之中配置  promise:异步： 主要用来解决异步回调地狱问题  Promise:承诺  状态： pendding：正在进行； fulfilled：成功履行承诺 rejected：没有遵守承诺   承诺的状态一旦发生改变，那么这个状态不可逆">
+<meta name="keywords" content="Server,异步,Ajax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CORS跨域&#x2F;async-await&#x2F;fetch">
+<meta property="og:url" content="http://ankang.icu/2021/04/15/CORS跨域-async-await-fetch/index.html">
+<meta property="og:site_name" content="Ankang">
+<meta property="og:description" content="CORS跨域： CORS跨域是后端响应头的配置 CORS跨域主要是服务端配置的 在后端语言之中配置  promise:异步： 主要用来解决异步回调地狱问题  Promise:承诺  状态： pendding：正在进行； fulfilled：成功履行承诺 rejected：没有遵守承诺   承诺的状态一旦发生改变，那么这个状态不可逆">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-04-17T02:01:39.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CORS跨域&#x2F;async-await&#x2F;fetch">
+<meta name="twitter:description" content="CORS跨域： CORS跨域是后端响应头的配置 CORS跨域主要是服务端配置的 在后端语言之中配置  promise:异步： 主要用来解决异步回调地狱问题  Promise:承诺  状态： pendding：正在进行； fulfilled：成功履行承诺 rejected：没有遵守承诺   承诺的状态一旦发生改变，那么这个状态不可逆">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ankang.icu/2021/04/15/CORS跨域-async-await-fetch/">
+
+
+
+
+
+  <title>CORS跨域/async-await/fetch | Ankang</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?73736fbc491420c1f360d4ab5986a0ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ankang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/15/CORS跨域-async-await-fetch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CORS跨域/async-await/fetch</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-15T09:58:12+08:00">
+                2021-04-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-17T10:01:39+08:00">
+                2021-04-17
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  691 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="CORS跨域："><a href="#CORS跨域：" class="headerlink" title="CORS跨域："></a>CORS跨域：</h2><ul>
+<li>CORS跨域是后端响应头的配置</li>
+<li>CORS跨域主要是服务端配置的</li>
+<li>在后端语言之中配置</li>
+</ul>
+<h2 id="promise"><a href="#promise" class="headerlink" title="promise:"></a>promise:</h2><h5 id="异步："><a href="#异步：" class="headerlink" title="异步："></a>异步：</h5><ul>
+<li><p>主要用来解决异步回调地狱问题</p>
+</li>
+<li><p>Promise:承诺</p>
+</li>
+<li><h5 id="状态："><a href="#状态：" class="headerlink" title="状态："></a>状态：</h5><ul>
+<li>pendding：正在进行；</li>
+<li>fulfilled：成功履行承诺</li>
+<li>rejected：没有遵守承诺</li>
+</ul>
+</li>
+<li><p>承诺的状态一旦发生改变，那么这个状态不可逆</p>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>创建：</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">fulfill,reject</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// fulfill 是改变promsie对象状态为成功的工具函数</span></span><br><span class="line">    <span class="comment">// reject   改变promise对象状态为失败的工具函数</span></span><br><span class="line">    <span class="comment">//fulfill();</span></span><br><span class="line">    <span class="comment">//reject();</span></span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        fulfill();</span><br><span class="line">    &#125; , <span class="number">3000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(promise)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内部工具函数的执行是同步的，只要promise对象被创建出来，函数一定会被执行</p>
+</li>
+<li><p>一般会主动定义promise对象状态改变的规则</p>
+</li>
+<li><p>使用异步程序改变promise状态</p>
+</li>
+<li><p>promise对象创建 : </p>
+<ul>
+<li>调用 Promise构造函数; </li>
+<li>传入 resolver 函数; </li>
+<li>在 resolver 函数之中定义状态改变规则; </li>
+</ul>
+</li>
+<li><h5 id="状态监听函数："><a href="#状态监听函数：" class="headerlink" title="状态监听函数："></a>状态监听函数：</h5></li>
+<li><ul>
+<li><code>then()</code>监听promise状态的改变；</li>
+<li><code>catch()</code>监听promise状态改变为rejected；</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p.catch( <span class="function"><span class="keyword">function</span>(<span class="params"> err </span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="string">"hello error"</span>;</span><br><span class="line">&#125;<span class="keyword">catch</span>( e )&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>finally()</code>：只要状态改变了就会进入这个函数中；状态改变不做数据的处理</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="keyword">function</span>(<span class="params"> fulfill , reject </span>)</span>&#123;</span><br><span class="line">    fulfill( <span class="string">"hello world"</span> );</span><br><span class="line">&#125;)</span><br><span class="line">p.finally(<span class="function"><span class="keyword">function</span>(<span class="params"> res </span>)</span>&#123;</span><br><span class="line">    <span class="comment">// res : 是undefined; </span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"状态改变就会执行"</span> , res);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="then-fn1-fn2-："><a href="#then-fn1-fn2-：" class="headerlink" title="then( fn1 , fn2 )："></a>then( fn1 , fn2 )：</h5></li>
+<li><p>fn1：成功的时候会调用的回调函数</p>
+</li>
+<li><p>fn2：失败的时候会调用的回调函数</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"状态变为成功"</span>);</span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"状态变为失败"</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="then方法的返回值："><a href="#then方法的返回值：" class="headerlink" title="then方法的返回值："></a>then方法的返回值：</h5></li>
+<li><p>回调函数中没有写return的情况下，返回值为promise对象</p>
+</li>
+<li><p>函数中写了return，新的promise对象的情况下，返回值就是新的promise对象</p>
+</li>
+<li><p>注意：</p>
+</li>
+<li><p>使用then之后可以去返回一个新的promsie对象用以连缀</p>
+</li>
+</ul>
+<h2 id="async-await"><a href="#async-await" class="headerlink" title="async-await:"></a>async-await:</h2><h5 id="async"><a href="#async" class="headerlink" title="async:"></a>async:</h5><ul>
+<li><p>用于定义函数的关键字–异步</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>async定义的函数默认的返回值是promise对象</p>
+</li>
+<li><p>只是返回一个promise对象，不能取代promise对象的构造</p>
+</li>
+</ul>
+<h5 id="await"><a href="#await" class="headerlink" title="await:"></a>await:</h5><ul>
+<li>只能在async定义的函数中使用</li>
+<li>会等待promise对象状态变为成功，并且把then里面的参数返回出来</li>
+<li>将异步回调函数写法变为了同步的代码写法</li>
+<li>await之前的代码都是同步程序</li>
+<li>await后面的所有程序都是异步的</li>
+</ul>
+<h2 id="fetch"><a href="#fetch" class="headerlink" title="fetch:"></a>fetch:</h2><p>xhr 请求发送工具</p>
+<ul>
+<li><p>属于浏览器的高级封装</p>
+</li>
+<li><p>完全不兼容IE—PC端不能用</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch(url,options)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>返回值为promise</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 返回响应对象; </span></span><br><span class="line">    <span class="keyword">let</span> response = <span class="keyword">await</span> fetch(<span class="string">"./01_cors.php"</span>);</span><br><span class="line">    <span class="comment">// 处理响应对象，决定响应数据的类型; </span></span><br><span class="line">    <span class="keyword">let</span> data = <span class="keyword">await</span> response.text();</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;</span><br><span class="line">load();</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+     
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="ankang 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="ankang 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    ankang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://ankang.icu/2021/04/15/CORS跨域-async-await-fetch/" title="CORS跨域/async-await/fetch">http://ankang.icu/2021/04/15/CORS跨域-async-await-fetch/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Server/" rel="tag"><i class="fa fa-tag"></i> Server</a>
+          
+            <a href="/tags/异步/" rel="tag"><i class="fa fa-tag"></i> 异步</a>
+          
+            <a href="/tags/Ajax/" rel="tag"><i class="fa fa-tag"></i> Ajax</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/14/Promise-then-JSONP跨域/" rel="next" title="Promise.then/JSONP跨域">
+                <i class="fa fa-chevron-left"></i> Promise.then/JSONP跨域
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/16/cookie-localstorage/" rel="prev" title="cookie/localstorage">
+                cookie/localstorage <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODY5MS8yNTE4NQ=="></div>
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ankang">
+            
+              <p class="site-author-name" itemprop="name">ankang</p>
+              <p class="site-description motion-element" itemprop="description">一个菜鸟的学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/2671467850" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:ankangz98@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                有料
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.easyicon.net/" title="图标下载" target="_blank">图标下载</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CORS跨域："><span class="nav-number">1.</span> <span class="nav-text">CORS跨域：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise"><span class="nav-number">2.</span> <span class="nav-text">promise:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#异步："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">异步：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#状态："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">状态：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#状态监听函数："><span class="nav-number">2.0.0.3.</span> <span class="nav-text">状态监听函数：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#then-fn1-fn2-："><span class="nav-number">2.0.0.4.</span> <span class="nav-text">then( fn1 , fn2 )：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#then方法的返回值："><span class="nav-number">2.0.0.5.</span> <span class="nav-text">then方法的返回值：</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#async-await"><span class="nav-number">3.</span> <span class="nav-text">async-await:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#async"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">async:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#await"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">await:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fetch"><span class="nav-number">4.</span> <span class="nav-text">fetch:</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ankang</span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
