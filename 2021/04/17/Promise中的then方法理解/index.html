@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Server,">
+  <meta name="keywords" content="JavaScript,异步,ES6,">
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="cookie:会话跟踪技术  会默认在请求头里面携带  前端cookie 一套协议域名端口对应一套cookie  存储在当前浏览器独立创建的本地文件  cookie里面存储的信息是纯文本形式的  cookie里面存储信息最大4kb，最大条数为50  时效性：默认 session  cookie是必须同域名，同协议，同端口的页面才可以访问  浏览器通过 协议+域名+端口作为key值，cookie作为">
-<meta name="keywords" content="Server">
+<meta name="description" content="Event Loop:同步任务、异步任务 宏任务： setTimeout  setInterval   微任务： Promise">
+<meta name="keywords" content="JavaScript,异步,ES6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cookie&#x2F;localstorage">
-<meta property="og:url" content="http://ankang.icu/2021/04/16/cookie-localstorage/index.html">
+<meta property="og:title" content="Promise中的then方法理解">
+<meta property="og:url" content="http://ankang.icu/2021/04/17/Promise中的then方法理解/index.html">
 <meta property="og:site_name" content="Ankang">
-<meta property="og:description" content="cookie:会话跟踪技术  会默认在请求头里面携带  前端cookie 一套协议域名端口对应一套cookie  存储在当前浏览器独立创建的本地文件  cookie里面存储的信息是纯文本形式的  cookie里面存储信息最大4kb，最大条数为50  时效性：默认 session  cookie是必须同域名，同协议，同端口的页面才可以访问  浏览器通过 协议+域名+端口作为key值，cookie作为">
+<meta property="og:description" content="Event Loop:同步任务、异步任务 宏任务： setTimeout  setInterval   微任务： Promise">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-17T02:07:34.270Z">
+<meta property="og:updated_time" content="2021-04-19T00:08:04.327Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cookie&#x2F;localstorage">
-<meta name="twitter:description" content="cookie:会话跟踪技术  会默认在请求头里面携带  前端cookie 一套协议域名端口对应一套cookie  存储在当前浏览器独立创建的本地文件  cookie里面存储的信息是纯文本形式的  cookie里面存储信息最大4kb，最大条数为50  时效性：默认 session  cookie是必须同域名，同协议，同端口的页面才可以访问  浏览器通过 协议+域名+端口作为key值，cookie作为">
+<meta name="twitter:title" content="Promise中的then方法理解">
+<meta name="twitter:description" content="Event Loop:同步任务、异步任务 宏任务： setTimeout  setInterval   微任务： Promise">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://ankang.icu/2021/04/16/cookie-localstorage/">
+  <link rel="canonical" href="http://ankang.icu/2021/04/17/Promise中的then方法理解/">
 
 
 
 
 
-  <title>cookie/localstorage | Ankang</title>
+  <title>Promise中的then方法理解 | Ankang</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/16/cookie-localstorage/">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/17/Promise中的then方法理解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ankang">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">cookie/localstorage</h1>
+          <h1 class="post-title" itemprop="name headline">Promise中的then方法理解</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-16T10:04:23+08:00">
-                2021-04-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-17T08:06:01+08:00">
+                2021-04-17
               </time>
             
 
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-17T10:07:34+08:00">
-                2021-04-17
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-19T08:08:04+08:00">
+                2021-04-19
               </time>
             
           </span>
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  614 字
+                  559 字
                 </span>
               
 
@@ -373,104 +373,32 @@
       
 
       
-        <h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie:"></a>cookie:</h2><p>会话跟踪技术</p>
-<ul>
-<li><p>会默认在请求头里面携带</p>
+        <h2 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop:"></a>Event Loop:</h2><p>同步任务、异步任务</p>
+<h5 id="宏任务："><a href="#宏任务：" class="headerlink" title="宏任务："></a>宏任务：</h5><ul>
+<li><p>setTimeout</p>
 </li>
-<li><h5 id="前端cookie"><a href="#前端cookie" class="headerlink" title="前端cookie"></a>前端cookie</h5></li>
-<li><p>一套协议域名端口对应一套cookie</p>
+<li><p>setInterval</p>
 </li>
-<li><p>存储在当前浏览器独立创建的本地文件</p>
-</li>
-<li><p>cookie里面存储的信息是纯文本形式的</p>
-</li>
-<li><p>cookie里面存储信息最大4kb，最大条数为50</p>
-</li>
-<li><p>时效性：默认 session</p>
-</li>
-<li><p>cookie是必须同域名，同协议，同端口的页面才可以访问</p>
-</li>
-<li><p>浏览器通过 协议+域名+端口作为key值，cookie作为value，实现映射结构的数据存储</p>
-</li>
-<li><p>cookie是有安全限制; (很像作用域 / 以文件夹为单位的父子级包裹关系，决定了cookie的可访问性)</p>
-</li>
-<li><p>cookie的所有特征都是用字符串去描述的</p>
-</li>
+</ul>
+<h5 id="微任务："><a href="#微任务：" class="headerlink" title="微任务："></a>微任务：</h5><ul>
+<li>Promise</li>
 </ul>
 <a id="more"></a>
-<ul>
-<li><p>获取cookie：<code>document.cookie</code></p>
-</li>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">"username=123456"</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>domain 一般不设置;</p>
-<ul>
-<li>早期用来做跨域</li>
-</ul>
-</li>
-<li><p>cookie设置时一条cookie的所有信息都放在一个字符串上;</p>
-</li>
-<li><p>需要设置path</p>
-<ul>
-<li>不同path的cookie不是同一条cookie;</li>
-</ul>
-</li>
-<li><p>设置expires : 过期时间;</p>
-</li>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">d.setDate( d.getDate() + <span class="number">15</span> );</span><br><span class="line"><span class="comment">// console.log(d);</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">"username=456789;path=/GP23;expires="</span> + d;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>cookie获取：</p>
-</li>
-<li><p>取出的cookie都用 ;空格 去进行间隔;</p>
-</li>
-<li><p><code>console.log(document.cookie);</code></p>
-</li>
-<li><h5 id="后端cookie"><a href="#后端cookie" class="headerlink" title="后端cookie"></a>后端cookie</h5></li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setCookie  设置cookie;</span><br><span class="line">$_COOKIE   获取cookie;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="localstorage："><a href="#localstorage：" class="headerlink" title="localstorage："></a>localstorage：</h2><p>在当前浏览器，持久存储数据的技术我们称之为本地存储技术</p>
-<ul>
-<li><h5 id="特定于页面的协议"><a href="#特定于页面的协议" class="headerlink" title="特定于页面的协议"></a>特定于页面的协议</h5></li>
-<li><h5 id="localStorage-中的键值对总是以字符串的形式存储。"><a href="#localStorage-中的键值对总是以字符串的形式存储。" class="headerlink" title="localStorage 中的键值对总是以字符串的形式存储。"></a><code>localStorage</code> 中的键值对总是以字符串的形式存储。</h5></li>
-<li><p>键值对总是以字符串的形式存储意味着数值类型会自动转化为字符串类型</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem();</span><br><span class="line">localStorage.getItem();<span class="comment">//读取</span></span><br><span class="line">localStorage.key();<span class="comment">//返回数据中某个key值（下标）</span></span><br><span class="line">localStorage.removeItem();<span class="comment">//移除</span></span><br><span class="line">localStorage.clear();<span class="comment">//移除所有</span></span><br></pre></td></tr></table></figure>
-<h2 id="JSON-stringify-："><a href="#JSON-stringify-：" class="headerlink" title="JSON.stringify()："></a>JSON.stringify()：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(value[, replacer [, space]])</span><br></pre></td></tr></table></figure>
-<p>将一个 JavaScript 对象或值转换为 JSON 字符串，如果指定了一个 replacer 函数，则可以选择性地替换值，或者指定的 replacer 是数组，则可选择性地仅包含数组指定的属性。</p>
-<h2 id="HTTP协议："><a href="#HTTP协议：" class="headerlink" title="HTTP协议："></a>HTTP协议：</h2><p>无论请求还是响应格式都是http规定的格式</p>
-<p>请求报文：</p>
-<ul>
-<li>请求行：<ul>
-<li>http协议版本：1.1</li>
-<li>请求方式：GET   POST    PATCH    PUT    DELETE</li>
-</ul>
-</li>
-<li>请求头：</li>
-<li>请求空行</li>
-<li>请求体（请求方式为POST）</li>
-</ul>
-<p>请求字段：</p>
-<ul>
-<li><p>GET：放在url之中</p>
-</li>
-<li><p>POST：放在请求体之中</p>
-</li>
-</ul>
-<p>响应报文：</p>
-<ul>
-<li>响应行<ul>
-<li>http协议版本 / 响应状态码</li>
-<li>1* : 准备状态 用不着看不到的状态; </li>
-<li>2 : 成功状态; </li>
-<li>3 : 重定向状态;</li>
-<li>4 : 请求错误 ; </li>
-</ul>
-</li>
-<li>响应头</li>
-<li>响应体</li>
-</ul>
+<h2 id="Promise："><a href="#Promise：" class="headerlink" title="Promise："></a>Promise：</h2><p>先执行同步任务，当执行到宏任务时，开辟<strong>新任务列</strong>放在最顶端执行；当遇到微任务时，放在当前任务列的最低端执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span> (<span class="function"><span class="keyword">function</span> (<span class="params">resolve,reject</span>) </span>&#123;</span><br><span class="line">	resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    setTimeout (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>. Log(<span class="string">"a"</span>);</span><br><span class="line">&#125;，<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span> (<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    resolve();</span><br><span class="line">&#125;). then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"b"</span>);</span><br><span class="line">&#125;);</span><br><span class="line">&#125;, <span class="number">0</span>);<span class="comment">//b,a</span></span><br></pre></td></tr></table></figure>
+<p>Promise.then()方法提供一个供自定义的回调函数，如果上一个函数的返回值非函数，则会忽略当前的then方法，回调函数结束会把程序的返回值传给下一个then方法中的函数当作参数使用。没有返回值默认为undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        resolve(<span class="string">'返回值'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> cb = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'新的值'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先定义了两个函数，对不同情况进行分析：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func().then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> cb();</span><br><span class="line">&#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(resp);</span><br><span class="line">    <span class="built_in">console</span>.warn(<span class="string">'1 =========&lt;'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//新的值</span></span><br><span class="line"><span class="comment">//1 =========&lt;</span></span><br></pre></td></tr></table></figure>
+<p><code>return cb()</code>表示执行cb函数，并将其结果（新的值）返回出去，在下一个then方法中resp接收了上一个then方法返回值的值（新的值）作为自己回调函数的参数使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func().then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    cb();</span><br><span class="line">&#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(resp);</span><br><span class="line">    <span class="built_in">console</span>.warn(<span class="string">'2 =========&lt;'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"><span class="comment">//2 =========&lt;</span></span><br></pre></td></tr></table></figure>
+<p>因为第一个then方法中只是执行了cb方法，而没有return返回值，默认下一个then方法的参数为undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func().then(cb()).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(resp);</span><br><span class="line">    <span class="built_in">console</span>.warn(<span class="string">'3 =========&lt;'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//返回值</span></span><br><span class="line"><span class="comment">//3 =========&lt;</span></span><br></pre></td></tr></table></figure>
+<p>第一个then方法中<code>cb()</code>函数先执行，结果为（新的值）非函数，官方文档中要求若传入then方法的参数不是函数，当前then方法必须被忽略：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func().then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(resp);</span><br><span class="line">    <span class="built_in">console</span>.warn(<span class="string">'3 =========&lt;'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>所以func()的返回结果直接传给then()方法中的回调函数作为参数resp的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func().then(cb).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.warn(resp);</span><br><span class="line">    <span class="built_in">console</span>.warn(<span class="string">'4 =========&lt;'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//返回值</span></span><br><span class="line"><span class="comment">//4 =========&lt;</span></span><br></pre></td></tr></table></figure>
+<p>关键在于第一个then方法的参数为<code>cb</code>=== <code>then(function(){return &#39;新的值&#39;})</code>；与第一个实例有同样的效果，同时也满足then方法中要传入一个函数的要求。</p>
 
       
     </div>
@@ -530,7 +458,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://ankang.icu/2021/04/16/cookie-localstorage/" title="cookie/localstorage">http://ankang.icu/2021/04/16/cookie-localstorage/</a>
+    <a href="http://ankang.icu/2021/04/17/Promise中的then方法理解/" title="Promise中的then方法理解">http://ankang.icu/2021/04/17/Promise中的then方法理解/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -545,7 +473,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Server/" rel="tag"><i class="fa fa-tag"></i> Server</a>
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/异步/" rel="tag"><i class="fa fa-tag"></i> 异步</a>
+          
+            <a href="/tags/ES6/" rel="tag"><i class="fa fa-tag"></i> ES6</a>
           
         </div>
       
@@ -558,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/04/15/CORS跨域-async-await-fetch/" rel="next" title="CORS跨域/async-await/fetch">
-                <i class="fa fa-chevron-left"></i> CORS跨域/async-await/fetch
+              <a href="/2021/04/16/cookie-localstorage/" rel="next" title="cookie/localstorage">
+                <i class="fa fa-chevron-left"></i> cookie/localstorage
               </a>
             
           </div>
@@ -567,10 +499,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/04/17/Promise中的then方法理解/" rel="prev" title="Promise中的then方法理解">
-                Promise中的then方法理解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -736,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">1.</span> <span class="nav-text">cookie:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前端cookie"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">前端cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#后端cookie"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">后端cookie</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#localstorage："><span class="nav-number">2.</span> <span class="nav-text">localstorage：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特定于页面的协议"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">特定于页面的协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#localStorage-中的键值对总是以字符串的形式存储。"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">localStorage 中的键值对总是以字符串的形式存储。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-stringify-："><span class="nav-number">3.</span> <span class="nav-text">JSON.stringify()：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议："><span class="nav-number">4.</span> <span class="nav-text">HTTP协议：</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-Loop"><span class="nav-number">1.</span> <span class="nav-text">Event Loop:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#宏任务："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">宏任务：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#微任务："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">微任务：</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise："><span class="nav-number">2.</span> <span class="nav-text">Promise：</span></a></li></div>
             
 
           </div>
