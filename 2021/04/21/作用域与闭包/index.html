@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Ankang">
 <meta property="og:description" content="作用域全局作用域、函数作用域、块级作用域 作用域链会向上查找，找到全局window时中止==&amp;gt;not defined；函数被执行后其环境变量将从内存中删除，函数每次调用会创建一个新作用域。 如果子函数将被使用时，父级环境将保留，不会被释放。===闭包 块级作用域-ES6中添加的，使用let/const 定义的具有块级作用域，var没有块级作用域">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-21T11:44:49.226Z">
+<meta property="og:updated_time" content="2021-04-22T13:35:41.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="作用域与闭包">
 <meta name="twitter:description" content="作用域全局作用域、函数作用域、块级作用域 作用域链会向上查找，找到全局window时中止==&amp;gt;not defined；函数被执行后其环境变量将从内存中删除，函数每次调用会创建一个新作用域。 如果子函数将被使用时，父级环境将保留，不会被释放。===闭包 块级作用域-ES6中添加的，使用let/const 定义的具有块级作用域，var没有块级作用域">
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-21T19:44:49+08:00">
-                2021-04-21
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-22T21:35:41+08:00">
+                2021-04-22
               </time>
             
           </span>
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  543 字
+                  751 字
                 </span>
               
 
@@ -397,6 +397,16 @@
 <li>基于call/apply/bind强制改变中的this</li>
 </ul>
 <p><strong>事件绑定中</strong>的this指向除了IE的attachEvent方式为window外，都是指向当前侦听的DOM对象；普通函数执行中，<strong>非严格模式</strong>下，this指向<em>window</em>，<strong>严格模式</strong>下，指向为undefined，<strong>对象中</strong>函数的this指向调用该函数的对象，<strong>对象调用</strong>在全局下就是<em>window</em>；<strong>闭包中</strong>的this一般都是指向<em>window</em>；<strong>回调函数中</strong>的this一般指向<em>window</em>；<strong>自执行函数中</strong>的this指向<em>window</em>；<strong>箭头函数中</strong>没有自己的this，所用的this都是所处上下文中的this—用来保留上下文this指向；</p>
+<ul>
+<li><p>call</p>
+</li>
+<li><p>apply</p>
+</li>
+<li><p>bind</p>
+</li>
+</ul>
+<p>call和apply都是立即执行函数，函数.call(指向对象,[…参数])，实现思路：先给参数1添加一个属性方法并且让这个属性值赋值为函数，执行自定义属性方法，删除刚刚添加的自定义属性方法； </p>
+<p><code>call</code>执行的函数，如果有参数，以逗号为间隔一个个传入，<code>apply</code>执行时，如果函数有参数，以<code>数组形式</code>传入。在<strong>非严格模式</strong>下，<code>call</code>方法传入null/undefined或者不传，this指向会变成window，<strong>严格模式</strong>下，写谁指向谁，如果指向对象为空，则指向undefined；<code>bind</code>调用的方法不会立即执行，指挥给预先处理好，等待被执行，如果函数有参数，则和call的参数传递一样；<em>call的性能高于apply</em>；</p>
 
       
     </div>
