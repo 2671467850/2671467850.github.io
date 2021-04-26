@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:25:53+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:30:53+08:00">
                 2021-04-26
               </time>
             
@@ -383,12 +383,6 @@
 <p>构造函数执行通过<code>new</code>来执行，在执行时浏览器会在当前上下文中<strong>创建一个实例对象</strong>，并且会让函数中的<strong>this指向</strong>到这个实例对象中，而普通函数中的this指向为window。</p>
 <p>函数如过没有返回值或返回值为基本类型值，则返回<code>undefined</code>或你指定的返回值;如果是构造函数，它没有返回值，则返回当前的<strong>实例对象</strong>，如果有返回值，返回值是基本类型则也是返回当前对象，当返回的是引用类型，则返回你所指定的类型。</p>
 <p>构造函数：箭头函数没有this，不能当构造函数，箭头函数没有prototype；ES6简写没有prototype；</p>
-<h5 id="原型与原型链"><a href="#原型与原型链" class="headerlink" title="原型与原型链"></a>原型与原型链</h5><p>箭头函数没有prototype原型属性；ES6简写没有prototype；</p>
-<p>每一个函数数据类型都自带一个<strong>prototype原型</strong>属性，属性值是一个对象，并且对象中自带一个属性为：<code>constructor</code>，属性值是当前构造函数本身。</p>
-<p>每一个对象数据类型都自带一个<code>__proto__</code>原型链属性，属性值是所属类的<code>prototype</code>原型对象。</p>
-<p>prototype也是一个对象，每一个类new出来的实例对象从prototype原型对象中继承属性；对象中包含 <code>__proto__</code>指向类的原型对象，原型中包含<code>constructor</code>属性，指向构造函数。</p>
-<p><strong>原型链</strong>：在对象的私有属性中查找结果，如果私有中存在就是用私有的（优先级最高），如果不存在，则基于<code>__proto__</code>找所属类prototype上的属性，再找prototype的 <code>__proto__</code>上的属性，直到<code>Object.prototype</code>为止，报错。原型链查找。</p>
-<p><img src="/2021/04/26/类-原型与原型链/image-1.png" alt="image-1"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/04/26/类-原型与原型链/#more" rel="contents">
