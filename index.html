@@ -321,7 +321,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:06:15+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:25:53+08:00">
                 2021-04-26
               </time>
             
@@ -375,8 +375,7 @@
 
       
         
-          
-            <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><h5 id="构造函数和普通函数"><a href="#构造函数和普通函数" class="headerlink" title="构造函数和普通函数"></a>构造函数和普通函数</h5><p>相同点：</p>
+          <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><h5 id="构造函数和普通函数"><a href="#构造函数和普通函数" class="headerlink" title="构造函数和普通函数"></a>构造函数和普通函数</h5><p>相同点：</p>
 <p>定义的方式，都是通过function来定义</p>
 <p>执行时参数传递方式一样</p>
 <p>都会形成私有上下文，都有私有变量</p>
@@ -390,26 +389,13 @@
 <p>prototype也是一个对象，每一个类new出来的实例对象从prototype原型对象中继承属性；对象中包含 <code>__proto__</code>指向类的原型对象，原型中包含<code>constructor</code>属性，指向构造函数。</p>
 <p><strong>原型链</strong>：在对象的私有属性中查找结果，如果私有中存在就是用私有的（优先级最高），如果不存在，则基于<code>__proto__</code>找所属类prototype上的属性，再找prototype的 <code>__proto__</code>上的属性，直到<code>Object.prototype</code>为止，报错。原型链查找。</p>
 <p><img src="/2021/04/26/类-原型与原型链/image-1.png" alt="image-1"></p>
-<p>获取对象的原型方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Fn.prototype.a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(Fn.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(o.__proto__);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(o));</span><br></pre></td></tr></table></figure>
-<p><code>Object.create()</code>：会创建一个空对象，基于传入的对象来创建，</p>
-<h5 id="获取与设置原型"><a href="#获取与设置原型" class="headerlink" title="获取与设置原型"></a>获取与设置原型</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置一个指定的对象的原型</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(对象，父对象);</span><br><span class="line"><span class="comment">// 指定对象的原型</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(对象)</span><br><span class="line"><span class="keyword">let</span> child = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> parent = &#123; <span class="attr">id</span>: <span class="number">100</span> &#125;;</span><br><span class="line"><span class="comment">// child.__proto__ = parent;//IE不兼容</span></span><br><span class="line"><span class="comment">// 设置child.__proto__的原型指向到parent</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(child, parent);</span><br></pre></td></tr></table></figure>
-<h5 id="原型重定向"><a href="#原型重定向" class="headerlink" title="原型重定向"></a>原型重定向</h5><p>原型重定向会引发constructor丢失，手动添加constructor属性，是可以通过for in枚举出来的，默认这个属性是不可以的。</p>
-<p>设置对象属性不可枚举</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给对象添加一个属性，并且给属性添加一些描述, 不可枚举</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Fn.prototype, <span class="string">'constructor'</span>, &#123;</span><br><span class="line">    <span class="comment">// 指定值</span></span><br><span class="line">    value: Fn,</span><br><span class="line">    <span class="comment">// 不可枚举</span></span><br><span class="line">    enumerable: <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 如果你要用prototype重定向，推荐写法</span></span><br><span class="line"><span class="built_in">Object</span>.assign(Fn.prototype, &#123;</span><br><span class="line">    getA() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'getA'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    getB() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'getB'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h5 id="原型检测"><a href="#原型检测" class="headerlink" title="原型检测"></a>原型检测</h5><p><code>instanceof</code> 检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上，只要能找到则为真，检查对象是否属于某个类；使用<code>isPrototypeOf</code>检测一个对象是否是另一个对象的原型链中；</p>
-<p>在ES6以后，先查找当前对象是否有Symbol，通过 <code>Symbol.hasInstance</code>方法，把要比较的对象放到此方法中，返回true/false。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="built_in">console</span>.log(myInstanceof(<span class="built_in">Array</span>, arr))</span><br><span class="line"><span class="comment">// 封装，只适用于es6之后</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myInstanceof</span>(<span class="params">FC, obj</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在类中查找是否存在 Symbol.hasInstance方法</span></span><br><span class="line">    <span class="keyword">let</span> ins = FC[<span class="built_in">Symbol</span>.hasInstance]</span><br><span class="line">    <span class="keyword">if</span> (ins &amp;&amp; <span class="keyword">typeof</span> ins === <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="comment">// 调用</span></span><br><span class="line">        <span class="keyword">return</span> ins.call(FC, obj)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="原型扩展方法"><a href="#原型扩展方法" class="headerlink" title="原型扩展方法"></a>原型扩展方法</h5><p>可以实现链式写法、限定调取方法的类型，必须是指定类型的实例</p>
-<h5 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h5><p><strong>封装</strong>：类也是一个函数,把实现一个功能的代码进行封装，以此实现“低耦合高内聚”。</p>
-<p><strong>多态</strong>：重写： 子类重写父类上的方法（伴随着继承运行的）； 重载： 相同的方法，由于参数或者返回值不同，具备了不同的功能（js中不具备严格意义上的重载）。</p>
-<p><strong>继承</strong>： 子类继承父类中的方法和属性。</p>
-<p><strong>方式</strong>：</p>
-<p>原型继承 (让子类的原型 = 父类实例)、call继承（只能继承父类中私有的，不能继承父类中公共的）、寄生组合式继承（call继承 + 原型继承）、混合继承（间接实现多继承）</p>
-<p>原型继承：把父类中的私有方法，都在子类中变成公有的，让子类的prototype = 父类。</p>
-<p>call/apply继承：把父类当普通函数执行，所以prototype丢失，但是让this指向还要指向到当前的对象中。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/26/类-原型与原型链/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -507,8 +493,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-22T22:32:54+08:00">
-                2021-04-22
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:26:32+08:00">
+                2021-04-26
               </time>
             
           </span>
@@ -535,7 +521,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  900 字
+                  978 字
                 </span>
               
 
@@ -561,29 +547,21 @@
 
       
         
-          
-            <h2 id="防抖与节流"><a href="#防抖与节流" class="headerlink" title="防抖与节流"></a>防抖与节流</h2><h5 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h5><p>在高频操作下，只识别一次触发（事件的开始时刻或者结束时刻），实现：一般设置一个阈值，在阈值内无论操作多少次，程序只执行一次。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//模拟一段ajax请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">content</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'ajax request '</span> + content)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//防抖</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fun, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line">        <span class="keyword">let</span> _args = args</span><br><span class="line">        clearTimeout(fun.id)</span><br><span class="line">        fun.id = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            fun.call(that, _args)</span><br><span class="line">        &#125;, delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> inputb = <span class="built_in">document</span>.getElementById(<span class="string">'debounce'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> debounceAjax = debounce(ajax, <span class="number">500</span>)</span><br><span class="line"></span><br><span class="line">inputb.addEventListener(<span class="string">'keyup'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    debounceAjax(e.target.value)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h5 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h5><p>高频操作下，按照规定好的时间为间隔触发一次，等待变化一会在执行程序，避免资源浪费。规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。</p>
-<ul>
+          <h2 id="防抖与节流"><a href="#防抖与节流" class="headerlink" title="防抖与节流"></a>防抖与节流</h2><ul>
 <li><p>函数防抖和函数节流都是防止某一时间频繁触发，但是这两者之间的原理却不一样。</p>
 </li>
 <li><p>函数防抖是某一段时间内只执行一次，而函数节流是间隔时间执行。</p>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fun, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> last, deferTimer</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line">        <span class="keyword">let</span> _args = <span class="built_in">arguments</span></span><br><span class="line">        <span class="keyword">let</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">        <span class="keyword">if</span> (last &amp;&amp; now &lt; last + delay) &#123;</span><br><span class="line">            clearTimeout(deferTimer)</span><br><span class="line">            deferTimer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                last = now</span><br><span class="line">                fun.apply(that, _args)</span><br><span class="line">            &#125;, delay)</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            last = now</span><br><span class="line">            fun.apply(that,_args)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> throttleAjax = throttle(ajax, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> inputc = <span class="built_in">document</span>.getElementById(<span class="string">'throttle'</span>)</span><br><span class="line">inputc.addEventListener(<span class="string">'keyup'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    throttleAjax(e.target.value)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><h5 id="对象计算比较："><a href="#对象计算比较：" class="headerlink" title="对象计算比较："></a>对象计算比较：</h5><p>对象计算时首先查找有没有<code>Symbol.toPrimiative</code>属性，如果有，根据此属性方法的返回值来计算；<code>Symbol.toPrimiative</code>–<code>valueOf</code>–<code>toString</code>顺序选择；</p>
-<p>如果是字符串连接操作，<code>toString</code>的优先级比<code>valueOf</code>高；条件比较则相反。</p>
-<h5 id="解构赋值："><a href="#解构赋值：" class="headerlink" title="解构赋值："></a>解构赋值：</h5><p>原则：看右侧数据，如果是对象，需要保证赋值对象的key相同，如果是数组，名称随意，左右类型相同。如果多个引用类型的名称，采用起别名的方式。</p>
-<h5 id="属性管理："><a href="#属性管理：" class="headerlink" title="属性管理："></a>属性管理：</h5><p>属性检查：<code>hasOwnProperty</code> 用来检查指定名称是否为当前对象的<em>私有属性</em>；<code>in</code> 关键字可以检查共有属性，<em>先私有后公有</em>,在私有属性中没有找到会通过<strong>proto</strong>原型链向下去查找，如果查到最后还没有返回false ，找到返回true</p>
-<p>实现检查当前属性是否为共有：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(!obj.hasOwnProperty(<span class="string">'name'</span>) &amp;&amp; (<span class="string">'name'</span> <span class="keyword">in</span> obj));</span><br></pre></td></tr></table></figure>
-<p>公有属性(原型或原型链上的)和私有属性(构造方法中)</p>
-<h5 id="获取属性名"><a href="#获取属性名" class="headerlink" title="获取属性名"></a>获取属性名</h5><p><code>Object.keys()</code>和<code>Object.getOwnPropertyNames()</code>：获取对象中所有非Symbol类型的私有属性方法，以数组返回；<code>Object.getOwnPropertySymbols()</code>：只获取Symbol的私有属性方法，以数组返回；<code>Object.definePropertie({},&#39;aa&#39;,{enumerable:false})</code>：设置属性不可枚举，循环不可以读出，不可以直接被调用，起到一个保护作用。使用for…in…可以迭代原型链中所有可枚举的属性。</p>
-<h5 id="禁止向对象添加属性"><a href="#禁止向对象添加属性" class="headerlink" title="禁止向对象添加属性"></a>禁止向对象添加属性</h5><p><code>Object.preventExtensions(obj)</code>：禁止向对象添加属性，对原有属性可以修改。严格模式下，设置禁止添加属性，但程序中存在添加代码，会报错，后续代码不执行。</p>
-<h5 id="冻结对象"><a href="#冻结对象" class="headerlink" title="冻结对象"></a>冻结对象</h5><p><code>Object.freeze(obj)</code>：冻结后的对象不可修改，—将对象定义为一个常量。严格模式下，对已经冻结的对象修改和添加属性会报错，后续代码不执行；非严格模式下，没有效果不报错。可以通过<code>Object.isFrozen(obj)</code>检查当前对象是否为冻结对象。</p>
-<h5 id="获取器与修改器"><a href="#获取器与修改器" class="headerlink" title="获取器与修改器"></a>获取器与修改器</h5><h5 id="对象属性私有化"><a href="#对象属性私有化" class="headerlink" title="对象属性私有化"></a>对象属性私有化</h5><h5 id="浅拷贝与深拷贝"><a href="#浅拷贝与深拷贝" class="headerlink" title="浅拷贝与深拷贝"></a>浅拷贝与深拷贝</h5>
-          
+<h5 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h5><p>在高频操作下，只识别一次触发（事件的开始时刻或者结束时刻），实现：一般设置一个阈值，在阈值内无论操作多少次，程序只执行一次。</p>
+<h5 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h5><p>高频操作下，按照规定好的时间为间隔触发一次，等待变化一会在执行程序，避免资源浪费。规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/22/节流-防抖与对象/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

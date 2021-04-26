@@ -90,7 +90,7 @@
 <meta property="og:description" content="类构造函数和普通函数相同点： 定义的方式，都是通过function来定义 执行时参数传递方式一样 都会形成私有上下文，都有私有变量 不同点： 构造函数执行通过new来执行，在执行时浏览器会在当前上下文中创建一个实例对象，并且会让函数中的this指向到这个实例对象中，而普通函数中的this指向为window。 函数如过没有返回值或返回值为基本类型值，则返回undefined或你指定的返回值;如果是构">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ankang.icu/2021/04/26/类-原型与原型链/image-1.png">
-<meta property="og:updated_time" content="2021-04-26T01:06:15.690Z">
+<meta property="og:updated_time" content="2021-04-26T01:25:53.430Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="类&#x2F;原型与原型链">
 <meta name="twitter:description" content="类构造函数和普通函数相同点： 定义的方式，都是通过function来定义 执行时参数传递方式一样 都会形成私有上下文，都有私有变量 不同点： 构造函数执行通过new来执行，在执行时浏览器会在当前上下文中创建一个实例对象，并且会让函数中的this指向到这个实例对象中，而普通函数中的this指向为window。 函数如过没有返回值或返回值为基本类型值，则返回undefined或你指定的返回值;如果是构">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:06:15+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:25:53+08:00">
                 2021-04-26
               </time>
             
@@ -389,6 +389,7 @@
 <p>prototype也是一个对象，每一个类new出来的实例对象从prototype原型对象中继承属性；对象中包含 <code>__proto__</code>指向类的原型对象，原型中包含<code>constructor</code>属性，指向构造函数。</p>
 <p><strong>原型链</strong>：在对象的私有属性中查找结果，如果私有中存在就是用私有的（优先级最高），如果不存在，则基于<code>__proto__</code>找所属类prototype上的属性，再找prototype的 <code>__proto__</code>上的属性，直到<code>Object.prototype</code>为止，报错。原型链查找。</p>
 <p><img src="/2021/04/26/类-原型与原型链/image-1.png" alt="image-1"></p>
+<a id="more"></a>
 <p>获取对象的原型方式：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Fn.prototype.a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(Fn.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(o.__proto__);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(o));</span><br></pre></td></tr></table></figure>
 <p><code>Object.create()</code>：会创建一个空对象，基于传入的对象来创建，</p>
