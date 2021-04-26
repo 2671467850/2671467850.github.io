@@ -274,6 +274,192 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/26/类-原型与原型链/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/26/类-原型与原型链/" itemprop="url">类/原型与原型链</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-26T09:03:29+08:00">
+                2021-04-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:06:15+08:00">
+                2021-04-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><h5 id="构造函数和普通函数"><a href="#构造函数和普通函数" class="headerlink" title="构造函数和普通函数"></a>构造函数和普通函数</h5><p>相同点：</p>
+<p>定义的方式，都是通过function来定义</p>
+<p>执行时参数传递方式一样</p>
+<p>都会形成私有上下文，都有私有变量</p>
+<p>不同点：</p>
+<p>构造函数执行通过<code>new</code>来执行，在执行时浏览器会在当前上下文中<strong>创建一个实例对象</strong>，并且会让函数中的<strong>this指向</strong>到这个实例对象中，而普通函数中的this指向为window。</p>
+<p>函数如过没有返回值或返回值为基本类型值，则返回<code>undefined</code>或你指定的返回值;如果是构造函数，它没有返回值，则返回当前的<strong>实例对象</strong>，如果有返回值，返回值是基本类型则也是返回当前对象，当返回的是引用类型，则返回你所指定的类型。</p>
+<p>构造函数：箭头函数没有this，不能当构造函数，箭头函数没有prototype；ES6简写没有prototype；</p>
+<h5 id="原型与原型链"><a href="#原型与原型链" class="headerlink" title="原型与原型链"></a>原型与原型链</h5><p>箭头函数没有prototype原型属性；ES6简写没有prototype；</p>
+<p>每一个函数数据类型都自带一个<strong>prototype原型</strong>属性，属性值是一个对象，并且对象中自带一个属性为：<code>constructor</code>，属性值是当前构造函数本身。</p>
+<p>每一个对象数据类型都自带一个<code>__proto__</code>原型链属性，属性值是所属类的<code>prototype</code>原型对象。</p>
+<p>prototype也是一个对象，每一个类new出来的实例对象从prototype原型对象中继承属性；对象中包含 <code>__proto__</code>指向类的原型对象，原型中包含<code>constructor</code>属性，指向构造函数。</p>
+<p><strong>原型链</strong>：在对象的私有属性中查找结果，如果私有中存在就是用私有的（优先级最高），如果不存在，则基于<code>__proto__</code>找所属类prototype上的属性，再找prototype的 <code>__proto__</code>上的属性，直到<code>Object.prototype</code>为止，报错。原型链查找。</p>
+<p><img src="/2021/04/26/类-原型与原型链/image-1.png" alt="image-1"></p>
+<p>获取对象的原型方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">Fn.prototype.a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> o = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(Fn.prototype);</span><br><span class="line"><span class="built_in">console</span>.log(o.__proto__);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(o));</span><br></pre></td></tr></table></figure>
+<p><code>Object.create()</code>：会创建一个空对象，基于传入的对象来创建，</p>
+<h5 id="获取与设置原型"><a href="#获取与设置原型" class="headerlink" title="获取与设置原型"></a>获取与设置原型</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置一个指定的对象的原型</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(对象，父对象);</span><br><span class="line"><span class="comment">// 指定对象的原型</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(对象)</span><br><span class="line"><span class="keyword">let</span> child = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> parent = &#123; <span class="attr">id</span>: <span class="number">100</span> &#125;;</span><br><span class="line"><span class="comment">// child.__proto__ = parent;//IE不兼容</span></span><br><span class="line"><span class="comment">// 设置child.__proto__的原型指向到parent</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(child, parent);</span><br></pre></td></tr></table></figure>
+<h5 id="原型重定向"><a href="#原型重定向" class="headerlink" title="原型重定向"></a>原型重定向</h5><p>原型重定向会引发constructor丢失，手动添加constructor属性，是可以通过for in枚举出来的，默认这个属性是不可以的。</p>
+<p>设置对象属性不可枚举</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给对象添加一个属性，并且给属性添加一些描述, 不可枚举</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Fn.prototype, <span class="string">'constructor'</span>, &#123;</span><br><span class="line">    <span class="comment">// 指定值</span></span><br><span class="line">    value: Fn,</span><br><span class="line">    <span class="comment">// 不可枚举</span></span><br><span class="line">    enumerable: <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 如果你要用prototype重定向，推荐写法</span></span><br><span class="line"><span class="built_in">Object</span>.assign(Fn.prototype, &#123;</span><br><span class="line">    getA() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'getA'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    getB() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'getB'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="原型检测"><a href="#原型检测" class="headerlink" title="原型检测"></a>原型检测</h5><p><code>instanceof</code> 检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上，只要能找到则为真，检查对象是否属于某个类；使用<code>isPrototypeOf</code>检测一个对象是否是另一个对象的原型链中；</p>
+<p>在ES6以后，先查找当前对象是否有Symbol，通过 <code>Symbol.hasInstance</code>方法，把要比较的对象放到此方法中，返回true/false。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="built_in">console</span>.log(myInstanceof(<span class="built_in">Array</span>, arr))</span><br><span class="line"><span class="comment">// 封装，只适用于es6之后</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myInstanceof</span>(<span class="params">FC, obj</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在类中查找是否存在 Symbol.hasInstance方法</span></span><br><span class="line">    <span class="keyword">let</span> ins = FC[<span class="built_in">Symbol</span>.hasInstance]</span><br><span class="line">    <span class="keyword">if</span> (ins &amp;&amp; <span class="keyword">typeof</span> ins === <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="comment">// 调用</span></span><br><span class="line">        <span class="keyword">return</span> ins.call(FC, obj)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="原型扩展方法"><a href="#原型扩展方法" class="headerlink" title="原型扩展方法"></a>原型扩展方法</h5><p>可以实现链式写法、限定调取方法的类型，必须是指定类型的实例</p>
+<h5 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h5><p><strong>封装</strong>：类也是一个函数,把实现一个功能的代码进行封装，以此实现“低耦合高内聚”。</p>
+<p><strong>多态</strong>：重写： 子类重写父类上的方法（伴随着继承运行的）； 重载： 相同的方法，由于参数或者返回值不同，具备了不同的功能（js中不具备严格意义上的重载）。</p>
+<p><strong>继承</strong>： 子类继承父类中的方法和属性。</p>
+<p><strong>方式</strong>：</p>
+<p>原型继承 (让子类的原型 = 父类实例)、call继承（只能继承父类中私有的，不能继承父类中公共的）、寄生组合式继承（call继承 + 原型继承）、混合继承（间接实现多继承）</p>
+<p>原型继承：把父类中的私有方法，都在子类中变成公有的，让子类的prototype = 父类。</p>
+<p>call/apply继承：把父类当普通函数执行，所以prototype丢失，但是让this指向还要指向到当前的对象中。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/22/节流-防抖与对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1802,169 +1988,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/12/服务器端与PHP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ankang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ankang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/12/服务器端与PHP/" itemprop="url">服务器端与PHP</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-12T20:18:30+08:00">
-                2021-04-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-13T08:04:17+08:00">
-                2021-04-13
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  664 字
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ol>
-<li>服务器基础</li>
-<li>HTTP协议</li>
-<li>PHP</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/04/12/服务器端与PHP/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-     
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2016,7 +2039,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
