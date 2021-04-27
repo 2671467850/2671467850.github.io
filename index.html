@@ -274,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/26/类-原型与原型链/">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/27/模块化与TypeScript的基本数据类型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ankang">
@@ -293,7 +293,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/04/26/类-原型与原型链/" itemprop="url">类/原型与原型链</a></h1>
+                <a class="post-title-link" href="/2021/04/27/模块化与TypeScript的基本数据类型/" itemprop="url">模块化与TypeScript的基本数据类型</a></h1>
         
 
         <div class="post-meta">
@@ -305,7 +305,209 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-26T09:03:29+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-27T22:57:43+08:00">
+                2021-04-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-27T22:59:48+08:00">
+                2021-04-27
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><p><strong>方案</strong>：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6</p>
+<p><em>AMD和CMD</em>，两者的<strong>区别</strong>是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。</p>
+<p>CMD 有async方法实现异步</p>
+<h5 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h5><p>非同步加载模块，允许指定回调函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义模块，没有依赖项</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'你好fn1'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 导出模块</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        fn1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 定义模块有这依赖项</span></span><br><span class="line">define([<span class="string">'m1'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">m1</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'m2模块'</span>, m1.fn1());</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 暴露模块</span></span><br><span class="line">    <span class="keyword">return</span> &#123; fn2 &#125;;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 入口文件</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    requirejs.config(&#123;</span><br><span class="line">        <span class="comment">// 配置js路径</span></span><br><span class="line">        paths: &#123;</span><br><span class="line">            m1: <span class="string">'./module/m1'</span>,</span><br><span class="line">            m2: <span class="string">'./module/m2'</span>,</span><br><span class="line">            jquery: <span class="string">'./module/jquery'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    requirejs([<span class="string">'m2'</span>, <span class="string">' jquery'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">m2</span>) </span>&#123;</span><br><span class="line">        m2.fn2();</span><br><span class="line">        $(<span class="string">'#box'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">1111</span>);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="comment">// 页面文件</span></span><br><span class="line">&lt;div id=<span class="string">"box"</span>&gt;点击试一下&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script data-main="./m</span>ain.js<span class="string">" src="</span>./lib/<span class="built_in">require</span>.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 没有依赖的模块</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"m1模块下面的fn1方法"</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 导出模块</span></span><br><span class="line">    <span class="built_in">module</span>.exports = &#123;</span><br><span class="line">        fn1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 有依赖的模块</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 导入依赖模块</span></span><br><span class="line">    <span class="keyword">let</span> m1 = <span class="built_in">require</span>(<span class="string">'./m1'</span>)</span><br><span class="line">    m1.fn1()</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'我是m2模块下面的fn2方法'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    exports.fn2 = fn2</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 主入口文件</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> m2 = <span class="built_in">require</span>(<span class="string">'./m2'</span>)</span><br><span class="line">    m2.fn2()</span><br><span class="line">    <span class="keyword">let</span> jquery = <span class="built_in">require</span>(<span class="string">'./jquery'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(jquery(<span class="string">'body'</span>));</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 页面</span></span><br><span class="line">&lt;script src=<span class="string">"./lib/sea.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">    seajs.use('./m</span>odule/main.js<span class="string">')</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h5><p>前端浏览器不支持，Nodejs中使用的是这个规范，核心思想就是通过 require 方法来同步加载所要依赖的其他模块，然后通过 exports 或者 module.exports 来导出需要暴露的接口。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导出</span></span><br><span class="line"><span class="built_in">module</span>.exports = 对象</span><br><span class="line"><span class="comment">// 导入</span></span><br><span class="line"><span class="keyword">const</span> 变量 = <span class="built_in">require</span>(路径)</span><br></pre></td></tr></table></figure>
+<h5 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h5><p>在ES6中，我们可以使用 import 关键字引入模块，通过 exprot 关键字导出模块，功能较之于前几个方案更为强大，也是我们所推崇的，但是由于ES6模块化目前还无法在所有的浏览器中支持，所以在浏览器中使用需要进行编译处理。目前chrome是支持的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> [<span class="keyword">default</span>] 对象</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> obj form <span class="string">'路径'</span></span><br><span class="line"><span class="keyword">import</span> xxx form <span class="string">'路径'</span></span><br><span class="line"><span class="keyword">import</span> &#123;xx <span class="keyword">as</span> 别名&#125; <span class="keyword">from</span> <span class="string">'路径'</span></span><br></pre></td></tr></table></figure>
+<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>TypeScript 是 JavaScript 的超集，扩展了 JavaScript 的语法，因此现有的 JavaScript 代码可与 TypeScript 一起工作无需任何修改，TypeScript 通过类型注解提供编译时的静态类型检查。</p>
+<p><img src="/2021/04/27/模块化与TypeScript的基本数据类型/img1.png" alt="image-20210427192231042">下载完nodejs后可以切换npm镜像</p>
+<blockquote>
+<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
+</blockquote>
+<p>也可以安装nrm–镜像源管理，高版本会报错，安装目录下找到 <code>cli.js</code>文件在17行，修改如下：</p>
+<blockquote>
+<p>const NRMRC = path.join(process.env[(process.platform == ‘win32’) ? ‘USERPROFILE’ : ‘HOME’], ‘.nrmrc’);</p>
+</blockquote>
+<p>使用npm全局安装TypeScript</p>
+<blockquote>
+<p>npm i -g typescript</p>
+<p>//安装完成查看</p>
+<p>tsc -v</p>
+</blockquote>
+<p>通过tsc命令对ts文件进行编译 <code>tsc app ts</code></p>
+<p><img src="/2021/04/27/模块化与TypeScript的基本数据类型/img2.png" alt="image-20210427193235016"></p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>类型声明：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app:类型</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">p1:类型,p2:类型</span>):类型</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>自动类型：</p>
+<p>当对变量的声明和赋值是同时进行的，TS编译器会自动判断变量的类型，工作中建议还是手动指明变量类型，尽量少的去让TS自动判断类型。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="string">"Hello"</span></span><br><span class="line"><span class="built_in">console</span>.log(app);</span><br></pre></td></tr></table></figure>
+<h5 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<h5 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> decLiteral: <span class="built_in">number</span> = <span class="number">6</span>;           <span class="comment">// 十进制</span></span><br><span class="line"><span class="keyword">let</span> hexLiteral: <span class="built_in">number</span> = <span class="number">0xf00d</span>;     <span class="comment">// 十六进制</span></span><br><span class="line"><span class="keyword">let</span> binaryLiteral: <span class="built_in">number</span> = <span class="number">0b1010</span>;  <span class="comment">// 二进制</span></span><br><span class="line"><span class="keyword">let</span> octalLiteral: <span class="built_in">number</span> = <span class="number">0o744</span>;    <span class="comment">// 八进制</span></span><br></pre></td></tr></table></figure>
+<h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name: <span class="built_in">string</span> = <span class="string">"bob"</span></span><br><span class="line"><span class="keyword">let</span> username:<span class="built_in">string</span> = <span class="string">`aaabbbccc`</span></span><br></pre></td></tr></table></figure>
+<h5 id="any-unknown"><a href="#any-unknown" class="headerlink" title="any/unknown"></a>any/unknown</h5><p>any任意类型, 类型安全的any类型；当前定义的变量，不知道是什么类型。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> app:<span class="built_in">any</span> = <span class="number">66</span></span><br><span class="line"><span class="keyword">let</span> app:unknown = <span class="number">66</span></span><br></pre></td></tr></table></figure>
+<h5 id="void"><a href="#void" class="headerlink" title="void"></a>void</h5><p>表示没有任何类型，只能赋值为undefined和null，一般常用于返回返回值的声明，如果一个函数没有返回值，就可以用它。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> unusable: <span class="built_in">void</span> = <span class="literal">undefined</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">warnUser</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"This is my warning message"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h5><h5 id="never"><a href="#never" class="headerlink" title="never"></a>never</h5><p>表示那些永不存在的值的类型，也在函数执行判断时，永不可能执行到的代码块。</p>
+<p><img src="/2021/04/27/模块化与TypeScript的基本数据类型/img3.png" alt="image-20210427194331157"></p>
+<h5 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h5><p>可以使用字面量去指定变量的类型，通过字面量可以确定变量的取值范围</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> color: <span class="string">'red'</span> | <span class="string">'blue'</span> | <span class="string">'green'</span>;</span><br><span class="line"><span class="keyword">let</span> num: <span class="number">1</span> | <span class="number">2</span> | <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><p>使用枚举类型可以为一组数值赋予特定的值。</p>
+<p>使用时，如果定义的枚举内部没有指定值，则默认从0开始；如果设置枚举的值为数值，则后面未设置的值向下累加；如果设置的值为字符串，需要全部设置；常量定义的枚举，不可直接打印类型，但是可以通过 <code>.</code>读取到里面的值；</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">    Red,</span><br><span class="line">    Green,</span><br><span class="line">    Blue,</span><br><span class="line">&#125;</span><br><span class="line">或</span><br><span class="line"><span class="keyword">enum</span> Color &#123;</span><br><span class="line">    Red = <span class="number">1</span>,</span><br><span class="line">    Green = <span class="number">2</span>,</span><br><span class="line">    Blue = <span class="number">3</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> c: Color = Color.Green;</span><br></pre></td></tr></table></figure>
+<h5 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj: object = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> obj:&#123;id:<span class="built_in">number</span>,name?:<span class="built_in">string</span>&#125;  <span class="comment">// ?可选</span></span><br><span class="line"><span class="comment">// id是必须要有的，后面可以任意key，key为字符串，值为任意类型</span></span><br><span class="line"><span class="keyword">let</span> obj:&#123;id:<span class="built_in">number</span>,[props:<span class="built_in">string</span>]:<span class="built_in">any</span>&#125;</span><br><span class="line"><span class="comment">// 给函数参数定义类型和返回值定义类型</span></span><br><span class="line"><span class="keyword">type</span> fnType = <span class="function">(<span class="params">a:<span class="built_in">number</span>,b:<span class="built_in">number</span></span>)=&gt;</span><span class="built_in">number</span></span><br><span class="line"><span class="keyword">const</span> fn:fnType = (a:<span class="built_in">number</span>,b:<span class="built_in">number</span>):<span class="function"><span class="params">number</span>=&gt;</span>a+b</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/04/27/模块化与TypeScript的基本数据类型/img4.png" alt="image-20210427195919260"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/26/new-call-bind-instanceof的实现与代理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/26/new-call-bind-instanceof的实现与代理/" itemprop="url">new/call/bind/instanceof的实现与代理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-26T22:53:00+08:00">
                 2021-04-26
               </time>
             
@@ -321,8 +523,188 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-26T09:30:53+08:00">
-                2021-04-26
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-27T23:00:20+08:00">
+                2021-04-27
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><h5 id="重写new"><a href="#重写new" class="headerlink" title="重写new"></a>重写new</h5><p>new内部过程：创建一个实例对象，this指向当前这个实例对象，会自动把函数执行，但是this内部指向变为实例对象，返回值没有或者是基本值，则返回实例对象；如果是引用值，以定义好的为主。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个实例对象</span></span><br><span class="line">    <span class="comment">// this指向实例对象</span></span><br><span class="line">    <span class="comment">// 也会像普通函数执行一样，让其执行，只不过this指向实例对象</span></span><br><span class="line">    <span class="comment">// 返回值没有或基本值，则返回实例对象，如果引用值，以自己的为主</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> f1 = <span class="keyword">new</span> Fn()</span><br><span class="line"><span class="comment">// ===============================================================</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_new</span>(<span class="params">Construct, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个实例对象（创建Construct类的实例，让其 对象.__proto__ = Construct.prototype）</span></span><br><span class="line">    <span class="comment">// obj.__proto__ = Construct.prototype</span></span><br><span class="line">    <span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(Construct.prototype)</span><br><span class="line">    <span class="comment">// 把函数执行，让this指向实例对象</span></span><br><span class="line">    <span class="keyword">let</span> ret = Construct.call(obj, ...args)</span><br><span class="line">    <span class="comment">//  处理返回值，引用类型,直接返回引用类型的值</span></span><br><span class="line">    <span class="keyword">if</span> (ret !== <span class="literal">null</span> &amp;&amp; <span class="regexp">/^(object|function)$/</span>.test(<span class="keyword">typeof</span> ret)) &#123;</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">    <span class="keyword">this</span>.age = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'方法==='</span> + <span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> f1 = _new(Fn, <span class="string">'张三'</span>)</span><br><span class="line">f1.age()</span><br></pre></td></tr></table></figure>
+<h5 id="重写call和bind"><a href="#重写call和bind" class="headerlink" title="重写call和bind"></a>重写call和bind</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">ctx, ...params</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 参数可以为 undefined或null</span></span><br><span class="line">    ctx = ctx == <span class="literal">null</span> ? <span class="built_in">window</span> : ctx</span><br><span class="line">    <span class="comment">// 需要保证ctx必须是对象类型的值:因为只有对象才能设置属性</span></span><br><span class="line">    ctx = !<span class="regexp">/^(object|function)$/</span>.test(<span class="keyword">typeof</span> ctx) ? <span class="built_in">Object</span>(ctx) : ctx</span><br><span class="line">    <span class="keyword">let</span> self = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">let</span> ret = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 新增的属性名保证唯一性，防止污染原始对象中的成员数据</span></span><br><span class="line">    <span class="keyword">let</span> functionName = <span class="built_in">Symbol</span>(<span class="string">'functionName'</span>)</span><br><span class="line">    <span class="comment">// 给对象添加属性</span></span><br><span class="line">    ctx[functionName] = self</span><br><span class="line">    <span class="comment">// 执行方法</span></span><br><span class="line">    ret = ctx[functionName](...params)</span><br><span class="line">    <span class="comment">// 删除自定义属性</span></span><br><span class="line">    <span class="keyword">delete</span> ctx[functionName]</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>, x, y)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'张三'</span></span><br><span class="line">&#125;</span><br><span class="line">fn.myCall(obj, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="重写bind"><a href="#重写bind" class="headerlink" title="重写bind"></a>重写bind</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> <span class="title">myBind</span>(<span class="params">ctx, ...params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> self = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        self.apply(ctx, [...params, ...args])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">id</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>, args)</span><br><span class="line">&#125;</span><br><span class="line">btn.onclick = fn.bind(obj, <span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="重写instanceof"><a href="#重写instanceof" class="headerlink" title="重写instanceof"></a>重写<code>instanceof</code></h5><p>不能检测基本数据类型,检测的实例必须是对象；</p>
+<p>检测原理：构造函数<code>Symbol.hasInstance</code>属性，检测构造函数的prototype是否出现在实例的<code>__proto__</code>上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_instanceof</span>(<span class="params">obj, FC</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> FC !== <span class="string">"function"</span>) &#123;</span><br><span class="line">        <span class="comment">// 抛异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'类型不能，无法使用'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (obj == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment">// 检查是否有Symbol.hasInstance属性</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Symbol</span> !== <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> hasIns = FC[<span class="built_in">Symbol</span>.hasInstance]</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> hasIns === <span class="string">'function'</span>) &#123;</span><br><span class="line">            <span class="comment">// 执行返回true/false</span></span><br><span class="line">            <span class="keyword">return</span> hasIns.call(FC, obj)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 不支持Symbol</span></span><br><span class="line">    <span class="comment">// 获取类的原型</span></span><br><span class="line">    <span class="keyword">let</span> prototype = FC.prototype</span><br><span class="line">    <span class="comment">// 获取实例的原型</span></span><br><span class="line">    <span class="keyword">let</span> proto = <span class="built_in">Object</span>.getPrototypeOf(obj)</span><br><span class="line">    <span class="comment">// 如果类没有prototype则直接返回false</span></span><br><span class="line">    <span class="keyword">if</span> (!prototype) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 找到原型链最顶，还没有找到返回false</span></span><br><span class="line">        <span class="keyword">if</span> (proto === <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        <span class="comment">// 在原型上找到返回true</span></span><br><span class="line">        <span class="keyword">if</span> (proto === prototype) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">        proto = <span class="built_in">Object</span>.getPrototypeOf(proto)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> res = _instanceof(<span class="number">1</span>, <span class="built_in">Array</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
+<h5 id="代理拦截"><a href="#代理拦截" class="headerlink" title="代理拦截"></a>代理拦截</h5><p><code>Object.defineProperty</code>：ES5方法，该方法可以在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。但是无法监听数组变化。其中属性 <code>enumerable</code>不可枚举；<code>configurable</code>是否可以删除；<code>value</code>属性值；<code>writable</code>属性是否可修改。</p>
+<p><code>Proxy</code>：ES6提供的新的api，Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。</p>
+<ul>
+<li>Proxy可以直接监听对象而非属性。</li>
+<li>Proxy直接可以劫持整个对象,并返回一个新对象,不管是操作便利程度还是底层功能上都远强于Object.defineProperty。</li>
+<li>Proxy可以直接监听数组的变化。</li>
+<li>有多达13种拦截方法,不限于<code>apply、ownKeys、deleteProperty、has</code>等等是Object.defineProperty不具备的。</li>
+</ul>
+<p><img src="/2021/04/26/new-call-bind-instanceof的实现与代理/image1.png" alt="image-20210426230342845"></p>
+<p><img src="/2021/04/26/new-call-bind-instanceof的实现与代理/image2.png" alt="image-20210426230349251"></p>
+<h4 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h4><p>Reflect对象与Proxy对象一样，也是ES6为了操作对象而提供的新API。Reflect对象的设计目的有这样几个。</p>
+<ul>
+<li>将Object对象的一些明显属于语言内部的方法（比如Object.defineProperty），放到Reflect对象上。现阶段，某些方法同时在Object和Reflect对象上部署，未来的新方法将只部署在Reflect对象上。</li>
+<li>修改某些Object方法的返回结果，让其变得更合理。比如，Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。</li>
+<li>让Object操作都变成函数行为。某些Object操作是命令式，比如name in obj和delete obj[name]，而Reflect.has(obj, name)和Reflect.deleteProperty(obj, name)让它们变成了函数行为。</li>
+<li>Reflect对象的方法与Proxy对象的方法一一对应，只要是Proxy对象的方法，就能在Reflect对象上找到对应的方法。这就让Proxy对象可以方便地调用对应的Reflect方法，完成默认行为，作为修改行为的基础。也就是说，不管Proxy怎么修改默认行为，你总可以在Reflect上获取默认行为。</li>
+</ul>
+<p>它拥有的API和Proxy一一对应。</p>
+<p><code>Object.defineProperty:enumerable</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+     
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/25/类-原型与原型链/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ankang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ankang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/25/类-原型与原型链/" itemprop="url">类/原型与原型链</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-25T09:03:29+08:00">
+                2021-04-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-27T23:00:24+08:00">
+                2021-04-27
               </time>
             
           </span>
@@ -385,7 +767,7 @@
 <p>构造函数：箭头函数没有this，不能当构造函数，箭头函数没有prototype；ES6简写没有prototype；</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/04/26/类-原型与原型链/#more" rel="contents">
+            <a class="btn" href="/2021/04/25/类-原型与原型链/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1621,345 +2003,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/14/Promise-then-JSONP跨域/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ankang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ankang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/14/Promise-then-JSONP跨域/" itemprop="url">Promise.then/JSONP跨域</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-14T09:49:27+08:00">
-                2021-04-14
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-17T10:01:15+08:00">
-                2021-04-17
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  627 字
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Web-Worker"><a href="#Web-Worker" class="headerlink" title="Web Worker"></a>Web Worker</h2><p>同步实现优先于异步实现</p>
-<ul>
-<li>异步队列中如果先执行完会等待同步完成</li>
-<li>子元素和父元素的侦听顺序</li>
-</ul>
-<p>Promise.then</p>
-<p>GET和POST区别</p>
-<p>JSONP跨域</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/04/14/Promise-then-JSONP跨域/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-     
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ankang.icu/2021/04/13/前后端分离-Ajax/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ankang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ankang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/13/前后端分离-Ajax/" itemprop="url">前后端分离/Ajax</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-13T22:18:44+08:00">
-                2021-04-13
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-13T22:22:07+08:00">
-                2021-04-13
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  924 字
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ol>
-<li>前后端分离技术</li>
-<li>PHP与MySQL数据库</li>
-<li>Ajax–异步</li>
-</ol>
-<h2 id="http协议补充-请求携带数据"><a href="#http协议补充-请求携带数据" class="headerlink" title="http协议补充 - 请求携带数据"></a>http协议补充 - 请求携带数据</h2><ul>
-<li>GET : GET 请求的数据全部放在url路径之中 ; </li>
-<li>路径后方可以拼接php数据 <ul>
-<li>url?key=value&amp;key2=value</li>
-<li>使用GET请求携带的数据, 以key为键，以value为值 以组的形式进行发送; </li>
-<li>每条数据都以key=value形式进行分割; </li>
-</ul>
-</li>
-<li>我们通常把传递数据的key值称之为 <code>字段</code>;</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/04/13/前后端分离-Ajax/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-     
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2011,7 +2054,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2024,7 +2067,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
