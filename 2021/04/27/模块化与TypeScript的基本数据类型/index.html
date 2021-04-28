@@ -81,22 +81,22 @@
 
 
 
-<meta name="description" content="模块化方案：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6 AMD和CMD，两者的区别是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。 CMD 有async方法实现异步 AMD非同步加载模块，允许指定回调函数 1234567891011121314151617181">
+<meta name="description" content="模块化方案：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6 AMD和CMD，两者的区别是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。 CMD 有async方法实现异步">
 <meta name="keywords" content="TypeScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模块化与TypeScript的基本数据类型">
 <meta property="og:url" content="http://ankang.icu/2021/04/27/模块化与TypeScript的基本数据类型/index.html">
 <meta property="og:site_name" content="Ankang">
-<meta property="og:description" content="模块化方案：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6 AMD和CMD，两者的区别是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。 CMD 有async方法实现异步 AMD非同步加载模块，允许指定回调函数 1234567891011121314151617181">
+<meta property="og:description" content="模块化方案：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6 AMD和CMD，两者的区别是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。 CMD 有async方法实现异步">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ankang.icu/2021/04/27/模块化与TypeScript的基本数据类型/img1.png">
 <meta property="og:image" content="http://ankang.icu/2021/04/27/模块化与TypeScript的基本数据类型/img2.png">
 <meta property="og:image" content="http://ankang.icu/2021/04/27/模块化与TypeScript的基本数据类型/img3.png">
 <meta property="og:image" content="http://ankang.icu/2021/04/27/模块化与TypeScript的基本数据类型/img4.png">
-<meta property="og:updated_time" content="2021-04-27T14:59:48.098Z">
+<meta property="og:updated_time" content="2021-04-28T13:51:25.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模块化与TypeScript的基本数据类型">
-<meta name="twitter:description" content="模块化方案：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6 AMD和CMD，两者的区别是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。 CMD 有async方法实现异步 AMD非同步加载模块，允许指定回调函数 1234567891011121314151617181">
+<meta name="twitter:description" content="模块化方案：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6 AMD和CMD，两者的区别是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。 CMD 有async方法实现异步">
 <meta name="twitter:image" content="http://ankang.icu/2021/04/27/模块化与TypeScript的基本数据类型/img1.png">
 
 
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-04-27T22:59:48+08:00">
-                2021-04-27
+              <time title="更新于" itemprop="dateModified" datetime="2021-04-28T21:51:25+08:00">
+                2021-04-28
               </time>
             
           </span>
@@ -381,6 +381,7 @@
         <h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><p><strong>方案</strong>：AMD[requirejs]、CMD[seajs]、CommonJS[nodejs]和ES6</p>
 <p><em>AMD和CMD</em>，两者的<strong>区别</strong>是前者是对于依赖的模块提前执行，而后者是延迟执行。 前者推崇依赖前置，而后者推崇依赖就近，即只在需要用到某个模块的时候再require。</p>
 <p>CMD 有async方法实现异步</p>
+<a id="more"></a>
 <h5 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h5><p>非同步加载模块，允许指定回调函数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义模块，没有依赖项</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'你好fn1'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 导出模块</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        fn1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 定义模块有这依赖项</span></span><br><span class="line">define([<span class="string">'m1'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">m1</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'m2模块'</span>, m1.fn1());</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 暴露模块</span></span><br><span class="line">    <span class="keyword">return</span> &#123; fn2 &#125;;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 入口文件</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    requirejs.config(&#123;</span><br><span class="line">        <span class="comment">// 配置js路径</span></span><br><span class="line">        paths: &#123;</span><br><span class="line">            m1: <span class="string">'./module/m1'</span>,</span><br><span class="line">            m2: <span class="string">'./module/m2'</span>,</span><br><span class="line">            jquery: <span class="string">'./module/jquery'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    requirejs([<span class="string">'m2'</span>, <span class="string">' jquery'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">m2</span>) </span>&#123;</span><br><span class="line">        m2.fn2();</span><br><span class="line">        $(<span class="string">'#box'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">1111</span>);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="comment">// 页面文件</span></span><br><span class="line">&lt;div id=<span class="string">"box"</span>&gt;点击试一下&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script data-main="./m</span>ain.js<span class="string">" src="</span>./lib/<span class="built_in">require</span>.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
 <h5 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 没有依赖的模块</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"m1模块下面的fn1方法"</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 导出模块</span></span><br><span class="line">    <span class="built_in">module</span>.exports = &#123;</span><br><span class="line">        fn1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 有依赖的模块</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 导入依赖模块</span></span><br><span class="line">    <span class="keyword">let</span> m1 = <span class="built_in">require</span>(<span class="string">'./m1'</span>)</span><br><span class="line">    m1.fn1()</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'我是m2模块下面的fn2方法'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    exports.fn2 = fn2</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 主入口文件</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> m2 = <span class="built_in">require</span>(<span class="string">'./m2'</span>)</span><br><span class="line">    m2.fn2()</span><br><span class="line">    <span class="keyword">let</span> jquery = <span class="built_in">require</span>(<span class="string">'./jquery'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(jquery(<span class="string">'body'</span>));</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 页面</span></span><br><span class="line">&lt;script src=<span class="string">"./lib/sea.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">    seajs.use('./m</span>odule/main.js<span class="string">')</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
@@ -523,6 +524,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/04/28/TypeScript数据类型-类-泛型/" rel="prev" title="TypeScript数据类型/类/泛型">
+                TypeScript数据类型/类/泛型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -604,7 +609,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
